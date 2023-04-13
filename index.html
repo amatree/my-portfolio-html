@@ -19,7 +19,9 @@
 		<!-- navigation bar -->
 		<nav>
 			<ul>
-				<li><h3><a href="#">Portfolio</a></h3></li>
+				<li>
+					<h3><a href="#">Portfolio</a></h3>
+				</li>
 			</ul>
 			<ul id="navigation">
 				<li><a href="#about">About</a></li>
@@ -63,10 +65,16 @@
 					</button>
 
 					<div class="social-links">
-						<a href="https://github.com/amatree" target="_blank" rel="noopener noreferrer">
+						<a
+							href="https://github.com/amatree"
+							target="_blank"
+							rel="noopener noreferrer">
 							<i class="fa-brands fa-github fa-2x"></i>
 						</a>
-						<a href="https://www.linkedin.com/in/tri-t-b57497107" target="_blank" rel="noopener noreferrer">
+						<a
+							href="https://www.linkedin.com/in/tri-t-b57497107"
+							target="_blank"
+							rel="noopener noreferrer">
 							<i class="fa-brands fa-linkedin fa-2x"></i>
 						</a>
 					</div>
@@ -132,20 +140,34 @@
 
 		<!-- contact view -->
 		<section id="contact">
-			<h3>CONTACT</h3>
-			<h2>Get in Touch With Me</h2>
-			<p class="medium-font">
-				Let's connect and discuss how my skills and experience can contribute to
-				your team.
-			</p>
+			<div id="contact-title">
+				<h3>CONTACT</h3>
+				<h2>Get in Touch With Me</h2>
+				<p class="medium-font">
+					Let's connect and discuss how my skills and experience can contribute
+					to your team.
+				</p>
+			</div>
 
 			<form action="" class="contact-form">
-				<label for="name">First and Last Name</label>
-				<input type="text" id="name" name="name" />
-				<label for="email">Your Email Address</label>
-				<input type="email" id="email" name="email" />
-				<label for="message">Please leave a message</label>
-				<input type="text" id="message" name="message">
+				<input
+					type="text"
+					id="name"
+					name="name"
+					placeholder="Your First and Last Name"
+					class="medium-font" required />
+				<input
+					type="email"
+					id="email"
+					name="email"
+					placeholder="Your Email Address"
+					class="medium-font" required />
+				<textarea
+					type="text"
+					id="message"
+					name="message"
+					placeholder="Please leave a message"
+					class="medium-font" required></textarea>
 				<input type="submit" value="Submit" />
 			</form>
 		</section>
@@ -154,14 +176,26 @@
 	<!-- footer section -->
 	<footer>
 		<div class="social-links">
-			<a href="https://github.com/amatree" target="_blank" rel="noopener noreferrer">
+			<a
+				href="https://github.com/amatree"
+				target="_blank"
+				rel="noopener noreferrer">
 				<i class="fa-brands fa-github fa-2x"></i>
 			</a>
-			<a href="https://www.linkedin.com/in/tri-t-b57497107" target="_blank" rel="noopener noreferrer">
+			<a
+				href="https://www.linkedin.com/in/tri-t-b57497107"
+				target="_blank"
+				rel="noopener noreferrer">
 				<i class="fa-brands fa-linkedin fa-2x"></i>
 			</a>
 		</div>
 
-		<a class="source-code-link medium-font" href="https://github.com/amatree/my-portfolio-html" target="_blank" rel="noopener noreferrer">Source Code</a>
+		<a
+			class="source-code-link medium-font"
+			href="https://github.com/amatree/my-portfolio-html"
+			target="_blank"
+			rel="noopener noreferrer"
+			>Source Code</a
+		>
 	</footer>
 </html>

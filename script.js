@@ -32,8 +32,8 @@ async function initialize() {
 	navHamburger = document.querySelector("nav ul[id='hamburger']");
 	// define event listeners
 	// scroll handle
-	window.addEventListener("scroll", () => {
-		handleScroll();
+	window.addEventListener("scroll", (e) => {
+		handleScroll(e);
 	});
 
 	// nav hamburger click
@@ -96,19 +96,33 @@ async function handleNavHamburger() {
 	navHamburgerShown = !navHamburgerShown;
 }
 
-function handleScroll() {
+function handleScroll(e) {
+	// make sure event type is scroll only (not resize or others)
+	if (e.type != "scroll") return;
+	
 	currSection = getSnappedSection();
 	const percentageAwayFromMain = round(
 		Math.max(1, (100 * (window.scrollY + 100)) / viewportHeight) / 100,
 		2
 	);
 
+	// between even section
+	const isBetweenEvenSection = !(Math.floor((window.scrollY + 100) / viewportHeight) % 2);
+
 	// check if page Y is still in the main section
 	// if not, adjust box-shadow and other properties
 	if (window.scrollY + 100 <= viewportHeight) {
 		changeToDefNav();
+		navElement.style.maxHeight = storage["vars"]["--nav-height"];
 	} else {
-		changeToLightNav();
+		if (isBetweenEvenSection) {
+			changeToDefNav();
+		} else {
+			changeToLightNav();
+
+			// scale it down as well
+			navElement.style.maxHeight = (parseInt(storage["vars"]["--nav-height"].replace("px")) * 0.65) + "px";
+		}
 	}
 
 	function changeToDefNav() {
@@ -220,22 +234,22 @@ function getCssVariables(element = null) {
 		);
 		const vars = mainSheet.reduce(
 			(acc, sheet) =>
-				(acc = [
-					...acc,
-					...Array.from(sheet.cssRules).reduce(
-						(def, rule) =>
-							(def =
-								rule.selectorText === ":root"
-									? [
-											...def,
-											...Array.from(rule.style).filter((name) =>
-												name.startsWith("--")
-											),
-									  ]
-									: def),
-						[]
-					),
-				]),
+			(acc = [
+				...acc,
+				...Array.from(sheet.cssRules).reduce(
+					(def, rule) =>
+					(def =
+						rule.selectorText === ":root"
+							? [
+								...def,
+								...Array.from(rule.style).filter((name) =>
+									name.startsWith("--")
+								),
+							]
+							: def),
+					[]
+				),
+			]),
 			[]
 		);
 		const computedStyle = window.getComputedStyle(document.documentElement);
@@ -284,9 +298,9 @@ function getAllCSSVariableNames(styleSheets = document.styleSheets) {
 							cssVars.push(name);
 						}
 					}
-				} catch (error) {}
+				} catch (error) { }
 			}
-		} catch (error) {}
+		} catch (error) { }
 	}
 	return cssVars;
 }
