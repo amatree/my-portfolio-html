@@ -2,7 +2,7 @@
 
 This repository contains my portfolio website, showcasing my skills, projects, and experience.
 
-You can preview it here:
+You can preview it [here](https://amatree.github.io/).
 
 
 ## Technologies Used
@@ -15,4 +15,4 @@ I am a web developer with experience in building responsive and user-friendly we
 
 ## Contact
 
-If you have any questions, please contact me at [tranminhtri276@gmail.com](mailto:tranminhtri276@gmail.com)!
+If you have any questions, please contact me at [tranminhtri276@gmail.com](mailto:tranminhtri276@gmail.com).
