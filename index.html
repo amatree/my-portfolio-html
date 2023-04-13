@@ -19,7 +19,7 @@
 		<!-- navigation bar -->
 		<nav>
 			<ul>
-				<li><a href="#">Portfolio</a></li>
+				<li><h3><a href="#">Portfolio</a></h3></li>
 			</ul>
 			<ul id="navigation">
 				<li><a href="#about">About</a></li>
@@ -46,22 +46,27 @@
 						<rect y="10px" width="10px" height="111px"></rect>
 					</svg>
 					<div class="info">
-						<h1 class="light">Tri Tran</h1>
-						<p>Coding Enthusiast, Software Developer</p>
+						<h1 class="light-font-clr">Tri Tran</h1>
+						<p class="medium-font">Coding Enthusiast, Software Developer</p>
 					</div>
 				</div>
 
 				<div class="main-info">
-					<button class="contact-btn" id="" onclick="location.href='../#contact'">Contact</button>
+					<button
+						class="contact-btn"
+						id=""
+						onclick="location.href='../#contact'">
+						Contact
+					</button>
 					<button class="resume-dl-btn" id="primary">
 						Resume <i class="fa-regular fa-file-pdf"></i>
 					</button>
 
 					<div class="social-links">
-						<a href="https://github.com/amatree">
+						<a href="https://github.com/amatree" target="_blank" rel="noopener noreferrer">
 							<i class="fa-brands fa-github fa-2x"></i>
 						</a>
-						<a href="https://www.linkedin.com/in/tri-t-b57497107">
+						<a href="https://www.linkedin.com/in/tri-t-b57497107" target="_blank" rel="noopener noreferrer">
 							<i class="fa-brands fa-linkedin fa-2x"></i>
 						</a>
 					</div>
@@ -70,15 +75,93 @@
 		</section>
 
 		<!-- about me view -->
-		<section id="about">About me</section>
+		<section id="about">
+			<h1 id="about-me-section-header">
+				<div class="separator">
+					<svg class="line" width="10px" height="80px">
+						<rect y="0px" width="10px" height="100px" fill="black"></rect>
+					</svg>
+					ABOUT ME
+				</div>
+			</h1>
+
+			<div class="my-gallery"></div>
+
+			<div id="about-me-text">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque
+				nec urna a auctor. Pellentesque a orci sapien. Duis efficitur libero
+				risus, eget ultrices mauris consectetur eget. Donec ornare mi odio, eget
+				mollis est hendrerit in. Suspendisse nec nulla posuere, auctor sem sit
+				amet, molestie odio. Nulla facilisi. Fusce nibh nulla, convallis viverra
+				sagittis a, tincidunt sit amet ipsum. Etiam eros ipsum, congue nec
+				vestibulum id, cursus placerat nibh. In sagittis, libero vitae dapibus
+				volutpat, purus nisl egestas dolor, in mattis ligula metus vitae augue.
+				Morbi posuere lorem dolor, eget varius sapien fringilla id. Proin sed
+				efficitur purus, ac sodales velit.
+			</div>
+		</section>
 
 		<!-- projects view -->
-		<section id="projects">Projects</section>
+		<section id="projects">
+			<h1 id="projects-section-header">
+				<div class="separator">
+					<svg class="line" width="10px" height="80px">
+						<rect y="0px" width="10px" height="100px" fill="black"></rect>
+					</svg>
+					PROJECTS
+				</div>
+			</h1>
+
+			<div class="project-cards">
+				<div id="project-card" data-project-id="0"></div>
+				<div id="project-card" data-project-id="1"></div>
+				<div id="project-card" data-project-id="2"></div>
+			</div>
+		</section>
+
+		<!-- why me view -->
+		<section id="why-me">
+			<div id="why-me-background"></div>
+			<h3>WHY CHOOSE ME?</h3>
+			<h2>I Am More Than Just A Software Engineer</h2>
+			<p id="why-me-text">
+				Qualities, Responsibilities, Goals, Mindset, Enthusiasm
+			</p>
+			<div id="why-me-example-card"></div>
+		</section>
 
 		<!-- contact view -->
-		<section id="contact">Contact</section>
+		<section id="contact">
+			<h3>CONTACT</h3>
+			<h2>Get in Touch With Me</h2>
+			<p class="medium-font">
+				Let's connect and discuss how my skills and experience can contribute to
+				your team.
+			</p>
+
+			<form action="" class="contact-form">
+				<label for="name">First and Last Name</label>
+				<input type="text" id="name" name="name" />
+				<label for="email">Your Email Address</label>
+				<input type="email" id="email" name="email" />
+				<label for="message">Please leave a message</label>
+				<input type="text" id="message" name="message">
+				<input type="submit" value="Submit" />
+			</form>
+		</section>
 	</body>
 
 	<!-- footer section -->
-	<footer>footer</footer>
+	<footer>
+		<div class="social-links">
+			<a href="https://github.com/amatree" target="_blank" rel="noopener noreferrer">
+				<i class="fa-brands fa-github fa-2x"></i>
+			</a>
+			<a href="https://www.linkedin.com/in/tri-t-b57497107" target="_blank" rel="noopener noreferrer">
+				<i class="fa-brands fa-linkedin fa-2x"></i>
+			</a>
+		</div>
+
+		<a class="source-code-link medium-font" href="https://github.com/amatree/my-portfolio-html" target="_blank" rel="noopener noreferrer">Source Code</a>
+	</footer>
 </html>

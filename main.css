@@ -89,7 +89,8 @@
 
 html {
   scroll-behavior: smooth;
-  /* scroll-snap-type: y mandatory; */
+  /* scroll-snap-type: y proximity; */
+  scroll-padding-top: 125px;
 }
 
 body {
@@ -100,7 +101,24 @@ body {
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 10vh;
   scroll-snap-align: end;
+}
+
+a.source-code-link {
+  text-align: center;
+  cursor: pointer;
+  pointer-events: initial;
+  transition: all 0.2s;
+}
+
+a.source-code-link:hover {
+  color: var(--clr-font);
 }
 
 h1 {
@@ -110,15 +128,15 @@ h1 {
   letter-spacing: var(--font-h1-bold-letter-spacing);
 }
 
-.light {
+.light-font-clr {
   color: var(--clr-font);
 }
 
-.dark {
+.dark-font-clr {
   color: var(--clr-font-dark);
 }
 
-.gray {
+.gray-font-clr {
   color: var(--clr-font-light);
 }
 
@@ -141,6 +159,14 @@ h4 {
   font-weight: var(--font-h4-bold-weight);
   line-height: var(--font-h4-bold-line-height);
   letter-spacing: var(--font-h4-bold-letter-spacing);
+}
+
+.medium-font {
+  font-size: var(--font-medium-size);
+  font-weight: var(--font-medium-weight);
+  line-height: var(--font-medium-line-height);
+  letter-spacing: var(--font-medium-letter-spacing);
+  color: var(--clr-font-light);
 }
 
 nav {
@@ -212,8 +238,6 @@ nav ul li svg.nav-hover {
 } */
 
 nav ul li a[href="#"] {
-  font-size: var(--font-h3-bold-size);
-  font-weight: var(--font-h3-bold-weight);
   margin-right: 64px;
 }
 
@@ -312,8 +336,6 @@ main {
 }
 
 .separator p {
-  font-size: var(--font-medium-size);
-  font-weight: var(--font-medium-weight);
   color: var(--clr-font-light);
 }
 
@@ -369,9 +391,9 @@ button.resume-dl-btn {
 }
 
 div.social-links a {
-  margin-right: 30px;
   text-decoration: none;
   color: var(--clr-font);
+  margin: 0.5rem;
 }
 
 i {
@@ -397,6 +419,13 @@ nav ul[id="hamburger"] {
   display: none;
 }
 
+nav ul[id="navigation"] li a {
+  font-size: var(--font-regular-size);
+  font-weight: var(--font-regular-weight);
+  line-height: var(--font-regular-line-height);
+  letter-spacing: var(--font-regular-letter-spacing);
+}
+
 @media only screen and (max-width: 600px) {
   nav ul[id="navigation"] {
     display: var(--nav-opt-display);
@@ -408,5 +437,10 @@ nav ul[id="hamburger"] {
 }
 
 .hide {
+  /* used to hide things */
   display: none;
+}
+
+.source-code-link {
+  text-decoration: underline;
 }
