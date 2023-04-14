@@ -57,6 +57,10 @@ async function initialize() {
 	window.addEventListener("scroll", (e) => {
 		handleScroll(e);
 	});
+	// for mobile
+	window.addEventListener("touchmove", (e) => {
+		handleScroll(e);
+	});
 
 	// nav hamburger click
 	navHamburger.addEventListener("click", () => {
