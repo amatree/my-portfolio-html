@@ -312,7 +312,6 @@ nav ul#navigation li a {
 	}
 }
 
-
 @keyframes navSlideIn {
 	from {
 		display: flex;
@@ -451,12 +450,13 @@ i {
 	margin-right: 0.25rem;
 }
 
-section, footer {
-	min-width: 400px;
+section,
+footer {
+	min-width: 770px;
 }
 
 section {
-	height: max(100vh, 675px);
+	height: max(100vh, 700px);
 	padding-top: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
 	transition: all 0.2s;
@@ -474,22 +474,19 @@ section:not(:first-of-type):nth-child(even) rect {
 
 /* about me section styling */
 section#about {
-	padding-left: 160px;
-	position: relative;
-}
-
-h1#about-me-section-header {
-	color: var(--clr-font);
+	display: flex;
+	padding: 58px;
 }
 
 section#about .separator {
 	position: absolute;
-	margin-left: min(54vw, 74vh);
 	margin-top: 100px;
-	background-color: var(--clr-secondary);
 	padding: 10px 25px;
+	background-color: var(--clr-secondary);
 	box-shadow: var(--box-shadow-short);
+	color: var(--clr-font);
 	white-space: nowrap;
+	z-index: 1;
 }
 
 section#about .separator rect {
@@ -497,33 +494,48 @@ section#about .separator rect {
 }
 
 section#about #about-me-text {
-	margin-left: calc(min(54vw, 64vh) + 200px);
-	margin-top: 35vh;
 	margin-right: 100px;
-	width: 450px;
-	height: 450px;
+	min-width: 450px;
+	max-height: 45vh;
+	align-self: center;
+}
+
+@media only screen and (width <= 1220px) {
+	section#about {
+		padding-top: 10px;
+		flex-direction: column;
+	}
+
+	section#about #about-me-text {
+		align-self: start;
+		width: 650px;
+		margin-top: 35px;
+	}
 }
 
 .my-gallery {
 	position: relative;
+	min-width: min(80vw, 64vh);
+	min-height: min(80vw, 64vh);
 	margin: 58px;
-}
-
-.my-gallery img {
-	width: min(80vw, 64vh);
-	aspect-ratio: 1 / 1;
-	object-fit: cover;
-	opacity: 0.9;
-	border: 2px var(--clr-accent) solid;
-	border-radius: 20px;
-	box-shadow: var(--box-shadow-short);
+	margin-bottom: 0px;
+	align-self: center;
 }
 
 .my-gallery .gallery-img {
 	display: grid;
 	position: absolute;
 	user-select: none;
-	z-index: -1;
+}
+
+.my-gallery img {
+	max-width: min(80vw, 64vh);
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	opacity: 0.9;
+	border: 2px var(--clr-accent) solid;
+	border-radius: 20px;
+	box-shadow: var(--box-shadow-short);
 }
 
 .gallery-img h4.img-description {
