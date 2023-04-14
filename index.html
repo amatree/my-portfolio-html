@@ -20,7 +20,7 @@
 		<nav>
 			<ul>
 				<li>
-					<h3><a href="#">Portfolio</a></h3>
+					<h3><a href="#" style="font-weight: 700">Portfolio</a></h3>
 				</li>
 			</ul>
 			<ul id="navigation">
@@ -39,30 +39,34 @@
 			</ul>
 		</nav>
 	</head>
+
+	<!-- body content -->
 	<body>
 		<!-- main content - landing view -->
 		<section id="main">
 			<main>
 				<div class="separator">
-					<svg class="line" width="10px" height="120px">
-						<rect y="10px" width="10px" height="111px"></rect>
+					<svg class="line" width="10px" height="160px">
+						<rect y="10px" width="10px" height="150px"></rect>
 					</svg>
 					<div class="info">
-						<h1 class="light-font-clr">Tri Tran</h1>
-						<p class="medium-font">Coding Enthusiast, Software Developer</p>
+						<h1 class="light-font-clr" style="white-space: nowrap">Tri Tran</h1>
+						<h4 class="medium-font">Coding Enthusiast, Software Developer</h4>
 					</div>
 				</div>
 
 				<div class="main-info">
-					<button
-						class="contact-btn"
-						id=""
-						onclick="location.href='../#contact'">
-						Contact
-					</button>
-					<button class="resume-dl-btn" id="primary">
-						Resume <i class="fa-regular fa-file-pdf"></i>
-					</button>
+					<div class="main-info-btns">
+						<button
+							class="contact-btn"
+							id=""
+							onclick="location.href='../#contact'">
+							Contact
+						</button>
+						<button class="resume-dl-btn" id="primary">
+							Resume <i class="fa-regular fa-file-pdf"></i>
+						</button>
+					</div>
 
 					<div class="social-links">
 						<a
@@ -79,6 +83,21 @@
 						</a>
 					</div>
 				</div>
+
+				<!-- generated from app.haikei.app -->
+				<svg
+					id="bg-visual"
+					viewBox="0 0 900 600"
+					xmlns="http://www.w3.org/2000/svg"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					version="1.1">
+					<rect x="0" y="0" width="900" height="600" fill="#474555"></rect>
+					<g fill="#fa6065">
+						<circle r="165" cx="691" cy="209"></circle>
+						<circle r="72" cx="509" cy="501"></circle>
+						<circle r="83" cx="140" cy="32"></circle>
+					</g>
+				</svg>
 			</main>
 		</section>
 
@@ -93,7 +112,14 @@
 				</div>
 			</h1>
 
-			<div class="my-gallery"></div>
+			<div class="my-gallery">
+				<div class="gallery-img">
+					<img
+						src="https://images.unsplash.com/photo-1681027098644-01f73b609393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+						alt="image of me yes" />
+					<h4 class="img-description">This is me!</h4>
+				</div>
+			</div>
 
 			<div id="about-me-text">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque
@@ -155,19 +181,22 @@
 					id="name"
 					name="name"
 					placeholder="Your First and Last Name"
-					class="medium-font" required />
+					class="medium-font"
+					required />
 				<input
 					type="email"
 					id="email"
 					name="email"
 					placeholder="Your Email Address"
-					class="medium-font" required />
+					class="medium-font"
+					required />
 				<textarea
 					type="text"
 					id="message"
 					name="message"
 					placeholder="Please leave a message"
-					class="medium-font" required></textarea>
+					class="medium-font"
+					required></textarea>
 				<input type="submit" value="Submit" />
 			</form>
 		</section>

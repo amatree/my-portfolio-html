@@ -7,21 +7,43 @@ var navNavigation = null;
 var navNavigationInnerHTML = null;
 var navHamburger = null;
 var navHamburgerShown = false;
+
 var allSections = null;
 var currSection = null;
+
 var mainSection = null;
+var mainSectionBgVisualCircles = null;
+var defaultMainSectionBgVisualCirclePositions = [];
+
 var viewportHeight = window.innerHeight;
 var viewportWidth = window.innerWidth;
 var scrollDirection = "down";
+
 var storage = {};
+
+const NAV_HEIGHT_SCALE = 0.65;
 
 async function initialize() {
 	allSections = document.querySelectorAll("section");
-	mainSection = document.getElementById("main");
 	currSection = getSnappedSection();
+
+	mainSection = document.getElementById("main");
+	mainSectionBgVisualCircles = mainSection.querySelectorAll(
+		"svg#bg-visual g > circle"
+	);
+	mainSectionBgVisualCircles.forEach(function (cir) {
+		const s = getStyles(cir);
+		const cx = s.cx;
+		const cy = s.cy;
+		defaultMainSectionBgVisualCirclePositions.push({
+			cx: parseInt(cx.replace("px", "")),
+			cy: parseInt(cy.replace("px", ""))
+		});
+	});
 
 	// retrieve variables from *
 	storage["vars"] = getCssVariables();
+	NAV_HEIGHT = storage["vars"]["--nav-height"].replace("px", "") * 0.65;
 
 	// set all selector variables
 	navElement = document.querySelector("nav");
@@ -75,7 +97,7 @@ async function handleNavHamburger() {
 		setTimeout(() => {
 			navNavigation.innerHTML = navNavigationInnerHTML;
 			document.documentElement.style.setProperty("--nav-opt-display", "none");
-		}, 1500);
+		}, 400);
 	} else {
 		// show hamburger menu
 		document.documentElement.style.setProperty(
@@ -99,7 +121,7 @@ async function handleNavHamburger() {
 function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type != "scroll") return;
-	
+
 	currSection = getSnappedSection();
 	const percentageAwayFromMain = round(
 		Math.max(1, (100 * (window.scrollY + 100)) / viewportHeight) / 100,
@@ -107,11 +129,38 @@ function handleScroll(e) {
 	);
 
 	// between even section
-	const isBetweenEvenSection = !(Math.floor((window.scrollY + 100) / viewportHeight) % 2);
+	const isBetweenEvenSection = !(
+		Math.floor((window.scrollY + NAV_HEIGHT) / viewportHeight) % 2
+	);
+
+	// animate bg visual for main section
+	if (window.scrollY <= NAV_HEIGHT) {
+		mainSectionBgVisualCircles.forEach((cir, i) => {
+			cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
+			cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
+		});
+	} else {
+		setTimeout(() => {
+			storage["vars"]["bg-visuals-in-progress"] = false;
+		}, 400);
+		if (!storage["vars"]["bg-visuals-in-progress"]) {
+			storage["vars"]["bg-visuals-in-progress"] = true;
+			const randNum = randomNumber(
+				0,
+				defaultMainSectionBgVisualCirclePositions.length - 1,
+			);
+			const randOffsetX = randomNumber(-300, 300);
+			const randOffsetY = randomNumber(-50, 50);
+			const newCx = defaultMainSectionBgVisualCirclePositions[randNum]?.cx + randOffsetX;
+			const newCy = defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
+			mainSectionBgVisualCircles[randNum].style.cx = newCx;
+			mainSectionBgVisualCircles[randNum].style.cy = newCy;
+		}
+	}
 
 	// check if page Y is still in the main section
 	// if not, adjust box-shadow and other properties
-	if (window.scrollY + 100 <= viewportHeight) {
+	if (window.scrollY + NAV_HEIGHT <= viewportHeight) {
 		changeToDefNav();
 		navElement.style.maxHeight = storage["vars"]["--nav-height"];
 	} else {
@@ -119,10 +168,13 @@ function handleScroll(e) {
 			changeToDefNav();
 		} else {
 			changeToLightNav();
-
-			// scale it down as well
-			navElement.style.maxHeight = (parseInt(storage["vars"]["--nav-height"].replace("px")) * 0.65) + "px";
 		}
+
+		// scale it down as well
+		navElement.style.maxHeight =
+			parseInt(storage["vars"]["--nav-height"].replace("px")) *
+			NAV_HEIGHT_SCALE +
+			"px";
 	}
 
 	function changeToDefNav() {
@@ -134,19 +186,19 @@ function handleScroll(e) {
 		}
 		navElement.style.backgroundColor = storage["vars"]["--clr-accent"];
 		setStyleElements(navTexts, {
-			color: storage["vars"]["--clr-font"],
+			color: storage["vars"]["--clr-font"]
 		});
-		navTexts[navTexts.length - 1].style.color =
-			storage["vars"]["--clr-font-dark"];
+		navTexts[navTexts.length - 1].style.color = storage["vars"]["--clr-font"];
 		navHamburger.style.fill = storage["vars"]["--clr-font"];
 		navHamburger.style.stroke = storage["vars"]["--clr-font"];
 	}
 
 	function changeToLightNav() {
 		navElement.style.backgroundColor = storage["vars"]["--clr-primary"];
-		navTexts[navTexts.length - 1].style.color = storage["vars"]["--clr-font-dark"];
+		navTexts[navTexts.length - 1].style.color =
+			storage["vars"]["--clr-font-dark"];
 		setStyleElements(navTexts, {
-			color: storage["vars"]["--clr-font-dark"],
+			color: storage["vars"]["--clr-font-dark"]
 		});
 		navHamburger.style.fill = storage["vars"]["--clr-font-dark"];
 		navHamburger.style.stroke = storage["vars"]["--clr-font-dark"];
@@ -244,11 +296,11 @@ function getCssVariables(element = null) {
 								...def,
 								...Array.from(rule.style).filter((name) =>
 									name.startsWith("--")
-								),
+								)
 							]
 							: def),
 					[]
-				),
+				)
 			]),
 			[]
 		);
@@ -303,4 +355,12 @@ function getAllCSSVariableNames(styleSheets = document.styleSheets) {
 		} catch (error) { }
 	}
 	return cssVars;
+}
+
+function randomNumber(min = 0, max = 100, decimal = 0) {
+	if (min >= 0) {
+		return round(Math.random() * max, decimal);
+	}
+	const offset = max - min;
+	return round(Math.random() * offset - max, decimal);
 }

@@ -17,7 +17,7 @@
 	--clr-secondary-accent: #f5f5f5;
 	--clr-secondary-dark: #ffe4e1;
 	--clr-secondary-darker: #aba9bb;
-	--clr-font: #ffffff;
+	--clr-font: var(--clr-primary);
 	--clr-font-light: #757575;
 	--clr-font-dark: #000000;
 	--clr-box: #3f3f3f;
@@ -66,10 +66,10 @@
 	--font-h3-bold-letter-spacing: 1px;
 
 	/* h4-bold font properties */
-	--font-extra-h4-bold-weight: 700;
-	--font-extra-h4-bold-size: 20px;
-	--font-extra-h4-bold-line-height: 29px;
-	--font-extra-h4-bold-letter-spacing: 1px;
+	--font-h4-bold-weight: 700;
+	--font-h4-bold-size: 20px;
+	--font-h4-bold-line-height: 29px;
+	--font-h4-bold-letter-spacing: 1px;
 
 	--nav-height: 100px;
 	--nav-opt-display: none;
@@ -81,13 +81,13 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: "Montserrat", sans-serif;
-	font-weight: 400;
 }
 
 html {
 	scroll-behavior: smooth;
 	/* scroll-snap-type: y proximity; */
-	/* scroll-padding-top: var(--nav-height); */
+	scroll-padding-top: calc(var(--nav-height) * 0.64);
+	font-weight: 400;
 }
 
 body {
@@ -102,7 +102,7 @@ footer {
 	flex-direction: column;
 	gap: 10px;
 	min-height: fit-content;
-  padding: 20px 0px;
+	padding: 20px 0px;
 	scroll-snap-align: end;
 	background-color: var(--clr-box);
 	color: var(--clr-font);
@@ -128,7 +128,7 @@ h1 {
 	font-size: var(--font-h1-bold-size);
 	font-weight: var(--font-h1-bold-weight);
 	line-height: var(--font-h1-bold-line-height);
-	letter-spacing: var(--font-h1-bold-letter-spacing);
+	letter-spacing: var(--font-h1-bold-spaced-letter-spacing);
 }
 
 .light-font-clr {
@@ -140,6 +140,14 @@ h1 {
 }
 
 .gray-font-clr {
+	color: var(--clr-font-light);
+}
+
+.medium-font {
+	font-size: calc(1rem / var(--font-medium-size));
+	font-weight: var(--font-medium-weight);
+	line-height: var(--font-medium-line-height);
+	letter-spacing: var(--font-medium-letter-spacing);
 	color: var(--clr-font-light);
 }
 
@@ -164,14 +172,28 @@ h4 {
 	letter-spacing: var(--font-h4-bold-letter-spacing);
 }
 
-.medium-font {
-	font-size: var(--font-medium-size);
-	font-weight: var(--font-medium-weight);
-	line-height: var(--font-medium-line-height);
-	letter-spacing: var(--font-medium-letter-spacing);
+.separator {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	left: 0;
+	margin: 58px;
+	width: fit-content;
+}
+
+.separator div.info {
+	margin-left: 20px;
+}
+
+.separator p {
 	color: var(--clr-font-light);
 }
 
+.line {
+	fill: var(--clr-font);
+}
+
+/* nav styling */
 nav {
 	--shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
 		6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -217,7 +239,7 @@ nav ul li h3 a [href="#"] {
 }
 
 nav ul li a[href="#contact"] {
-	color: var(--clr-font-dark);
+	color: var(--clr-font);
 	background-color: var(--clr-secondary);
 	box-shadow: none;
 	padding: 10px 20px;
@@ -266,6 +288,31 @@ nav div.hamburger-menu span.hide-sidenav {
 	margin-right: 10px;
 }
 
+nav ul#hamburger {
+	fill: var(--clr-font);
+	stroke: var(--clr-font);
+	cursor: pointer;
+	display: none;
+}
+
+nav ul#navigation li a {
+	font-size: var(--font-regular-size);
+	font-weight: var(--font-regular-weight);
+	line-height: var(--font-regular-line-height);
+	letter-spacing: var(--font-regular-letter-spacing);
+}
+
+@media only screen and (max-width: 675px) {
+	nav ul#navigation {
+		display: var(--nav-opt-display);
+	}
+
+	nav ul#hamburger {
+		display: var(--nav-hamburger-opt-display);
+	}
+}
+
+
 @keyframes navSlideIn {
 	from {
 		display: flex;
@@ -288,6 +335,7 @@ nav div.hamburger-menu span.hide-sidenav {
 	}
 }
 
+/* main section styling */
 main {
 	height: 100%;
 	background-color: var(--clr-accent);
@@ -296,30 +344,59 @@ main {
 	align-items: flex-start;
 	flex-direction: column;
 	position: relative;
+	padding: 0px 32px;
 }
 
-.separator {
-	display: flex;
-	align-items: center;
-	gap: 20px;
-	left: 0;
-	margin: 58px;
-}
-
-.separator div.info {
-	margin-left: 20px;
-}
-
-.separator p {
-	color: var(--clr-font-light);
-}
-
-.line {
+main .separator .line {
 	fill: var(--clr-secondary);
+}
+
+main div.info h1 {
+	font-size: 64px;
+	margin-bottom: 20px;
+}
+
+main div.info h4 {
+	font-weight: 500;
+	font-size: 20px;
+}
+
+main > *:not(svg) {
+	z-index: 1;
+}
+
+main svg#bg-visual {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+main svg#bg-visual g > circle {
+	transition: all 0.2s, cx 1s, cy 1s;
+	box-shadow: none;
+}
+
+main svg#bg-visual g > circle:hover {
+	fill: var(--clr-secondary-light);
+	box-shadow: var(--box-shadow-short);
 }
 
 .main-info {
 	margin-left: 100px;
+}
+
+.main-info-btns {
+	display: flex;
+	gap: 16px 32px;
+	margin-bottom: 32px;
+}
+
+@media only screen and (width <= 480px) {
+	.main-info-btns {
+		flex-direction: column;
+	}
 }
 
 .main-info button {
@@ -333,20 +410,18 @@ main {
 	text-align: center;
 	border-radius: 24px;
 	box-shadow: none;
-	transition: box-shadow 0.2s;
-	margin-right: 38px;
-	margin-bottom: 36px;
+	transition: all 0.2s;
 }
 
 button#primary {
 	background-color: var(--clr-secondary);
-	color: var(--clr-font-dark);
+	color: var(--clr-font);
 	width: calc(var(--btn-width) + 1px);
 	height: calc(var(--btn-height) + 1px);
 }
 
 button#primary:hover {
-	color: var(--clr-font-dark);
+	color: var(--clr-font);
 	background-color: var(--clr-secondary-light);
 }
 
@@ -376,57 +451,105 @@ i {
 	margin-right: 0.25rem;
 }
 
-nav ul#hamburger {
-	fill: var(--clr-font);
-	stroke: var(--clr-font);
-	cursor: pointer;
-	display: none;
-}
-
-nav ul#navigation li a {
-	font-size: var(--font-regular-size);
-	font-weight: var(--font-regular-weight);
-	line-height: var(--font-regular-line-height);
-	letter-spacing: var(--font-regular-letter-spacing);
-}
-
-@media only screen and (max-width: 600px) {
-	nav ul#navigation {
-		display: var(--nav-opt-display);
-	}
-
-	nav ul#hamburger {
-		display: var(--nav-hamburger-opt-display);
-	}
+section, footer {
+	min-width: 400px;
 }
 
 section {
-	height: 100vh;
-  padding-top: calc(var(--nav-height) / 2);
+	height: max(100vh, 675px);
+	padding-top: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
-  transition: all 0.2s;
+	transition: all 0.2s;
 }
 
 /* select all even sections */
 section:nth-child(even) {
-  background-color: var(--clr-accent);
+	background-color: var(--clr-accent);
 	color: var(--clr-font);
 }
 
 section:not(:first-of-type):nth-child(even) rect {
-  fill: var(--clr-font);
+	fill: var(--clr-font);
 }
 
+/* about me section styling */
+section#about {
+	padding-left: 160px;
+	position: relative;
+}
+
+h1#about-me-section-header {
+	color: var(--clr-font);
+}
+
+section#about .separator {
+	position: absolute;
+	margin-left: min(54vw, 74vh);
+	margin-top: 100px;
+	background-color: var(--clr-secondary);
+	padding: 10px 25px;
+	box-shadow: var(--box-shadow-short);
+	white-space: nowrap;
+}
+
+section#about .separator rect {
+	fill: var(--clr-font);
+}
+
+section#about #about-me-text {
+	margin-left: calc(min(54vw, 64vh) + 200px);
+	margin-top: 35vh;
+	margin-right: 100px;
+	width: 450px;
+	height: 450px;
+}
+
+.my-gallery {
+	position: relative;
+	margin: 58px;
+}
+
+.my-gallery img {
+	width: min(80vw, 64vh);
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	opacity: 0.9;
+	border: 2px var(--clr-accent) solid;
+	border-radius: 20px;
+	box-shadow: var(--box-shadow-short);
+}
+
+.my-gallery .gallery-img {
+	display: grid;
+	position: absolute;
+	user-select: none;
+	z-index: -1;
+}
+
+.gallery-img h4.img-description {
+	font-weight: 00;
+	position: absolute;
+	align-self: flex-end;
+	justify-self: flex-end;
+	text-align: right;
+	color: var(--clr-font);
+	background-color: var(--clr-secondary);
+	padding: 0px 10px;
+	border-radius: 10px;
+	margin: 24px;
+}
+
+/* contact section styling */
 section#contact {
 	background-color: var(--clr-accent);
 	color: var(--clr-font);
 	padding: 58px;
-  height: 100%;
+	height: 100%;
 }
 
 section#contact div#contact-title :last-child {
 	margin: 20px 0px 70px;
-  max-width: max(50%, 500px);
+	max-width: max(50%, 500px);
 }
 
 section#contact form {
@@ -438,7 +561,7 @@ section#contact form {
 
 section#contact form input,
 section#contact form textarea {
-  transition: all 0.2s;
+	transition: all 0.2s;
 	max-width: max(50%, 500px);
 	min-height: 50px;
 	padding: 20px 20px;
@@ -457,8 +580,8 @@ section#contact form textarea:focus {
 
 section#contact form textarea {
 	min-height: 200px;
-  max-height: 300px;
-  resize: vertical;
+	max-height: 300px;
+	resize: vertical;
 }
 
 section#contact form input:last-child {
