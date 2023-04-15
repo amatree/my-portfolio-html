@@ -10,6 +10,8 @@ I also used `fontawesome-free-6.3.0-web` [link here](https://fontawesome.com/ver
 
 As for fonts, I used `Montserrat` from Google Fonts [link here](https://fonts.google.com/specimen/Montserrat).
 
+Sample image taken from [unsplash.com](https://unsplash.com/photos/jbnhrF90Ew0) (great photo from Daniel Diemer). I will take it down immediately after finishing this portfolio.
+
 ## Known Issues
 
 * Mobile experience is not yet optimized.
