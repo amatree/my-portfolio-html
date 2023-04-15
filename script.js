@@ -43,7 +43,6 @@ async function initialize() {
 
 	// retrieve variables from *
 	storage["vars"] = getCssVariables();
-	NAV_HEIGHT = storage["vars"]["--nav-height"].replace("px", "") * 0.65;
 
 	// set all selector variables
 	navElement = document.querySelector("nav");
@@ -131,6 +130,7 @@ function handleScroll(e) {
 		Math.max(1, (100 * (window.scrollY + 100)) / viewportHeight) / 100,
 		2
 	);
+	const NAV_HEIGHT = storage["vars"]["--nav-height"] ? storage["vars"]["--nav-height"].replace("px", "") * NAV_HEIGHT_SCALE : 100;
 
 	// between even section
 	const isBetweenEvenSection = !(

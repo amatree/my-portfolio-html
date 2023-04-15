@@ -80,19 +80,20 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: "Montserrat", sans-serif;
+	font: inherit;
 }
 
 html {
 	scroll-behavior: smooth;
 	/* scroll-snap-type: y proximity; */
 	scroll-padding-top: calc(var(--nav-height) * 0.64);
-	font-weight: 400;
 }
 
 body {
 	transition: all 0.4s;
 	background-color: var(--clr-primary);
+	font-family: "Montserrat", sans-serif;
+	font-weight: 400;
 }
 
 footer {
@@ -374,12 +375,14 @@ main svg#bg-visual {
 
 main svg#bg-visual g > circle {
 	transition: all 0.2s, cx 1s, cy 1s;
+	opacity: 0.9;
 	box-shadow: none;
 }
 
 main svg#bg-visual g > circle:hover {
 	fill: var(--clr-secondary-light);
 	box-shadow: var(--box-shadow-short);
+	transform: translate(12px, 10px);
 }
 
 .main-info {
