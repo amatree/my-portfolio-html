@@ -479,13 +479,12 @@ section:not(:first-of-type):nth-child(even) rect {
 /* about me section styling */
 section#about {
 	display: flex;
-	padding: 3rem;
-  height: calc(100vh + 5rem);
+	padding: 4rem;
 }
 
 section#about .separator {
 	position: absolute;
-	margin-top: 2rem;
+	margin-top: 3rem;
 	padding: 10px 25px;
 	background-color: var(--clr-secondary);
 	box-shadow: var(--box-shadow-short);
@@ -499,7 +498,7 @@ section#about .separator rect {
 }
 
 section#about #about-me-text {
-	margin-right: 2rem;
+	margin: 5rem;
 	align-self: center;
 }
 
@@ -511,16 +510,16 @@ section#about #about-me-text {
 
 	section#about #about-me-text {
 		align-self: start;
-		margin: 2rem 0px;
+		margin: 2rem 0rem;
 	}
 }
 
 .my-gallery {
+	--photo-size: min(80vw, 57vh);
 	position: relative;
-	min-width: min(80vw, 64vh);
-	min-height: min(80vw, 64vh);
-	margin: 5rem;
-	margin-bottom: 0px;
+	min-width: var(--photo-size);
+	min-height: var(--photo-size);
+	margin-top: 2rem;
 	align-self: center;
 }
 
@@ -531,7 +530,7 @@ section#about #about-me-text {
 }
 
 .my-gallery img {
-	max-width: min(80vw, 64vh);
+	max-width: var(--photo-size);
 	aspect-ratio: 1 / 1;
 	object-fit: cover;
 	opacity: 0.9;
