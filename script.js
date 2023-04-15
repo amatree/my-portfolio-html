@@ -123,7 +123,7 @@ async function handleNavHamburger() {
 
 function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
-	if (e.type != "scroll") return;
+	if (e.type !== "scroll") return;
 
 	currSection = getSnappedSection();
 	const percentageAwayFromMain = round(
@@ -176,9 +176,9 @@ function handleScroll(e) {
 
 		// scale it down as well
 		navElement.style.maxHeight =
-			parseInt(storage["vars"]["--nav-height"].replace("px")) *
-			NAV_HEIGHT_SCALE +
-			"px";
+			storage["vars"]["--nav-height"] ? parseInt(storage["vars"]["--nav-height"].replace("px")) *
+				NAV_HEIGHT_SCALE +
+				"px" : "100px";
 	}
 
 	function changeToDefNav() {
@@ -286,7 +286,7 @@ function getCssVariables(element = null) {
 	// return all css variables when element is not specified
 	if (!element) {
 		const mainSheet = Array.from(document.styleSheets).filter((sheet) =>
-			sheet.href.endsWith("main.css")
+			sheet.href.endsWith(".css")
 		);
 		const vars = mainSheet.reduce(
 			(acc, sheet) =>

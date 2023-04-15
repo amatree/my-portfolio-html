@@ -24,50 +24,50 @@
 
 	/* light font properties */
 	--font-extra-light-weight: 200;
-	--font-extra-light-size: 18px;
+	--font-extra-light-size: 1rem;
 	--font-extra-light-line-height: 22px;
 	--font-extra-light-letter-spacing: 1px;
 
 	/* regular font properties */
 	--font-regular-weight: 400;
-	--font-regular-size: 18px;
+	--font-regular-size: 1rem;
 	--font-regular-line-height: 22px;
 	--font-regular-letter-spacing: 1px;
 
 	/* medium font properties */
 	--font-medium-weight: 500;
-	--font-medium-size: 18px;
+	--font-medium-size: 1rem;
 	--font-medium-line-height: 22px;
 	--font-medium-letter-spacing: 1px;
 
 	/* button font properties */
 	--font-button-weight: 400;
-	--font-button-size: 24px;
+	--font-button-size: 1.3rem;
 	--font-button-line-height: 29px;
 	--font-button-letter-spacing: 1px;
 
 	/* h1-bold font properties */
 	--font-h1-bold-weight: 700;
-	--font-h1-bold-size: 48px;
+	--font-h1-bold-size: 2.5rem;
 	--font-h1-bold-line-height: 88px;
 	--font-h1-bold-letter-spacing: 1px;
 	--font-h1-bold-spaced-letter-spacing: 5px;
 
 	/* h2-bold font properties */
 	--font-h2-bold-weight: 700;
-	--font-h2-bold-size: 32px;
+	--font-h2-bold-size: 2rem;
 	--font-h2-bold-line-height: 59px;
 	--font-h2-bold-letter-spacing: 1px;
 
 	/* h3-bold font properties */
 	--font-h3-bold-weight: 700;
-	--font-h3-bold-size: 24px;
+	--font-h3-bold-size: 1.5rem;
 	--font-h3-bold-line-height: 39px;
 	--font-h3-bold-letter-spacing: 1px;
 
 	/* h4-bold font properties */
 	--font-h4-bold-weight: 700;
-	--font-h4-bold-size: 20px;
+	--font-h4-bold-size: 1.2rem;
 	--font-h4-bold-line-height: 29px;
 	--font-h4-bold-letter-spacing: 1px;
 
@@ -76,7 +76,9 @@
 	--nav-hamburger-opt-display: flex;
 }
 
-* {
+*,
+*::before,
+*::after {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -85,15 +87,14 @@
 
 html {
 	scroll-behavior: smooth;
-	/* scroll-snap-type: y proximity; */
 	scroll-padding-top: calc(var(--nav-height) * 0.64);
+	font-family: "Montserrat", sans-serif;
+	font-weight: 400;
 }
 
 body {
 	transition: all 0.4s;
 	background-color: var(--clr-primary);
-	font-family: "Montserrat", sans-serif;
-	font-weight: 400;
 }
 
 footer {
@@ -103,7 +104,7 @@ footer {
 	flex-direction: column;
 	gap: 10px;
 	min-height: fit-content;
-	padding: 20px 0px;
+	padding: 1.1rem 0px;
 	scroll-snap-align: end;
 	background-color: var(--clr-box);
 	color: var(--clr-font);
@@ -125,13 +126,6 @@ a.source-code-link:hover {
 	display: none;
 }
 
-h1 {
-	font-size: var(--font-h1-bold-size);
-	font-weight: var(--font-h1-bold-weight);
-	line-height: var(--font-h1-bold-line-height);
-	letter-spacing: var(--font-h1-bold-spaced-letter-spacing);
-}
-
 .light-font-clr {
 	color: var(--clr-font);
 }
@@ -145,11 +139,18 @@ h1 {
 }
 
 .medium-font {
-	font-size: calc(1rem / var(--font-medium-size));
+	font-size: var(--font-medium-size);
 	font-weight: var(--font-medium-weight);
 	line-height: var(--font-medium-line-height);
 	letter-spacing: var(--font-medium-letter-spacing);
 	color: var(--clr-font-light);
+}
+
+h1 {
+	font-size: var(--font-h1-bold-size);
+	font-weight: var(--font-h1-bold-weight);
+	line-height: var(--font-h1-bold-line-height);
+	letter-spacing: var(--font-h1-bold-spaced-letter-spacing);
 }
 
 h2 {
@@ -176,39 +177,29 @@ h4 {
 .separator {
 	display: flex;
 	align-items: center;
-	gap: 20px;
-	left: 0;
-	margin: 58px;
-	width: fit-content;
-}
-
-.separator div.info {
-	margin-left: 20px;
-}
-
-.separator p {
-	color: var(--clr-font-light);
+	margin: 1rem;
 }
 
 .line {
 	fill: var(--clr-font);
+  box-shadow: var(--box-shadow-short);
+  margin-right: 2rem;
+}
+
+img {
+	width: 100%;
+	object-fit: cover;
 }
 
 /* nav styling */
 nav {
-	--shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-		6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-		12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-		22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-		41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-		100px 100px 80px rgba(0, 0, 0, 0.07);
 	position: fixed;
 	top: 0;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 58px;
+	padding: 1.2rem 2rem;
 	background-color: var(--clr-accent);
 	max-height: var(--nav-height);
 	box-shadow: none;
@@ -219,7 +210,7 @@ nav {
 nav ul {
 	list-style: none;
 	display: flex;
-	gap: 50px;
+	gap: 2rem;
 }
 
 nav ul a {
@@ -235,8 +226,8 @@ nav ul :is(a[href="#about"], a[href="#projects"]) {
 	position: relative;
 }
 
-nav ul li h3 a [href="#"] {
-	margin-right: 64px;
+nav ul li h3 a[href="#"] {
+	margin: 0 2rem;
 }
 
 nav ul li a[href="#contact"] {
@@ -344,21 +335,29 @@ main {
 	align-items: flex-start;
 	flex-direction: column;
 	position: relative;
-	padding: 0px 32px;
+	padding: 0px 2rem;
 }
 
 main .separator .line {
 	fill: var(--clr-secondary);
 }
 
+main .separator div.info {
+	margin: 1rem;
+}
+
+main .separator p {
+	color: var(--clr-font-light);
+}
+
 main div.info h1 {
-	font-size: 64px;
-	margin-bottom: 20px;
+	font-size: 3.5rem;
+	margin-bottom: 0.75rem;
 }
 
 main div.info h4 {
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 1.1rem;
 }
 
 main > *:not(svg) {
@@ -386,13 +385,14 @@ main svg#bg-visual g > circle:hover {
 }
 
 .main-info {
-	margin-left: 100px;
+  margin-top: 2rem;
+	margin-left: 4.5rem;
 }
 
 .main-info-btns {
 	display: flex;
-	gap: 16px 32px;
-	margin-bottom: 32px;
+	gap: 1rem 2rem;
+	margin-bottom: 2rem;
 }
 
 @media only screen and (width <= 480px) {
@@ -411,7 +411,7 @@ main svg#bg-visual g > circle:hover {
 	height: var(--btn-height);
 	text-align: center;
 	border-radius: 24px;
-	box-shadow: none;
+	box-shadow: var(--box-shadow-short);
 	transition: all 0.2s;
 }
 
@@ -420,6 +420,7 @@ button#primary {
 	color: var(--clr-font);
 	width: calc(var(--btn-width) + 1px);
 	height: calc(var(--btn-height) + 1px);
+	border: 1px solid var(--clr-secondary);
 }
 
 button#primary:hover {
@@ -455,11 +456,11 @@ i {
 
 section,
 footer {
-	min-width: 770px;
+	min-width: 320px;
 }
 
 section {
-	height: max(100vh, 700px);
+	height: max(100vh, 720px);
 	padding-top: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
 	transition: all 0.2s;
@@ -478,12 +479,13 @@ section:not(:first-of-type):nth-child(even) rect {
 /* about me section styling */
 section#about {
 	display: flex;
-	padding: 58px;
+	padding: 3rem;
+  height: calc(100vh + 5rem);
 }
 
 section#about .separator {
 	position: absolute;
-	margin-top: 100px;
+	margin-top: 2rem;
 	padding: 10px 25px;
 	background-color: var(--clr-secondary);
 	box-shadow: var(--box-shadow-short);
@@ -497,9 +499,7 @@ section#about .separator rect {
 }
 
 section#about #about-me-text {
-	margin-right: 100px;
-	min-width: 450px;
-	max-height: 45vh;
+	margin-right: 2rem;
 	align-self: center;
 }
 
@@ -511,8 +511,7 @@ section#about #about-me-text {
 
 	section#about #about-me-text {
 		align-self: start;
-		width: 650px;
-		margin-top: 35px;
+		margin: 2rem 0px;
 	}
 }
 
@@ -520,7 +519,7 @@ section#about #about-me-text {
 	position: relative;
 	min-width: min(80vw, 64vh);
 	min-height: min(80vw, 64vh);
-	margin: 58px;
+	margin: 5rem;
 	margin-bottom: 0px;
 	align-self: center;
 }
@@ -551,35 +550,33 @@ section#about #about-me-text {
 	background-color: var(--clr-secondary);
 	padding: 0px 10px;
 	border-radius: 10px;
-	margin: 24px;
+	margin: 1.5rem;
 }
 
 /* contact section styling */
 section#contact {
 	background-color: var(--clr-accent);
 	color: var(--clr-font);
-	padding: 58px;
+	padding: 3rem;
 	height: 100%;
 }
 
 section#contact div#contact-title :last-child {
-	margin: 20px 0px 70px;
-	max-width: max(50%, 500px);
+	margin: 1rem 0px 4rem;
 }
 
 section#contact form {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 36px;
+	gap: 3rem;
 }
 
 section#contact form input,
 section#contact form textarea {
 	transition: all 0.2s;
 	max-width: max(50%, 500px);
-	min-height: 50px;
-	padding: 20px 20px;
+	padding: 1.1rem;
 	border-color: transparent;
 	border-radius: 10px;
 
@@ -594,14 +591,13 @@ section#contact form textarea:focus {
 }
 
 section#contact form textarea {
-	min-height: 200px;
-	max-height: 300px;
-	resize: vertical;
+	height: 200px;
+	resize: none;
 }
 
 section#contact form input:last-child {
 	width: fit-content;
-	padding: 10px 50px;
+	padding: 0.5rem 3rem;
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
 	font-size: 20px;
@@ -611,4 +607,14 @@ section#contact form input:last-child {
 
 section#contact form input:last-child:hover {
 	box-shadow: var(--box-shadow-short);
+}
+
+/* projects section */
+section#projects {
+	padding: 3rem;
+}
+
+/* why-me section */
+section#why-me {
+	padding: 3rem;
 }

@@ -7,7 +7,7 @@
 		<title>My Portfolio</title>
 
 		<!-- setups -->
-		<!-- <link rel="preconnect" href="https://fonts.gstatic.com" /> -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
 
 		<!-- loading font -->
 		<link href="./assets/Montserrat/style.css" rel="stylesheet" />
@@ -16,7 +16,6 @@
 
 		<!-- scripts/styles -->
 		<link rel="stylesheet" href="styles.css" />
-		<script src="script.js"></script>
 
 		<!-- navigation bar -->
 		<nav>
@@ -65,7 +64,11 @@
 							onclick="location.href='../#contact'">
 							Contact
 						</button>
-						<button class="resume-dl-btn" id="primary">
+						<button
+							class="resume-dl-btn"
+							id="primary"
+							onclick="location.href='https://drive.google.com/file/d/1iMAjyi1FxAfjEsXo5l0hl18Pbfeur936/view?usp=sharing'"
+							title="Get redirected to a Google Drive link of my Resume!">
 							Resume <i class="fa-regular fa-file-pdf"></i>
 						</button>
 					</div>
@@ -89,16 +92,21 @@
 				<!-- generated from app.haikei.app -->
 				<svg
 					id="bg-visual"
-					viewBox="0 0 900 600"
+					viewBox="0 0 900 900"
 					xmlns="http://www.w3.org/2000/svg"
 					xmlns:xlink="http://www.w3.org/1999/xlink"
 					version="1.1">
-					<rect x="0" y="0" width="900" height="600" fill="#474555"></rect>
-					<g fill="#fa6065">
-						<circle r="165" cx="691" cy="209"></circle>
-						<circle r="72" cx="509" cy="501"></circle>
+					<rect
+						x="0"
+						y="0"
+						width="900"
+						height="900"
+						fill="var(--clr-accent)"></rect>
+					<g fill="var(--clr-secondary)">
+						<circle r="165" cx="651" cy="209"></circle>
+						<circle r="72" cx="359" cy="631"></circle>
 						<circle r="83" cx="140" cy="32"></circle>
-						<circle r="123" cx="900" cy="589"></circle>
+						<circle r="123" cx="920" cy="950"></circle>
 					</g>
 				</svg>
 			</main>
@@ -117,26 +125,25 @@
 
 			<div class="my-gallery">
 				<div class="gallery-img">
-					<img
-						src="https://images.unsplash.com/photo-1681027098644-01f73b609393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-						alt="image of me yes" />
+					<img src="./assets/photo-1.avif" alt="image of me yes" />
 					<h4 class="img-description">This is me!</h4>
 				</div>
 			</div>
 
 			<div id="about-me-text">
-				<h1 style="letter-spacing: initial; margin-bottom: 30px;">I am Tri Tran</h1>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-					pellentesque nec urna a auctor. Pellentesque a orci sapien. Duis
-					efficitur libero risus, eget ultrices mauris consectetur eget. Donec
-					ornare mi odio, eget mollis est hendrerit in. Suspendisse nec nulla
-					posuere, auctor sem sit amet, molestie odio. Nulla facilisi. Fusce
-					nibh nulla, convallis viverra sagittis a, tincidunt sit amet ipsum.
-					Etiam eros ipsum, congue nec vestibulum id, cursus placerat nibh. In
-					sagittis, libero vitae dapibus volutpat, purus nisl egestas dolor, in
-					mattis ligula metus vitae augue. Morbi posuere lorem dolor, eget
-					varius sapien fringilla id. Proin sed efficitur purus, ac sodales
-					velit.
+				<h1 style="letter-spacing: initial; margin-bottom: 30px">
+					I am Tri Tran
+				</h1>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque
+				nec urna a auctor. Pellentesque a orci sapien. Duis efficitur libero
+				risus, eget ultrices mauris consectetur eget. Donec ornare mi odio, eget
+				mollis est hendrerit in. Suspendisse nec nulla posuere, auctor sem sit
+				amet, molestie odio. Nulla facilisi. Fusce nibh nulla, convallis viverra
+				sagittis a, tincidunt sit amet ipsum. Etiam eros ipsum, congue nec
+				vestibulum id, cursus placerat nibh. In sagittis, libero vitae dapibus
+				volutpat, purus nisl egestas dolor, in mattis ligula metus vitae augue.
+				Morbi posuere lorem dolor, eget varius sapien fringilla id. Proin sed
+				efficitur purus, ac sodales velit.
 			</div>
 		</section>
 
@@ -222,7 +229,7 @@
 					<i class="fa-brands fa-linkedin fa-2x"></i>
 				</a>
 			</div>
-	
+
 			<a
 				class="source-code-link medium-font"
 				href="https://github.com/amatree/amatree.github.io"
@@ -232,4 +239,6 @@
 			>
 		</footer>
 	</body>
+	
+	<script src="script.js"></script>
 </html>
