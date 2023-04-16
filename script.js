@@ -144,11 +144,8 @@ function handleScroll(e) {
 			cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
 		});
 	} else {
-		setTimeout(() => {
-			storage["vars"]["bg-visuals-in-progress"] = false;
-		}, 400);
-		if (!storage["vars"]["bg-visuals-in-progress"]) {
-			storage["vars"]["bg-visuals-in-progress"] = true;
+		if (storage["vars"]["bg-visuals-not-in-animation"]) {
+			storage["vars"]["bg-visuals-not-in-animation"] = false;
 			const randNum = randomNumber(
 				0,
 				defaultMainSectionBgVisualCirclePositions.length - 1,
@@ -159,6 +156,10 @@ function handleScroll(e) {
 			const newCy = defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
 			mainSectionBgVisualCircles[randNum].style.cx = newCx;
 			mainSectionBgVisualCircles[randNum].style.cy = newCy;
+		} else {
+			setTimeout(() => {
+				storage["vars"]["bg-visuals-not-in-animation"] = true;
+			}, 800);
 		}
 	}
 

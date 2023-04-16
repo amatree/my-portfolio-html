@@ -71,6 +71,7 @@
 	--font-h4-bold-line-height: 29px;
 	--font-h4-bold-letter-spacing: 1px;
 
+	/* nav properties */
 	--nav-height: 100px;
 	--nav-opt-display: none;
 	--nav-hamburger-opt-display: flex;
@@ -182,8 +183,8 @@ h4 {
 
 .line {
 	fill: var(--clr-font);
-  box-shadow: var(--box-shadow-short);
-  margin-right: 2rem;
+	box-shadow: var(--box-shadow-short);
+	margin-right: 2rem;
 }
 
 img {
@@ -194,12 +195,12 @@ img {
 /* nav styling */
 nav {
 	position: fixed;
-	top: 0;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1.2rem 2rem;
+	padding-right: 4rem;
 	background-color: var(--clr-accent);
 	max-height: var(--nav-height);
 	box-shadow: none;
@@ -234,7 +235,7 @@ nav ul li a[href="#contact"] {
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
 	box-shadow: none;
-	padding: 10px 20px;
+	padding: 0.75rem 1.25rem;
 	border-radius: 24px;
 	text-decoration: none;
 }
@@ -256,13 +257,13 @@ nav div.hamburger-menu {
 	right: -200px;
 	height: 100vh;
 	width: 200px;
-	padding: 25px 10px;
+	padding: 2rem 1.5rem;
 	text-align: center;
 	color: var(--clr-font);
 	display: flex;
 	flex-direction: column;
 	background-color: var(--clr-box);
-	gap: 50px;
+	gap: 3rem;
 	transition: 0.2s;
 	animation: navSlideIn 0.5s forwards;
 	user-select: none;
@@ -360,7 +361,7 @@ main div.info h4 {
 	font-size: 1.1rem;
 }
 
-main > *:not(svg) {
+main>*:not(svg) {
 	z-index: 1;
 }
 
@@ -372,20 +373,20 @@ main svg#bg-visual {
 	height: 100%;
 }
 
-main svg#bg-visual g > circle {
+main svg#bg-visual g>circle {
 	transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
 	box-shadow: none;
 }
 
-main svg#bg-visual g > circle:hover {
+main svg#bg-visual g>circle:hover {
 	fill: var(--clr-secondary-light);
 	box-shadow: var(--box-shadow-short);
 	transform: translate(12px, 10px);
 }
 
 .main-info {
-  margin-top: 2rem;
+	margin-top: 2rem;
 	margin-left: 4.5rem;
 }
 
@@ -395,7 +396,7 @@ main svg#bg-visual g > circle:hover {
 	margin-bottom: 2rem;
 }
 
-@media only screen and (width <= 480px) {
+@media only screen and (width <=480px) {
 	.main-info-btns {
 		flex-direction: column;
 	}
@@ -454,13 +455,8 @@ i {
 	margin-right: 0.25rem;
 }
 
-section,
-footer {
-	min-width: 320px;
-}
-
 section {
-	height: max(100vh, 720px);
+	height: 100vh;
 	padding-top: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
 	transition: all 0.2s;
@@ -479,13 +475,14 @@ section:not(:first-of-type):nth-child(even) rect {
 /* about me section styling */
 section#about {
 	display: flex;
-	padding: 4rem;
+	padding: 2rem;
+	position: relative;
 }
 
 section#about .separator {
 	position: absolute;
 	margin-top: 3rem;
-	padding: 10px 25px;
+	padding: 0.75rem 1.5rem;
 	background-color: var(--clr-secondary);
 	box-shadow: var(--box-shadow-short);
 	color: var(--clr-font);
@@ -502,7 +499,7 @@ section#about #about-me-text {
 	align-self: center;
 }
 
-@media only screen and (width <= 1220px) {
+@media only screen and (width <= 1020px) {
 	section#about {
 		padding-top: 10px;
 		flex-direction: column;
@@ -535,7 +532,7 @@ section#about #about-me-text {
 	object-fit: cover;
 	opacity: 0.9;
 	border: 2px var(--clr-accent) solid;
-	border-radius: 20px;
+	border-radius: 1rem;
 	box-shadow: var(--box-shadow-short);
 }
 
@@ -599,7 +596,7 @@ section#contact form input:last-child {
 	padding: 0.5rem 3rem;
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
-	font-size: 20px;
+	font-size: 1rem;
 	cursor: pointer;
 	box-shadow: none;
 }
@@ -616,4 +613,59 @@ section#projects {
 /* why-me section */
 section#why-me {
 	padding: 3rem;
+}
+
+/* media queries for screen width */
+/* screen width sizes 
+--mobile-small-screen-width: 31rem;
+--mobile-medium-screen-width: 375px;
+--mobile-large-screen-width: 425px;
+--tablet-screen-width: 768px; 
+*/
+@media only screen and (width <=375px) {
+	:root {
+		--font-h1-bold-size: 2rem;
+	}
+}
+@media only screen and (width <=450px) {
+	:root {
+		/* --font-h1-bold-size: 1.75rem;
+		--font-h2-bold-size: 1.3rem;
+		--font-h3-bold-size: 1rem;
+		--font-h4-bold-size: 0.8rem;
+		--font-medium-size: 0.8rem; */
+	}
+
+	nav div.hamburger-menu,
+	nav {
+		margin: 0;
+	}
+
+	.line {
+		margin-right: 0.25rem;
+	}
+	.separator .info h1 {
+		font-size: 3rem;
+	}
+
+	section#main main,
+	section#projects,
+	section#contact,
+	section#why-me,
+	section#about {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+	section#main main .separator,
+	section#projects .separator,
+	section#contact .separator,
+	section#why-me .separator,
+	section#about .separator {
+		padding: 0.25rem;
+		margin: 0;
+		margin-left: 0.25rem;
+		margin-top: 2rem;
+		white-space: normal;
+	}
 }
