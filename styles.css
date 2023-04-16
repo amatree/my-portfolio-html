@@ -84,6 +84,10 @@
 	margin: 0;
 	box-sizing: border-box;
 	font: inherit;
+	transition: ease all 0.2s;
+	-o-transition: ease all 0.2s;
+	-moz-transition: ease all 0.2s;
+	-webkit-transition: ease all 0.2s;
 }
 
 html {
@@ -94,7 +98,6 @@ html {
 }
 
 body {
-	transition: all 0.4s;
 	background-color: var(--clr-primary);
 }
 
@@ -115,7 +118,6 @@ a.source-code-link {
 	text-align: center;
 	cursor: pointer;
 	pointer-events: initial;
-	transition: all 0.2s;
 }
 
 a.source-code-link:hover {
@@ -205,7 +207,6 @@ nav {
 	max-height: var(--nav-height);
 	box-shadow: none;
 	z-index: 99;
-	transition: 0.4s;
 }
 
 nav ul {
@@ -264,7 +265,6 @@ nav div.hamburger-menu {
 	flex-direction: column;
 	background-color: var(--clr-box);
 	gap: 3rem;
-	transition: 0.2s;
 	animation: navSlideIn 0.5s forwards;
 	user-select: none;
 }
@@ -375,6 +375,9 @@ main svg#bg-visual {
 
 main svg#bg-visual g>circle {
 	transition: all 0.2s, cx 1s, cy 1s;
+	-o-transition: all 0.2s, cx 1s, cy 1s;
+	-moz-transition: all 0.2s, cx 1s, cy 1s;
+	-webkit-transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
 	box-shadow: none;
 }
@@ -396,9 +399,15 @@ main svg#bg-visual g>circle:hover {
 	margin-bottom: 2rem;
 }
 
-@media only screen and (width <=480px) {
+@media only screen and (width <=475px) {
 	.main-info-btns {
 		flex-direction: column;
+	}
+}
+
+@media only screen and (width <=500px) {
+	.main-info-btns {
+		gap: 1rem 1rem;
 	}
 }
 
@@ -413,7 +422,6 @@ main svg#bg-visual g>circle:hover {
 	text-align: center;
 	border-radius: 24px;
 	box-shadow: var(--box-shadow-short);
-	transition: all 0.2s;
 }
 
 button#primary {
@@ -459,7 +467,6 @@ section {
 	height: 100vh;
 	padding-top: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
-	transition: all 0.2s;
 }
 
 /* select all even sections */
@@ -499,7 +506,7 @@ section#about #about-me-text {
 	align-self: center;
 }
 
-@media only screen and (width <= 1020px) {
+@media only screen and (width <=1020px) {
 	section#about {
 		padding-top: 10px;
 		flex-direction: column;
@@ -570,7 +577,6 @@ section#contact form {
 
 section#contact form input,
 section#contact form textarea {
-	transition: all 0.2s;
 	max-width: max(50%, 500px);
 	padding: 1.1rem;
 	border-color: transparent;
@@ -624,28 +630,27 @@ section#why-me {
 */
 @media only screen and (width <=375px) {
 	:root {
-		--font-h1-bold-size: 2rem;
+		--font-h1-bold-size: 1.75rem;
 	}
 }
-@media only screen and (width <=450px) {
-	:root {
-		/* --font-h1-bold-size: 1.75rem;
-		--font-h2-bold-size: 1.3rem;
-		--font-h3-bold-size: 1rem;
-		--font-h4-bold-size: 0.8rem;
-		--font-medium-size: 0.8rem; */
-	}
+
+@media only screen and (width <=425px) {
 
 	nav div.hamburger-menu,
 	nav {
 		margin: 0;
 	}
 
-	.line {
-		margin-right: 0.25rem;
+	.separator .line {
+		margin-right: 1rem;
 	}
+
 	.separator .info h1 {
 		font-size: 3rem;
+	}
+
+	section#main main .main-info {
+		margin-left: 2rem;
 	}
 
 	section#main main,
@@ -662,9 +667,9 @@ section#why-me {
 	section#contact .separator,
 	section#why-me .separator,
 	section#about .separator {
-		padding: 0.25rem;
 		margin: 0;
 		margin-left: 0.25rem;
+		margin-right: 0.5rem;
 		margin-top: 2rem;
 		white-space: normal;
 	}
