@@ -18,8 +18,11 @@
 	--clr-secondary-dark: #ffe4e1;
 	--clr-secondary-darker: #aba9bb;
 	--clr-font: var(--clr-primary);
+	--clr-font-before-hover: #ffffffa9;
 	--clr-font-light: #757575;
 	--clr-font-dark: #000000;
+	--clr-font-dark-before-hover: var(--clr-font-light);
+	--clr-font-hover: var(--clr-font);
 	--clr-box: #3f3f3f;
 
 	/* light font properties */
@@ -202,7 +205,6 @@ nav {
 	justify-content: space-between;
 	align-items: center;
 	padding: 1.2rem 2rem;
-	padding-right: 4rem;
 	background-color: var(--clr-accent);
 	max-height: var(--nav-height);
 	box-shadow: none;
@@ -215,20 +217,19 @@ nav ul {
 	gap: 2rem;
 }
 
-nav ul a {
+nav ul#navigation {
+	padding-right: 2rem;
+}
+
+nav ul li a {
+	text-transform: uppercase;
 	text-align: center;
 	text-decoration: none;
-	color: var(--clr-font);
 	user-select: none;
 }
 
-nav ul :is(a[href="#about"], a[href="#projects"]) {
-	padding: 5px 5px;
-	box-shadow: none;
-	position: relative;
-}
-
 nav ul li h3 a[href="#"] {
+	color: var(--clr-font);
 	margin: 0 2rem;
 }
 
@@ -242,14 +243,19 @@ nav ul li a[href="#contact"] {
 }
 
 nav ul li a[href="#contact"]:hover {
-	color: var(--clr-font);
 	background-color: var(--clr-secondary-light);
 	box-shadow: var(--box-shadow-short);
 }
 
+nav ul :is(a[href="#about"], a[href="#projects"]) {
+	color: var(--clr-font-before-hover);
+	padding: 5px 5px;
+	box-shadow: none;
+	position: relative;
+}
+
 nav ul li :is(a[href="#about"], a[href="#projects"]):hover {
-	color: var(--clr-secondary);
-	text-decoration: underline;
+	color: var(--clr-font-hover);
 }
 
 nav div.hamburger-menu {

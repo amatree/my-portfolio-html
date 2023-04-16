@@ -1,7 +1,12 @@
-document.addEventListener("DOMContentLoaded", initialize);
+document.addEventListener("DOMContentLoaded", () => {
+	initialize();
+	// initialize scroll event once when first loaded
+	handleScroll({ type: "scroll" });
+});
 
 var navElement = null;
 var navElementStyles = null;
+var navAboutAndProjects = null;
 var navTexts = null;
 var navNavigation = null;
 var navNavigationInnerHTML = null;
@@ -47,6 +52,7 @@ async function initialize() {
 	// set all selector variables
 	navElement = document.querySelector("nav");
 	navElementStyles = getStyles(navElement);
+	navAboutAndProjects = document.querySelectorAll("nav ul a:is([href='#about'], [href='#projects'])")
 	navTexts = document.querySelectorAll("nav ul a");
 	navNavigation = document.querySelector("nav ul[id='navigation']");
 	navNavigationInnerHTML = navNavigation.innerHTML;
@@ -190,24 +196,46 @@ function handleScroll(e) {
 			navElement.style.boxShadow = "none";
 		}
 		navElement.style.backgroundColor = storage["vars"]["--clr-accent"];
-		setStyleElements(navTexts, {
-			color: storage["vars"]["--clr-font"]
-		});
-		navTexts[navTexts.length - 1].style.color = storage["vars"]["--clr-font"];
+
+		// change nav text color
+		navTexts[0].style.color = storage["vars"]["--clr-font"];
+		// change hover font
+		setCSSVariable("--clr-font-before-hover", storage["vars"]["--clr-font-before-hover"]);
+		setCSSVariable("--clr-font-hover", storage["vars"]["--clr-font"]);
+
+		// change nav hamburger as well
 		navHamburger.style.fill = storage["vars"]["--clr-font"];
 		navHamburger.style.stroke = storage["vars"]["--clr-font"];
 	}
 
 	function changeToLightNav() {
 		navElement.style.backgroundColor = storage["vars"]["--clr-primary"];
-		navTexts[navTexts.length - 1].style.color =
-			storage["vars"]["--clr-font-dark"];
-		setStyleElements(navTexts, {
-			color: storage["vars"]["--clr-font-dark"]
-		});
+
+		// change portfolio text color
+		navTexts[0].style.color = storage["vars"]["--clr-font-dark"];
+
+		// change hover font
+		setCSSVariable("--clr-font-before-hover", storage["vars"]["--clr-font-dark-before-hover"]);
+		setCSSVariable("--clr-font-hover", storage["vars"]["--clr-font-dark"]);
+
+		// change nav hamburger as well
 		navHamburger.style.fill = storage["vars"]["--clr-font-dark"];
 		navHamburger.style.stroke = storage["vars"]["--clr-font-dark"];
 	}
+}
+
+// HELPER FUNCTIONS
+function setCSSVariable(varName, value) {
+	const rootElement = document.querySelector(":root");
+	var cssTextArray = rootElement.style.cssText.split(";");
+	if (cssTextArray !== undefined && cssTextArray.length > 1) {
+		cssTextArray.forEach((val, idx) => {
+			if (val && val.contains(varName)) {
+				cssTextArray.splice(idx, 1);
+			}
+		})
+	}
+	rootElement.style.cssText += `${varName}: ${value};`;
 }
 
 function setStyleElements(elements, styles = {}) {
@@ -368,4 +396,11 @@ function randomNumber(min = 0, max = 100, decimal = 0) {
 	}
 	const offset = max - min;
 	return round(Math.random() * offset - max, decimal);
+}
+
+// add contains into String class
+if (!('contains' in String.prototype)) {
+	String.prototype.contains = function (str, startIndex) {
+		return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+	};
 }
