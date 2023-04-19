@@ -125,25 +125,32 @@
 
 			<div class="my-gallery">
 				<div class="gallery-img">
-					<img src="./assets/photo-1.avif" alt="image of me yes" />
+					<img class="non-draggable" src="./assets/photo-1.avif" alt="image of me yes" />
 					<h4 class="img-description">This is me!</h4>
 				</div>
 			</div>
 
 			<div id="about-me-text">
 				<h1 style="letter-spacing: initial; margin-bottom: 30px">
-					I am Tri Tran
+					Hi, I'm Tri Tran!
 				</h1>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pellentesque
-				nec urna a auctor. Pellentesque a orci sapien. Duis efficitur libero
-				risus, eget ultrices mauris consectetur eget. Donec ornare mi odio, eget
-				mollis est hendrerit in. Suspendisse nec nulla posuere, auctor sem sit
-				amet, molestie odio. Nulla facilisi. Fusce nibh nulla, convallis viverra
-				sagittis a, tincidunt sit amet ipsum. Etiam eros ipsum, congue nec
-				vestibulum id, cursus placerat nibh. In sagittis, libero vitae dapibus
-				volutpat, purus nisl egestas dolor, in mattis ligula metus vitae augue.
-				Morbi posuere lorem dolor, eget varius sapien fringilla id. Proin sed
-				efficitur purus, ac sodales velit.
+				<div id="about-me-content">
+					<p>
+						I am a software developer who loves to work on projects
+						collaboratively and enjoy solving problems that might arise during
+						the process.
+					</p>
+					<p>
+						During my school time, I was glad to have the opportunity to work on
+						a few group projects with my classmates which I have gathered lots
+						of useful experience:
+					</p>
+					<p id="banners">
+						<img class="non-draggable" src="./assets/GitHub-banner.png" alt="GitHub banner" style="width: 30%;">
+						<img class="non-draggable" src="./assets/Python-banner.png" alt="Python banner" style="width: 30%;">
+						<img class="non-draggable" src="./assets/VSCode-banner.png" alt="VSCode banner" style="width: 30%;">
+					</p>
+				</div>
 			</div>
 		</section>
 
@@ -209,7 +216,7 @@
 					placeholder="Please leave a message"
 					class="medium-font"
 					required></textarea>
-				<input type="submit" value="Submit" />
+				<input type="submit" value="Send Message" />
 			</form>
 		</section>
 
@@ -239,6 +246,6 @@
 			>
 		</footer>
 	</body>
-	
+
 	<script src="script.js"></script>
 </html>

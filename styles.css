@@ -144,6 +144,15 @@ a.source-code-link:hover {
 	color: var(--clr-font-light);
 }
 
+.non-draggable {
+	user-drag: none;
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
 .medium-font {
 	font-size: var(--font-medium-size);
 	font-weight: var(--font-medium-weight);
@@ -333,9 +342,15 @@ nav ul#navigation li a {
 	}
 }
 
+section {
+	min-height: 100vh;
+	padding-top: calc(var(--nav-height) * 0.35);
+	scroll-snap-align: start;
+}
+
 /* main section styling */
 main {
-	height: 100%;
+	min-height: 100vh;
 	background-color: var(--clr-accent);
 	display: flex;
 	justify-content: center;
@@ -469,12 +484,6 @@ i {
 	margin-right: 0.25rem;
 }
 
-section {
-	height: 100vh;
-	padding-top: calc(var(--nav-height) * 0.35);
-	scroll-snap-align: start;
-}
-
 /* select all even sections */
 section:nth-child(even) {
 	background-color: var(--clr-accent);
@@ -562,6 +571,28 @@ section#about #about-me-text {
 	margin: 1.5rem;
 }
 
+div#about-me-content p + p {
+	margin-top: 1rem;
+}
+
+p#banners {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+p#banners img {
+	user-select: none;
+	transition: all 0.5s;
+	filter: grayscale(1);
+	transform: scale(0.95);
+}
+
+p#banners img:hover {
+	filter: none;
+	transform: scale(1);
+}
+
 /* contact section styling */
 section#contact {
 	background-color: var(--clr-accent);
@@ -603,9 +634,10 @@ section#contact form textarea {
 	resize: none;
 }
 
+/* Send message submit button */
 section#contact form input:last-child {
 	width: fit-content;
-	padding: 0.5rem 3rem;
+	padding: 0.5rem 2rem;
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
 	font-size: 1rem;
