@@ -497,23 +497,18 @@ section:not(:first-of-type):nth-child(even) rect {
 /* about me section styling */
 section#about {
 	display: flex;
-	padding: 2rem;
+	flex-direction: row;
+	justify-content: space-evenly;
 	position: relative;
+	padding: 2rem;
 }
 
 section#about .separator {
 	position: absolute;
 	margin: 1rem 3rem;
 	padding: 0.75rem 1.5rem;
-	background-color: var(--clr-secondary);
-	box-shadow: var(--box-shadow-short);
-	color: var(--clr-font);
 	white-space: nowrap;
 	z-index: 1;
-}
-
-section#about .separator rect {
-	fill: var(--clr-font);
 }
 
 section#about #about-me-text {
@@ -584,8 +579,23 @@ section#about #about-me-text {
 	margin: 1.2rem;
 }
 
+div#about-me-content {
+	max-width: 40vw;
+}
+
+div#about-me-content {
+	font-size: 1.5rem;
+}
+
 div#about-me-content p+p {
 	margin-top: 1rem;
+}
+
+.special-fx {
+	color: var(--clr-secondary);
+	padding: 0.5rem;
+	font-weight: 700;
+	text-transform: uppercase;
 }
 
 p#banners {
@@ -615,7 +625,7 @@ section#contact {
 }
 
 section#contact div#contact-title :last-child {
-	margin: 1rem 0px 4rem;
+	margin: 1rem 0 4rem;
 }
 
 section#contact form {
