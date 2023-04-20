@@ -1,6 +1,8 @@
 # Portfolio Website (WIP)
 
-This repository contains my portfolio website, showcasing my skills, projects, and experience. You can preview it [here](https://amatree.github.io/). As of right now, please do use a desktop or laptop monitor in order to have the best experience on my portfolio.
+This repository contains my portfolio website, showcasing my skills, projects, and experience. You can preview it here: https://amatree.netlify.app/. 
+
+Recently switched to Netlify in order to utilize their Netlify Forms free api.
 
 ## Technologies Used
 
@@ -10,12 +12,9 @@ I also used `fontawesome-free-6.3.0-web` [link here](https://fontawesome.com/ver
 
 As for fonts, I used `Montserrat` from Google Fonts [link here](https://fonts.google.com/specimen/Montserrat).
 
-Sample image taken from [unsplash.com](https://unsplash.com/photos/jbnhrF90Ew0) (great photo from Daniel Diemer). I will take it down immediately after finishing this portfolio.
-
 ## Known Issues
 
-* Mobile experience is not yet optimized.
-* Issues with responsive designs for when window is resized
+* Mobile experience is some what optimized.
 
 ## About Me
 
