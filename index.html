@@ -7,15 +7,15 @@
 		<title>My Portfolio</title>
 
 		<!-- setups -->
-		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<!-- <link rel="preconnect" href="https://fonts.gstatic.com" /> -->
 
 		<!-- loading font -->
-		<link href="./assets/Montserrat/style.css" rel="stylesheet" />
+		<link href="./assets/fonts/Montserrat/style.css" rel="stylesheet" />
 		<!-- Add icon library -->
-		<link rel="stylesheet" href="fontawesome-free-6.3.0-web/css/all.min.css" />
+		<link rel="stylesheet" href="./libs/fontawesome-free-6.3.0-web/css/all.min.css" />
 
 		<!-- scripts/styles -->
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="./styles/styles.css" />
 
 		<!-- navigation bar -->
 		<nav>
@@ -125,7 +125,7 @@
 
 			<div class="my-gallery">
 				<div class="gallery-img">
-					<img class="non-draggable" src="./assets/photo-1.avif" alt="image of me yes" />
+					<img id="abt-me-img" class="non-draggable" src="./assets/images/me/abt-me-img.JPG" alt="image of me yes" />
 					<h4 class="img-description">This is me!</h4>
 				</div>
 			</div>
@@ -146,9 +146,9 @@
 						of useful experience:
 					</p>
 					<p id="banners">
-						<img class="non-draggable" src="./assets/GitHub-banner.png" alt="GitHub banner" style="width: 30%;">
-						<img class="non-draggable" src="./assets/Python-banner.png" alt="Python banner" style="width: 30%;">
-						<img class="non-draggable" src="./assets/VSCode-banner.png" alt="VSCode banner" style="width: 30%;">
+						<img class="non-draggable" src="./assets/images/brands/github-mark.svg" alt="GitHub icon" style="width: 20%;">
+						<img class="non-draggable" src="./assets/images/brands/python-logo.svg" alt="Python icon" style="width: 20%; margin-top: 3%; margin-left: 10%;">
+						<img class="non-draggable" src="./assets/images/brands/react-logo.svg" alt="React icon" style="width: 40%;">
 					</p>
 				</div>
 			</div>
@@ -247,5 +247,5 @@
 		</footer>
 	</body>
 
-	<script src="script.js"></script>
+	<script src="./scripts/script.js" type="module"></script>
 </html>
