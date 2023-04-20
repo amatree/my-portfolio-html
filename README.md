@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dbe9e3ab-6536-47b3-9a10-e40f39c8189f/deploy-status)](https://app.netlify.com/sites/amatree/deploys)
+
 # Portfolio Website (WIP)
 
 This repository contains my portfolio website, showcasing my skills, projects, and experience. You can preview it here: https://amatree.netlify.app/. 
