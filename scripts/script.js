@@ -1,3 +1,5 @@
+import { modalInnerHTML } from "./modal.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 	initialize();
 	// initialize scroll event once when first loaded
@@ -22,10 +24,15 @@ var defaultMainSectionBgVisualCirclePositions = [];
 
 var viewportHeight = window.innerHeight;
 var viewportWidth = window.innerWidth;
+var sectionLayoutDimensions = {};
+
 var scrollDirection = "down";
 
 var storage = {};
 
+const modal = modalInnerHTML();
+
+var NAV_HEIGHT = 100;
 const NAV_HEIGHT_SCALE = 0.65;
 
 async function initialize() {
@@ -60,6 +67,9 @@ async function initialize() {
 	navNavigationInnerHTML = navNavigation.innerHTML;
 	navHamburger = document.querySelector("nav ul[id='hamburger']");
 
+	// check for form submission
+	formSubmissionCheck();
+
 	// finally initialize listener events
 	initListeners();
 }
@@ -81,7 +91,7 @@ function initListeners() {
 		handleNavHamburger();
 	});
 
-	// check for scrolling direction
+	// for scrolling direction
 	window.addEventListener("wheel", (event) => {
 		if (event.wheelDelta < 0 && scrollDirection != "down") {
 			// User is scrolling down
@@ -92,11 +102,19 @@ function initListeners() {
 		}
 	});
 
-	// check if window is resized, then update the viewport width and height
+	// if window is resized, then update the viewport width and height
 	window.addEventListener("resize", () => {
 		viewportHeight = window.innerHeight;
 		viewportWidth = window.innerWidth;
 	});
+}
+
+function formSubmissionCheck() {
+	if (!urlContains("#success")) return;
+
+	const newURL = window.location.href.replace("#success", "");
+	window.history.replaceState({ path: newURL }, "", newURL);
+	modal.showModal();
 }
 
 async function handleNavHamburger() {
@@ -105,9 +123,13 @@ async function handleNavHamburger() {
 			"--nav-hamburger-opt-display",
 			"flex"
 		);
+
+		// add closed class to hamburger-menu
 		document
 			.querySelector("div[class='hamburger-menu']")
 			.classList.add("closed");
+
+		// delay before set hamburger-menu display to none
 		setTimeout(() => {
 			navNavigation.innerHTML = navNavigationInnerHTML;
 			document.documentElement.style.setProperty("--nav-opt-display", "none");
@@ -137,14 +159,9 @@ function handleScroll(e) {
 	if (e.type !== "scroll") return;
 
 	currSection = getSnappedSection();
-	const NAV_HEIGHT = storage["vars"]["--nav-height"]
+	NAV_HEIGHT = storage["vars"]["--nav-height"]
 		? storage["vars"]["--nav-height"].replace("px", "") * NAV_HEIGHT_SCALE
 		: 65;
-
-	// between even section
-	const isBetweenEvenSection = !(
-		Math.floor((window.scrollY + NAV_HEIGHT) / viewportHeight) % 2
-	);
 
 	// animate bg visual for main section
 	if (window.scrollY <= NAV_HEIGHT) {
@@ -176,11 +193,13 @@ function handleScroll(e) {
 
 	// check if page Y is still in the main section
 	// if not, adjust box-shadow and other properties
-	if (window.scrollY + NAV_HEIGHT <= viewportHeight) {
+	const sectionAt = getScrollThroughSection();
+	if (sectionAt.current === "main") {
 		changeToDefNav();
 		navElement.style.maxHeight = storage["vars"]["--nav-height"];
 	} else {
-		if (isBetweenEvenSection) {
+		// if scrolling through even section
+		if (sectionAt.index % 2 === 0) {
 			changeToDefNav();
 		} else {
 			changeToLightNav();
@@ -246,7 +265,7 @@ function setCSSVariable(varName, value) {
 			if (val && val.contains(varName)) {
 				cssTextArray.splice(idx, 1);
 			}
-		})
+		});
 	}
 	rootElement.style.cssText += `${varName}: ${value};`;
 }
@@ -259,6 +278,33 @@ function setStyleElements(elements, styles = {}) {
 				element.style[o_style] = value;
 			});
 		}
+}
+
+function measureSectionDimensions() {
+	// get layout dimensions of each section
+	// property: [id, width, height, relativeTop]
+	// relativeTop: element top position relative to the top of the document
+	allSections.forEach((section) => {
+		const rect = section.getBoundingClientRect();
+		const relativeTop = rect.top + rect.height;
+
+		sectionLayoutDimensions[section.id] = {
+			width: section.clientWidth,
+			height: section.clientHeight,
+			relativeTop: relativeTop,
+		};
+	});
+}
+
+function getScrollThroughSection(offset = NAV_HEIGHT) {
+	measureSectionDimensions();
+	let idx = 0;
+	for (const dim in sectionLayoutDimensions) {
+		if (sectionLayoutDimensions[dim].relativeTop >= offset)
+			return { current: dim, index: idx };
+		idx++;
+	}
+	return { current: "main", index: 0 };
 }
 
 function getSnappedSection() {
@@ -332,22 +378,22 @@ function getCssVariables(element = null) {
 		);
 		const vars = mainSheet.reduce(
 			(acc, sheet) =>
-			(acc = [
-				...acc,
-				...Array.from(sheet.cssRules).reduce(
-					(def, rule) =>
-					(def =
-						rule.selectorText === ":root"
-							? [
-								...def,
-								...Array.from(rule.style).filter((name) =>
-									name.startsWith("--")
-								)
-							]
-							: def),
-					[]
-				)
-			]),
+				(acc = [
+					...acc,
+					...Array.from(sheet.cssRules).reduce(
+						(def, rule) =>
+							(def =
+								rule.selectorText === ":root"
+									? [
+											...def,
+											...Array.from(rule.style).filter((name) =>
+												name.startsWith("--")
+											),
+									  ]
+									: def),
+						[]
+					),
+				]),
 			[]
 		);
 		const computedStyle = window.getComputedStyle(document.documentElement);
@@ -396,9 +442,9 @@ function getAllCSSVariableNames(styleSheets = document.styleSheets) {
 							cssVars.push(name);
 						}
 					}
-				} catch (error) { }
+				} catch (error) {}
 			}
-		} catch (error) { }
+		} catch (error) {}
 	}
 	return cssVars;
 }
@@ -411,8 +457,12 @@ function randomNumber(min = 0, max = 100, decimal = 0) {
 	return round(Math.random() * offset - max, decimal);
 }
 
+function urlContains(str) {
+	return window.location.href.indexOf(str) > -1;
+}
+
 // add contains into String class
-if (!('contains' in String.prototype)) {
+if (!("contains" in String.prototype)) {
 	String.prototype.contains = function (str, startIndex) {
 		return -1 !== String.prototype.indexOf.call(this, str, startIndex);
 	};

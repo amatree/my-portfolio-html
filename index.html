@@ -197,7 +197,7 @@
 								href="https://www.autoitscript.com/"
 								target="_blank"
 								rel="noopener noreferrer"
-								style="text-decoration: none; color: inherit;"
+								style="text-decoration: none; color: inherit"
 								>AutoIt</a
 							></span
 						>. I enjoy keeping up with the latest tech news, and I like to work
@@ -254,7 +254,13 @@
 				</p>
 			</div>
 
-			<form action="" class="contact-form">
+			<!-- use netlify form to send email -->
+			<form
+				name="portfolio-message"
+				class="contact-form"
+				action="#success"
+				method="POST"
+				data-netlify="true">
 				<input
 					type="text"
 					id="name"
@@ -276,7 +282,7 @@
 					placeholder="Please leave a message"
 					class="medium-font"
 					required></textarea>
-				<input type="submit" value="Send Message" />
+				<button type="submit">Send Message</button>
 			</form>
 		</section>
 
