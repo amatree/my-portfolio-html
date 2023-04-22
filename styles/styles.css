@@ -127,9 +127,16 @@ a.source-code-link:hover {
 	color: var(--clr-font);
 }
 
+/* used to hide things */
 .hide {
-	/* used to hide things */
 	display: none;
+}
+
+.non-selectable {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .light-font-clr {
@@ -147,10 +154,6 @@ a.source-code-link:hover {
 .non-draggable {
 	user-drag: none;
 	-webkit-user-drag: none;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
 }
 
 .medium-font {
@@ -486,12 +489,12 @@ i {
 
 /* select all even sections */
 section:nth-child(even) {
-	background-color: var(--clr-accent);
-	color: var(--clr-font);
+	/* background-color: var(--clr-accent); */
+	/* color: var(--clr-font); */
 }
 
 section:not(:first-of-type):nth-child(even) rect {
-	fill: var(--clr-font);
+	/* fill: var(--clr-font); */
 }
 
 /* about me section styling */
@@ -505,8 +508,6 @@ section#about {
 
 section#about .separator {
 	position: absolute;
-	margin: 1rem 3rem;
-	padding: 0.75rem 1.5rem;
 	white-space: nowrap;
 	z-index: 1;
 }
@@ -524,7 +525,6 @@ section#about #about-me-text {
 
 	section#about .separator {
 		position: static;
-		padding: 0.75rem 0.5rem;
 	}
 
 	section#about #about-me-text {
@@ -581,7 +581,7 @@ section#about #about-me-text {
 
 div#about-me-content {
 	max-width: 40vw;
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 }
 
 
@@ -680,12 +680,70 @@ section#contact form button:hover {
 
 /* projects section */
 section#projects {
-	padding: 3rem;
+	padding: 2rem;
+	padding-bottom: 5%;
+}
+
+#project-cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+	gap: 0 7%;
+	padding: 5% 5%;
+}
+
+#project-card {
+	user-drag: none;
+	-webkit-user-drag: none;
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: var(--box-shadow-short);
+
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	height: 69vw;
+
+	transition: all 0.2s ease;
+	transform: translateX(0%);
+}
+
+#project-card:hover {
+	background-color: var(--clr-secondary-light);
+	color: var(--clr-font);
+}
+
+#project-card:hover #project-img {
+	filter: grayscale(0);
+	background-color: var(--clr-primary);
+}
+
+#project-img {
+	transition: all 0.5s ease;
+	height: 1%;
+	background-color: var(--clr-secondary-light);
+	filter: grayscale(1);
+	border-radius: 12px;
+}
+
+#project-body {
+	height: auto;
+}
+
+#project-description {
+	transition: all 0.1s;
+}
+
+#project-title {
+	transition: all 0.1s;
+	text-align: center;
 }
 
 /* why-me section */
 section#why-me {
-	padding: 3rem;
+	padding: 2rem;
 }
 
 /* media queries for screen width */

@@ -22,6 +22,18 @@ var mainSection = null;
 var mainSectionBgVisualCircles = null;
 var defaultMainSectionBgVisualCirclePositions = [];
 
+var projectCardsParent = null;
+var projectCards = null;
+var isMouseDraggingInProjectCards = false;
+var projectCardsMouseDragInfo = {
+	isDragging: false,
+	startDragX: null,
+	endDragX: null,
+	slope: 0,
+};
+var projectCardsStartDraggingAtMouseX = null;
+var projectCardsEndDraggingAtMouseX = null;
+
 var viewportHeight = window.innerHeight;
 var viewportWidth = window.innerWidth;
 var sectionLayoutDimensions = {};
@@ -67,6 +79,9 @@ async function initialize() {
 	navNavigationInnerHTML = navNavigation.innerHTML;
 	navHamburger = document.querySelector("nav ul[id='hamburger']");
 
+	projectCardsParent = document.querySelector("#project-cards");
+	projectCards = document.querySelectorAll("#project-cards #project-card");
+
 	// check for form submission
 	formSubmissionCheck();
 
@@ -90,6 +105,9 @@ function initListeners() {
 	navHamburger.addEventListener("click", () => {
 		handleNavHamburger();
 	});
+
+	// project cards event
+	handleProjectCardEvents();
 
 	// for scrolling direction
 	window.addEventListener("wheel", (event) => {
@@ -115,6 +133,68 @@ function formSubmissionCheck() {
 	const newURL = window.location.href.replace("#success", "");
 	window.history.replaceState({ path: newURL }, "", newURL);
 	modal.showModal();
+}
+
+function handleProjectCardEvents() {
+	// implement scroll dragging for project cards
+	// 0 => -200%
+	// viewportWidth / 2 => 0%
+	// viewportWidth => 200%
+	projectCardsParent.onmousedown = (event) => {
+		projectCardsMouseDragInfo.startDragX = event.pageX;
+		const slope = (2 * 200) / viewportWidth;
+		projectCardsMouseDragInfo.slope = slope;
+		projectCardsMouseDragInfo.isDragging = true;
+		changeUserSelect();
+	};
+
+	projectCardsParent.onmousemove = (event) => {
+		if (projectCardsMouseDragInfo.isDragging) {
+			const deltaMouseX = event.pageX - projectCardsMouseDragInfo.startDragX;
+			const percentTranslate =
+				deltaMouseX * projectCardsMouseDragInfo.slope -
+				event.pageX / viewportWidth;
+
+			// only transform per frame
+			window.requestAnimationFrame(() => {
+				projectCards.forEach((projectCard) => {
+					projectCard.style.transform = `translateX(${percentTranslate}%)`;
+				});
+			});
+		}
+	};
+
+	// add mouse up event to window instead
+	window.onmouseup = (event) => {
+		projectCardsMouseDragInfo.endDragX = event.pageX;
+		projectCardsMouseDragInfo.isDragging = false;
+		// reset translate
+
+		window.requestAnimationFrame(() => {
+			projectCards.forEach((projectCard) => {
+				projectCard.style.transform = `translateX(0%)`;
+			});
+		});
+		window.requestAnimationFrame(() => {
+			projectCards.forEach((projectCard) => {
+				projectCard.style.transform = ``;
+			});
+		});
+
+		changeUserSelect(false);
+	};
+
+	function changeUserSelect(enable = true) {
+		if (enable) {
+			projectCards.forEach((projectCard) => {
+				projectCard.classList.add("non-selectable");
+			});
+		} else {
+			projectCards.forEach((projectCard) => {
+				projectCard.classList.remove("non-selectable");
+			});
+		}
+	}
 }
 
 async function handleNavHamburger() {
@@ -198,8 +278,11 @@ function handleScroll(e) {
 		changeToDefNav();
 		navElement.style.maxHeight = storage["vars"]["--nav-height"];
 	} else {
-		// if scrolling through even section
-		if (sectionAt.index % 2 === 0) {
+		// if scrolling through accent bg colored section
+		if (
+			sectionAt.style.backgroundColor ===
+			hexToRgb(storage["vars"]["--clr-accent"])
+		) {
 			changeToDefNav();
 		} else {
 			changeToLightNav();
@@ -287,11 +370,16 @@ function measureSectionDimensions() {
 	allSections.forEach((section) => {
 		const rect = section.getBoundingClientRect();
 		const relativeTop = rect.top + rect.height;
+		const sectionStyles = getStyles(section);
 
 		sectionLayoutDimensions[section.id] = {
 			width: section.clientWidth,
 			height: section.clientHeight,
 			relativeTop: relativeTop,
+			style: {
+				backgroundColor: sectionStyles.backgroundColor,
+				color: sectionStyles.color,
+			},
 		};
 	});
 }
@@ -300,11 +388,16 @@ function getScrollThroughSection(offset = NAV_HEIGHT) {
 	measureSectionDimensions();
 	let idx = 0;
 	for (const dim in sectionLayoutDimensions) {
-		if (sectionLayoutDimensions[dim].relativeTop >= offset)
-			return { current: dim, index: idx };
+		const section = sectionLayoutDimensions[dim];
+		if (section.relativeTop >= offset)
+			return { current: dim, index: idx, style: section.style };
 		idx++;
 	}
-	return { current: "main", index: 0 };
+	return {
+		current: "main",
+		index: 0,
+		style: sectionLayoutDimensions["main"].style,
+	};
 }
 
 function getSnappedSection() {
