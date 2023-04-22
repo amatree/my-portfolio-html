@@ -87,10 +87,10 @@
 	margin: 0;
 	box-sizing: border-box;
 	font: inherit;
-	transition: ease all 0.2s;
-	-o-transition: ease all 0.2s;
-	-moz-transition: ease all 0.2s;
-	-webkit-transition: ease all 0.2s;
+	transition: ease all 0.1s;
+	-o-transition: ease all 0.1s;
+	-moz-transition: ease all 0.1s;
+	-webkit-transition: ease all 0.1s;
 }
 
 html {
@@ -304,6 +304,7 @@ nav ul#hamburger {
 	stroke: var(--clr-font);
 	cursor: pointer;
 	display: none;
+	transition: all 0.1s;
 }
 
 nav ul#navigation li a {
@@ -348,7 +349,11 @@ nav ul#navigation li a {
 section {
 	min-height: 100vh;
 	padding-top: calc(var(--nav-height) * 0.35);
+	padding-bottom: calc(var(--nav-height) * 0.35);
 	scroll-snap-align: start;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
 }
 
 /* main section styling */
@@ -584,7 +589,6 @@ div#about-me-content {
 	font-size: 1.3rem;
 }
 
-
 @media only screen and (width <=1020px) {
 	div#about-me-content {
 		max-width: 100vw;
@@ -682,14 +686,16 @@ section#contact form button:hover {
 section#projects {
 	padding: 2rem;
 	padding-bottom: 5%;
+	height: calc(100% - 4rem);
 }
 
 #project-cards {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 1fr;
-	gap: 0 7%;
+	grid-template-rows: 1;
+	gap: 7%;
 	padding: 5% 5%;
+	height: 100%;
 }
 
 #project-card {
@@ -703,14 +709,15 @@ section#projects {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-
-	height: 69vw;
+	gap: 1rem;
+	height: 70vh;
 
 	transition: all 0.2s ease;
-	transform: translateX(0%);
+	transform: translateX(0%) scale(0.95);
 }
 
 #project-card:hover {
+	transform: scale(1);
 	background-color: var(--clr-secondary-light);
 	color: var(--clr-font);
 }
@@ -722,23 +729,42 @@ section#projects {
 
 #project-img {
 	transition: all 0.5s ease;
-	height: 1%;
+	height: 0.5em;
 	background-color: var(--clr-secondary-light);
 	filter: grayscale(1);
 	border-radius: 12px;
 }
 
-#project-body {
-	height: auto;
-}
-
 #project-description {
 	transition: all 0.1s;
+	align-self: flex-end;
 }
 
 #project-title {
 	transition: all 0.1s;
-	text-align: center;
+	text-align: left;
+}
+
+@media only screen and (width <=800px) {
+	#project-title {
+		font-size: 1.3rem;
+	}
+}
+
+@media only screen and (width <=720px) {
+	#project-cards {
+		grid-template-rows: repeat(3, 1fr);
+		grid-template-columns: 1fr;
+		margin-bottom: 20vh;
+	}
+
+}
+
+@media only screen and (width <=1020px) {
+	#project-card {
+		gap: 0.75rem;
+		height: auto;
+	}
 }
 
 /* why-me section */

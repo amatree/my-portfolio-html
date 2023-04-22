@@ -107,7 +107,7 @@ function initListeners() {
 	});
 
 	// project cards event
-	handleProjectCardEvents();
+	if (viewportWidth > 720) handleProjectCardEvents();
 
 	// for scrolling direction
 	window.addEventListener("wheel", (event) => {
@@ -279,10 +279,7 @@ function handleScroll(e) {
 		navElement.style.maxHeight = storage["vars"]["--nav-height"];
 	} else {
 		// if scrolling through accent bg colored section
-		if (
-			sectionAt.style.backgroundColor ===
-			hexToRgb(storage["vars"]["--clr-accent"])
-		) {
+		if (sectionAt.current === "contact") {
 			changeToDefNav();
 		} else {
 			changeToLightNav();
