@@ -273,7 +273,7 @@ function handleScroll(e) {
 
 	// check if page Y is still in the main section
 	// if not, adjust box-shadow and other properties
-	const sectionAt = getScrollThroughSection();
+	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
 	if (sectionAt.current === "main") {
 		changeToDefNav();
 		navElement.style.maxHeight = storage["vars"]["--nav-height"];
