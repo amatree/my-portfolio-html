@@ -1,0 +1,132 @@
+/* main section styling */
+main {
+	min-height: 100vh;
+	background-color: var(--clr-accent);
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	position: relative;
+	padding: 0 6rem;
+}
+
+main .separator .line {
+	fill: var(--clr-secondary);
+}
+
+main .separator div.info {
+	margin: 1.5rem;
+}
+
+main .separator p {
+	color: var(--clr-font-light);
+}
+
+main div.info h1 {
+	font-size: 3.5rem;
+	margin-bottom: 0.75rem;
+}
+
+main div.info h4 {
+	font-weight: 500;
+	font-size: 1.1rem;
+}
+
+main>*:not(svg) {
+	z-index: 1;
+}
+
+main svg#bg-visual {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+main svg#bg-visual g>circle {
+	transition: all 0.2s, cx 1s, cy 1s;
+	-o-transition: all 0.2s, cx 1s, cy 1s;
+	-moz-transition: all 0.2s, cx 1s, cy 1s;
+	-webkit-transition: all 0.2s, cx 1s, cy 1s;
+	opacity: 0.9;
+}
+
+main svg#bg-visual g>circle:hover {
+	fill: var(--clr-secondary-light);
+}
+
+.main-info {
+	margin-top: 2rem;
+	margin-left: 4.5rem;
+}
+
+.main-info-btns {
+	display: flex;
+	gap: 1rem 2rem;
+	margin-bottom: 2rem;
+}
+
+@media only screen and (width <=475px) {
+	.main-info-btns {
+		flex-direction: column;
+	}
+}
+
+@media only screen and (width <=500px) {
+	.main-info-btns {
+		gap: 1rem 1rem;
+	}
+}
+
+.main-info button {
+	all: unset;
+	cursor: pointer;
+	transition: all 0.2s;
+
+	--btn-width: 140px;
+	--btn-height: 36px;
+	width: var(--btn-width);
+	height: var(--btn-height);
+	text-align: center;
+	border-radius: 24px;
+	box-shadow: var(--box-shadow-short);
+}
+
+.main-info button#primary {
+	background-color: var(--clr-secondary);
+	color: var(--clr-font);
+	width: calc(var(--btn-width) + 1px);
+	height: calc(var(--btn-height) + 1px);
+	border: 1px solid var(--clr-secondary);
+}
+
+.main-info button#primary:hover {
+	color: var(--clr-font);
+	background-color: var(--clr-secondary-light);
+}
+
+.main-info button:is(:not(button#primary)) {
+	background-color: transparent;
+	color: var(--clr-font);
+	border: 1px solid var(--clr-font);
+}
+
+.main-info button:is(:not(button#primary)):hover {
+	color: var(--clr-font-dark);
+	background-color: var(--clr-primary);
+}
+
+.main-info button.resume-dl-btn {
+	color: var(--clr-font);
+}
+
+/* select all even sections */
+section:nth-child(even) {
+	/* background-color: var(--clr-accent); */
+	/* color: var(--clr-font); */
+}
+
+section:not(:first-of-type):nth-child(even) rect {
+	/* fill: var(--clr-font); */
+}

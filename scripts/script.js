@@ -36,6 +36,7 @@ var projectCardsMouseDragInfo = {
 	startDragX: null,
 	endDragX: null,
 	slope: 0,
+	timer: null,
 };
 var projectCardsStartDraggingAtMouseX = null;
 var projectCardsEndDraggingAtMouseX = null;
@@ -76,6 +77,13 @@ const TEXT_TAGS = [
 	"BR",
 	"SPAN",
 ];
+
+const SECTION_INDICES = {
+	main: 0,
+	about: 1,
+	projects: 2,
+	contact: 3,
+};
 
 async function initialize() {
 	allSections = document.querySelectorAll("section");
@@ -182,11 +190,13 @@ function handleProjectCardEvents() {
 	// viewportWidth => 200%
 
 	projectCardsParent.onmousedown = (event) => {
-		projectCardsMouseDragInfo.startDragX = event.pageX;
-		const slope = (2 * 200) / viewportWidth;
-		projectCardsMouseDragInfo.slope = slope;
-		projectCardsMouseDragInfo.isDragging = true;
-		changeUserSelect();
+		projectCardsMouseDragInfo.timer = setTimeout(() => {
+			projectCardsMouseDragInfo.startDragX = event.pageX;
+			const slope = (2 * 200) / viewportWidth;
+			projectCardsMouseDragInfo.slope = slope;
+			projectCardsMouseDragInfo.isDragging = true;
+			changeUserSelect();
+		}, 500);
 	};
 
 	projectCardsParent.onmousemove = (event) => {
@@ -209,6 +219,7 @@ function handleProjectCardEvents() {
 	window.onmouseup = (event) => {
 		projectCardsMouseDragInfo.endDragX = event.pageX;
 		projectCardsMouseDragInfo.isDragging = false;
+		clearTimeout(projectCardsMouseDragInfo.timer);
 		// reset translate
 
 		window.requestAnimationFrame(() => {
@@ -296,7 +307,8 @@ function handleScroll(e) {
 	animateAboutMeSectionImgHover();
 
 	function animateAboutMeSectionImgHover() {
-		if (!isNavInAboutMe) {
+		// only animate if already at about me section or further down
+		if (sectionAt.index < SECTION_INDICES.about) {
 			aboutMeSectionMeImg.classList.remove("hovered");
 			aboutMeSectionGallery.classList.remove("hovered");
 

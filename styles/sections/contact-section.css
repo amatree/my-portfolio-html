@@ -1,0 +1,72 @@
+/* contact section styling */
+section#contact {
+  height: 100%;
+}
+
+section#contact div#contact-title :last-child {
+  margin: 1rem 0 4rem;
+}
+
+section#contact form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+section#contact form input,
+section#contact form button,
+section#contact form textarea {
+  max-width: max(50%, 500px);
+  padding: 1.1rem;
+  outline: none;
+  border-color: transparent;
+  border-radius: 10px;
+
+  background-color: var(--clr-primary);
+  color: var(--clr-font-dark);
+  border: 1px solid;
+  box-shadow: none;
+}
+
+section#contact form input:focus,
+section#contact form button:focus,
+section#contact form textarea:focus {
+  box-shadow: var(--box-shadow-short);
+  outline: 2px solid var(--clr-secondary);
+}
+
+section#contact form textarea {
+  height: 200px;
+  resize: none;
+}
+
+/* Send message submit button */
+section#contact form button {
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.2s;
+}
+
+section#contact form button:hover {
+  color: var(--clr-font);
+  background-color: var(--clr-secondary);
+  box-shadow: var(--box-shadow-short);
+  border: none;
+}
+
+
+@media only screen and (width <=430px) {
+  :root {
+    --font-h1-bold-size: 1.75rem;
+  }
+}
+
+@media only screen and (width <=375px) {
+  :root {
+    --font-h1-bold-size: 1.5rem;
+  }
+}
