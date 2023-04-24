@@ -17,10 +17,16 @@ var navHamburgerShown = false;
 
 var allSections = null;
 var currSection = null;
+var sectionsNotMain = null;
+var sectionPadding = null;
 
 var mainSection = null;
 var mainSectionBgVisualCircles = null;
 var defaultMainSectionBgVisualCirclePositions = [];
+
+var aboutMeSectionMeImg = null;
+var aboutMeSectionBrandLogos = {};
+var aboutMeSectionGallery = null;
 
 var projectCardsParent = null;
 var projectCards = null;
@@ -50,6 +56,16 @@ const NAV_HEIGHT_SCALE = 0.65;
 async function initialize() {
 	allSections = document.querySelectorAll("section");
 	currSection = getSnappedSection();
+	sectionsNotMain = document.querySelector("section:not(#main)");
+	sectionPadding =
+		Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
+		Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
+
+	aboutMeSectionMeImg = document.getElementById("abt-me-img");
+	aboutMeSectionBrandLogos = document.querySelectorAll(
+		"#about-me-content p#banners img"
+	);
+	aboutMeSectionGallery = document.querySelector(".my-gallery .gallery-img");
 
 	mainSection = document.getElementById("main");
 	mainSectionBgVisualCircles = mainSection.querySelectorAll(
@@ -238,59 +254,90 @@ function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type !== "scroll") return;
 
-	currSection = getSnappedSection();
-	NAV_HEIGHT = storage["vars"]["--nav-height"]
-		? storage["vars"]["--nav-height"].replace("px", "") * NAV_HEIGHT_SCALE
-		: 65;
+	NAV_HEIGHT = navElement.clientHeight;
 
-	// animate bg visual for main section
-	if (window.scrollY <= NAV_HEIGHT) {
-		mainSectionBgVisualCircles.forEach((cir, i) => {
-			cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
-			cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
+	sectionPadding =
+		Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
+		Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
+
+	const sectionAt = getScrollThroughSection();
+	const isNavInMain = sectionAt.current === "main";
+	const isNavInAboutMe = sectionAt.current === "about";
+
+	animateMainSection();
+
+	animateNavbarColor();
+
+	animateAboutMeSectionImgHover();
+
+	function animateAboutMeSectionImgHover() {
+		if (!isNavInAboutMe) {
+			aboutMeSectionMeImg.classList.remove("hovered");
+			aboutMeSectionGallery.classList.remove("hovered");
+			
+			aboutMeSectionBrandLogos.forEach((logo) => {
+				logo.classList.remove("hovered");
+			});
+			
+			return;
+		}
+		
+		aboutMeSectionMeImg.classList.add("hovered");
+		aboutMeSectionGallery.classList.add("hovered");
+
+		aboutMeSectionBrandLogos.forEach((logo) => {
+			logo.classList.add("hovered");
 		});
-	} else {
-		if (storage["vars"]["bg-visuals-not-in-animation"]) {
-			storage["vars"]["bg-visuals-not-in-animation"] = false;
-			const randNum = randomNumber(
-				0,
-				defaultMainSectionBgVisualCirclePositions.length - 1
-			);
-			const randOffsetX = randomNumber(-300, 300);
-			const randOffsetY = randomNumber(-50, 50);
-			const newCx =
-				defaultMainSectionBgVisualCirclePositions[randNum]?.cx + randOffsetX;
-			const newCy =
-				defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
-			mainSectionBgVisualCircles[randNum].style.cx = newCx;
-			mainSectionBgVisualCircles[randNum].style.cy = newCy;
+	}
+
+	function animateNavbarColor() {
+		// check if page Y is still in the main section
+		// if not, adjust box-shadow and other properties
+		if (isNavInMain) {
+			changeToDefNav();
+			navElement.style.maxHeight = storage["vars"]["--nav-height"];
 		} else {
-			setTimeout(() => {
-				storage["vars"]["bg-visuals-not-in-animation"] = true;
-			}, 800);
+			// if scrolling through accent bg colored section
+			// if (sectionAt.current === "contact") {
+			// 	changeToDefNav();
+			// } else {
+			// 	changeToLightNav();
+			// }
+			changeToLightNav();
+
+			// scale it down as well
+			// navElement.style.maxHeight = NAV_HEIGHT * NAV_HEIGHT_SCALE + "px";
 		}
 	}
 
-	// check if page Y is still in the main section
-	// if not, adjust box-shadow and other properties
-	const sectionAt = getScrollThroughSection();
-	if (sectionAt.current === "main") {
-		changeToDefNav();
-		navElement.style.maxHeight = storage["vars"]["--nav-height"];
-	} else {
-		// if scrolling through accent bg colored section
-		if (sectionAt.current === "contact") {
-			changeToDefNav();
+	function animateMainSection() {
+		// animate bg visual for main section
+		if (window.scrollY <= NAV_HEIGHT) {
+			mainSectionBgVisualCircles.forEach((cir, i) => {
+				cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
+				cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
+			});
 		} else {
-			changeToLightNav();
+			if (storage["vars"]["bg-visuals-not-in-animation"]) {
+				storage["vars"]["bg-visuals-not-in-animation"] = false;
+				const randNum = randomNumber(
+					0,
+					defaultMainSectionBgVisualCirclePositions.length - 1
+				);
+				const randOffsetX = randomNumber(-300, 300);
+				const randOffsetY = randomNumber(-50, 50);
+				const newCx =
+					defaultMainSectionBgVisualCirclePositions[randNum]?.cx + randOffsetX;
+				const newCy =
+					defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
+				mainSectionBgVisualCircles[randNum].style.cx = newCx;
+				mainSectionBgVisualCircles[randNum].style.cy = newCy;
+			} else {
+				setTimeout(() => {
+					storage["vars"]["bg-visuals-not-in-animation"] = true;
+				}, 800);
+			}
 		}
-
-		// scale it down as well
-		navElement.style.maxHeight = storage["vars"]["--nav-height"]
-			? parseInt(storage["vars"]["--nav-height"].replace("px")) *
-					NAV_HEIGHT_SCALE +
-			  "px"
-			: "100px";
 	}
 
 	function changeToDefNav() {
@@ -381,12 +428,12 @@ function measureSectionDimensions() {
 	});
 }
 
-function getScrollThroughSection(offset = NAV_HEIGHT) {
+function getScrollThroughSection(offset = 0) {
 	measureSectionDimensions();
 	let idx = 0;
 	for (const dim in sectionLayoutDimensions) {
 		const section = sectionLayoutDimensions[dim];
-		if (section.relativeTop >= offset)
+		if (section.relativeTop >= sectionPadding / 2 + NAV_HEIGHT + offset)
 			return { current: dim, index: idx, style: section.style };
 		idx++;
 	}

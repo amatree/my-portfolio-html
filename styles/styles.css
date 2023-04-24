@@ -223,6 +223,8 @@ nav {
 	max-height: var(--nav-height);
 	box-shadow: none;
 	z-index: 99;
+	transition: all 0.4s;
+	margin: 0 auto;
 }
 
 nav ul {
@@ -359,11 +361,23 @@ section {
 
 section:not(#main) {
 	border-radius: 20px;
-	margin: 1rem;
+	margin: 2rem 4rem;
 	box-shadow: var(--box-shadow-short);
+	padding: 5rem;
 }
-section + section {
-	margin-bottom: 3rem;
+
+@media only screen and (width <=1000px) {
+	section:not(#main) {
+		margin: 2rem;
+		padding: 3rem;
+	}
+}
+
+@media only screen and (width <=500px) {
+	section:not(#main) {
+		margin: 1rem;
+		padding: 3rem 2rem;
+	}
 }
 
 /* main section styling */
@@ -517,8 +531,7 @@ section#about {
 	position: relative;
 	display: flex;
 	position: relative;
-	padding: 2rem;
-	gap: 2rem;
+	gap: 3rem;
 }
 
 section#about .horizontal-separator {
@@ -539,28 +552,8 @@ section#about #about-me-text {
 	flex-direction: row;
 	justify-content: space-evenly;
 	align-self: center;
+	gap: 3rem;
 	width: 100%;
-}
-
-@media only screen and (width <=1100px) {
-	section#about {
-		padding-top: 10px;
-		flex-direction: column;
-	}
-
-	section#about .separator {
-		position: static;
-	}
-
-	section#about #about-me-text {
-		flex-direction: column;
-		align-self: start;
-		margin: 2rem 0rem;
-	}
-
-	#about-me-content {
-		min-width: 100%;
-	}
 }
 
 .my-gallery {
@@ -572,16 +565,43 @@ section#about #about-me-text {
 	align-self: center;
 }
 
+@media only screen and (width <=1300px) {
+	section#about {
+		padding-top: 10px;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	section#about .separator {
+		position: static;
+	}
+
+	section#about #about-me-text {
+		flex-direction: column;
+		align-self: start;
+		gap: 1rem;
+		margin: 0;
+	}
+
+	#about-me-content {
+		min-width: 100%;
+	}
+
+	.my-gallery {
+		margin: 1rem;
+	}
+}
+
 .my-gallery .gallery-img {
 	display: grid;
 	position: absolute;
 	user-select: none;
 	overflow: hidden;
 	border-radius: 1rem;
-	transition: all 0.5s;
+	transition: all 0.5s ease-in;
 }
 
-.my-gallery .gallery-img:hover {
+.my-gallery .gallery-img.hovered {
 	box-shadow: var(--box-shadow-short);
 }
 
@@ -589,12 +609,16 @@ section#about #about-me-text {
 	max-width: var(--photo-size);
 	aspect-ratio: 1 / 1;
 	opacity: 0.9;
-	transition: all 0.5s ease;
+	transition: all 0.4s ease-out;
 	object-fit: contain;
 }
 
-.my-gallery img:hover {
-	transform: scale(3);
+.my-gallery .gallery-img:hover img {
+	transform: scale(1);
+}
+
+.my-gallery img.hovered {
+	transform: scale(3) translateY(-5%);
 }
 
 .gallery-img h4.img-description {
@@ -638,18 +662,47 @@ p#banners img {
 	transition: all 0.5s;
 	filter: grayscale(1);
 	transform: scale(0.75);
+	transition: all 0.2s;
 }
 
-p#banners img:hover {
-	filter: none;
-	transform: scale(1);
+p#banners img.hovered {
+	animation: bannersAnimation 5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+}
+
+p#banners img:nth-child(1) {
+	animation-delay: 0.1s;
+}
+
+p#banners img:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+p#banners img:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+@keyframes bannersAnimation {
+
+	0%,
+	50% {
+		filter: grayscale(1);
+		transform: scale(0.75);
+	}
+
+	10%,
+	40% {
+		filter: none;
+		transform: scale(0.9);
+	}
+
+	25% {
+		filter: none;
+		transform: scale(0.8);
+	}
 }
 
 /* contact section styling */
 section#contact {
-	background-color: var(--clr-accent);
-	color: var(--clr-font);
-	padding: 3rem;
 	height: 100%;
 }
 
@@ -672,8 +725,9 @@ section#contact form textarea {
 	border-color: transparent;
 	border-radius: 10px;
 
-	background-color: var(--clr-box);
-	color: var(--clr-font);
+	/* background-color: var(--clr-box); */
+	color: var(--clr-font-dark);
+	border: 1px solid;
 	box-shadow: none;
 }
 
@@ -692,20 +746,20 @@ section#contact form textarea {
 section#contact form button {
 	width: fit-content;
 	padding: 0.5rem 2rem;
-	color: var(--clr-font);
-	background-color: var(--clr-secondary);
 	font-size: 1rem;
 	cursor: pointer;
 	box-shadow: none;
+	transition: all 0.2s;
 }
 
 section#contact form button:hover {
+	color: var(--clr-font);
+	background-color: var(--clr-secondary);
 	box-shadow: var(--box-shadow-short);
 }
 
 /* projects section */
 section#projects {
-	padding: 2rem;
 	padding-bottom: 5%;
 	height: calc(100% - 4rem);
 }
@@ -789,9 +843,7 @@ section#projects {
 }
 
 /* why-me section */
-section#why-me {
-	padding: 2rem;
-}
+section#why-me {}
 
 /* media queries for screen width */
 /* screen width sizes 
@@ -807,6 +859,7 @@ section#why-me {
 }
 
 @media only screen and (width <=425px) {
+
 	nav div.hamburger-menu,
 	nav {
 		margin: 0;
