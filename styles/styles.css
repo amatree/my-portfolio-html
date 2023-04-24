@@ -11,6 +11,7 @@
 		10px 10px 33.4px rgba(0, 0, 0, 0.05), 24px 24px 80px rgba(0, 0, 0, 0.07);
 
 	--clr-primary: #ffffff;
+	--clr-primary-light: #fafafa;
 	--clr-accent: #474555;
 	--clr-accent-light: #82808c;
 	--clr-secondary: #fa6065;
@@ -102,7 +103,7 @@ html {
 }
 
 body {
-	background-color: var(--clr-primary);
+	background-color: var(--clr-primary-light);
 }
 
 footer {
@@ -349,12 +350,20 @@ nav ul#navigation li a {
 
 section {
 	min-height: 100vh;
-	padding-top: calc(var(--nav-height) * 0.35);
-	padding-bottom: calc(var(--nav-height) * 0.35);
+	padding: calc(var(--nav-height) * 0.55) 0;
 	scroll-snap-align: start;
 	display: flex;
 	flex-direction: column;
-	overflow-y: scroll;
+	overflow-y: hidden;
+}
+
+section:not(#main) {
+	border-radius: 20px;
+	margin: 1rem;
+	box-shadow: var(--box-shadow-short);
+}
+section + section {
+	margin-bottom: 3rem;
 }
 
 /* main section styling */
@@ -374,7 +383,7 @@ main .separator .line {
 }
 
 main .separator div.info {
-	margin: 1rem;
+	margin: 16px;
 }
 
 main .separator p {
@@ -798,7 +807,6 @@ section#why-me {
 }
 
 @media only screen and (width <=425px) {
-
 	nav div.hamburger-menu,
 	nav {
 		margin: 0;
