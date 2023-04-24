@@ -666,7 +666,7 @@ p#banners img {
 }
 
 p#banners img.hovered {
-	animation: bannersAnimation 5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+	animation: bannersAnimation 6s ease infinite;
 }
 
 p#banners img:nth-child(1) {
@@ -674,28 +674,31 @@ p#banners img:nth-child(1) {
 }
 
 p#banners img:nth-child(2) {
-	animation-delay: 0.2s;
+	animation-delay: 0.15s;
 }
 
 p#banners img:nth-child(3) {
-	animation-delay: 0.3s;
+	animation-delay: 0.2s;
 }
 
 @keyframes bannersAnimation {
 
 	0%,
-	50% {
+	70% {
 		filter: grayscale(1);
 		transform: scale(0.75);
 	}
 
 	10%,
-	40% {
+	20%,
+	50%,
+	60% {
 		filter: none;
 		transform: scale(0.9);
 	}
 
-	25% {
+	30%,
+	40% {
 		filter: none;
 		transform: scale(0.8);
 	}
@@ -759,24 +762,20 @@ section#contact form button:hover {
 }
 
 /* projects section */
-section#projects {
-	padding-bottom: 5%;
-	height: calc(100% - 4rem);
-}
+section#projects {}
 
 #project-cards {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 1;
-	gap: 7%;
-	padding: 5% 5%;
-	height: 100%;
+	gap: 2rem;
+	margin: 4rem;
 }
 
 #project-card {
 	user-drag: none;
 	-webkit-user-drag: none;
-	padding: 2rem;
+	padding: 2.5rem;
 	border-radius: 12px;
 	box-shadow: var(--box-shadow-short);
 
@@ -784,8 +783,6 @@ section#projects {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	gap: 1rem;
-	height: 70vh;
 
 	transition: all 0.2s ease;
 	transform: translateX(0%) scale(0.95);
@@ -797,27 +794,35 @@ section#projects {
 	color: var(--clr-font);
 }
 
-#project-card:hover .horizontal-separator {
-	filter: grayscale(0);
-	background-color: var(--clr-primary);
-}
-
 #project-card .horizontal-separator {
 	transition: all 0.5s ease;
 	background-color: var(--clr-secondary-light);
 	filter: grayscale(1);
 	border-radius: 12px;
 	height: 0.5em;
+	margin-top: 2rem;
+}
+
+#project-card:hover .horizontal-separator {
+	filter: grayscale(0);
+	background-color: var(--clr-primary);
 }
 
 #project-description {
 	transition: all 0.1s;
 	align-self: flex-end;
+	margin-top: 2rem;
 }
 
 #project-title {
 	transition: all 0.1s;
 	text-align: left;
+	margin-bottom: 0.5rem;
+}
+
+#project-languages {
+	font-size: 1rem;
+	font-weight: 600;
 }
 
 @media only screen and (width <=800px) {
@@ -826,13 +831,15 @@ section#projects {
 	}
 }
 
-@media only screen and (width <=720px) {
+@media only screen and (width <=1200px) {
 	#project-cards {
-		grid-template-rows: repeat(3, 1fr);
-		grid-template-columns: 1fr;
-		margin-bottom: 20vh;
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 2fr;
 	}
 
+	#project-card {
+		height: fit-content;
+	}
 }
 
 @media only screen and (width <=1020px) {
