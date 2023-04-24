@@ -289,7 +289,7 @@ function handleScroll(e) {
 	const isNavInMain = sectionAt.current === "main";
 	const isNavInAboutMe = sectionAt.current === "about";
 
-	animateMainSection();
+	animateMainSectionBg();
 
 	animateNavbarColor();
 
@@ -329,7 +329,7 @@ function handleScroll(e) {
 		}
 	}
 
-	function animateMainSection() {
+	function animateMainSectionBg() {
 		// animate bg visual for main section
 		if (window.scrollY <= NAV_HEIGHT) {
 			mainSectionBgVisualCircles.forEach((cir, i) => {
