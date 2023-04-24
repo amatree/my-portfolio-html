@@ -14,7 +14,7 @@ I also used `fontawesome-free-6.3.0-web` [link here](https://fontawesome.com/ver
 
 As for fonts, I used `Montserrat` from Google Fonts [link here](https://fonts.google.com/specimen/Montserrat).
 
-I used https://svgcrop.com/ to crop out white/blank part of a svg image. It worked perfectly with a simple one click!
+I used https://svgcrop.com/ to crop out white/blank part of a svg image. It works perfectly with a simple one click!
 
 ## Known Issues
 
@@ -22,7 +22,7 @@ I used https://svgcrop.com/ to crop out white/blank part of a svg image. It work
 
 ## About Me
 
-I am a beginner web developer/software engineer with asppiration in building responsive, user-friendly websites, useful tools and softwares, as well as open-source libraries for everyone. I am a detail and quality oriented programmer. My skills include HTML, CSS, JavaScript, React, Python, C#, and Java.
+I am a beginner web developer/software engineer with aspiration in building responsive, user-friendly websites, useful tools and softwares, as well as open-source libraries for everyone. I am a detail and quality-oriented programmer. My skills include HTML, CSS, JavaScript, React, Python, C#, and Java.
 
 ## Contact
 

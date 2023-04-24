@@ -776,10 +776,9 @@ section#projects {}
 #project-cards {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 1;
+	grid-template-rows: 1fr;
 	gap: 2rem;
 	margin: 4rem;
-	overflow: hidden;
 }
 
 #project-card {
