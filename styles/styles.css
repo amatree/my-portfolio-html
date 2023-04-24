@@ -373,7 +373,7 @@ section:not(#main) {
 	}
 }
 
-@media only screen and (width <=500px) {
+@media only screen and (width <=520px) {
 	section:not(#main) {
 		margin: 1rem;
 		padding: 3rem 2rem;
@@ -567,7 +567,7 @@ section#about #about-me-text {
 
 @media only screen and (width <=1300px) {
 	section#about {
-		padding-top: 10px;
+		padding: 3rem;
 		flex-direction: column;
 		gap: 1rem;
 	}
@@ -585,6 +585,7 @@ section#about #about-me-text {
 
 	#about-me-content {
 		min-width: 100%;
+		margin-bottom: 3rem;
 	}
 
 	.my-gallery {
@@ -626,8 +627,10 @@ section#about #about-me-text {
 	align-self: flex-end;
 	justify-self: flex-end;
 	text-align: right;
+
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
+
 	padding: 0px 10px;
 	border-radius: 10px;
 	margin: 1.2rem;
@@ -640,7 +643,7 @@ section#about #about-me-text {
 }
 
 div#about-me-content p+p {
-	margin-top: 1rem;
+	margin: 2rem 0rem;
 }
 
 .special-fx {
@@ -663,6 +666,7 @@ p#banners img {
 	filter: grayscale(1);
 	transform: scale(0.75);
 	transition: all 0.2s;
+	width: min(20%, 256px);
 }
 
 p#banners img.hovered {
@@ -755,6 +759,7 @@ section#contact form button {
 	transition: all 0.2s;
 }
 
+section#contact form button:focus,
 section#contact form button:hover {
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
@@ -764,12 +769,17 @@ section#contact form button:hover {
 /* projects section */
 section#projects {}
 
+#projects-section-header {
+	margin-bottom: 3rem;
+}
+
 #project-cards {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 1;
 	gap: 2rem;
 	margin: 4rem;
+	overflow: hidden;
 }
 
 #project-card {
@@ -825,16 +835,11 @@ section#projects {}
 	font-weight: 600;
 }
 
-@media only screen and (width <=800px) {
-	#project-title {
-		font-size: 1.3rem;
-	}
-}
-
 @media only screen and (width <=1200px) {
 	#project-cards {
 		grid-template-rows: 1fr 1fr;
 		grid-template-columns: 2fr;
+		margin: 2rem;
 	}
 
 	#project-card {
@@ -849,6 +854,30 @@ section#projects {}
 	}
 }
 
+@media only screen and (width <=800px) {
+	#project-title {
+		font-size: 1.3rem;
+	}
+
+	#project-cards {
+		margin: 3rem 1rem;
+	}
+
+	#projects-section-header {
+		margin-bottom: 2rem;
+	}
+}
+
+@media only screen and (width <=450px) {
+	#project-cards {
+		margin: 3rem 0rem;
+	}
+
+	#projects-section-header {
+		margin-bottom: 0rem;
+	}
+}
+
 /* why-me section */
 section#why-me {}
 
@@ -859,13 +888,7 @@ section#why-me {}
 --mobile-large-screen-width: 425px;
 --tablet-screen-width: 768px; 
 */
-@media only screen and (width <=375px) {
-	:root {
-		--font-h1-bold-size: 1.75rem;
-	}
-}
-
-@media only screen and (width <=425px) {
+@media only screen and (width <=490px) {
 
 	nav div.hamburger-menu,
 	nav {
@@ -889,8 +912,7 @@ section#why-me {}
 	section#contact,
 	section#why-me,
 	section#about {
-		padding-left: 1rem;
-		padding-right: 1rem;
+		padding: 4rem 2rem;
 	}
 
 	section#main main .separator,
@@ -899,9 +921,21 @@ section#why-me {}
 	section#why-me .separator,
 	section#about .separator {
 		margin: 0;
-		margin-left: 0.25rem;
+		margin-left: 0.5rem;
 		margin-right: 0.5rem;
-		margin-top: 2rem;
+		margin-top: 1rem;
 		white-space: normal;
+	}
+}
+
+@media only screen and (width <=430px) {
+	:root {
+		--font-h1-bold-size: 1.75rem;
+	}
+}
+
+@media only screen and (width <=375px) {
+	:root {
+		--font-h1-bold-size: 1.5rem;
 	}
 }

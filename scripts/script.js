@@ -53,6 +53,30 @@ const modal = modalInnerHTML();
 var NAV_HEIGHT = 100;
 const NAV_HEIGHT_SCALE = 0.65;
 
+const TEXT_TAGS = [
+	"DIV",
+	"EM",
+	"P",
+	"H1",
+	"H2",
+	"H3",
+	"H4",
+	"H5",
+	"H6",
+	"B",
+	"I",
+	"STRONG",
+	"MARK",
+	"SMALL",
+	"SUB",
+	"SUP",
+	"INS",
+	"DEL",
+	"Q",
+	"BR",
+	"SPAN",
+];
+
 async function initialize() {
 	allSections = document.querySelectorAll("section");
 	currSection = getSnappedSection();
@@ -156,6 +180,7 @@ function handleProjectCardEvents() {
 	// 0 => -200%
 	// viewportWidth / 2 => 0%
 	// viewportWidth => 200%
+
 	projectCardsParent.onmousedown = (event) => {
 		projectCardsMouseDragInfo.startDragX = event.pageX;
 		const slope = (2 * 200) / viewportWidth;
@@ -274,14 +299,14 @@ function handleScroll(e) {
 		if (!isNavInAboutMe) {
 			aboutMeSectionMeImg.classList.remove("hovered");
 			aboutMeSectionGallery.classList.remove("hovered");
-			
+
 			aboutMeSectionBrandLogos.forEach((logo) => {
 				logo.classList.remove("hovered");
 			});
-			
+
 			return;
 		}
-		
+
 		aboutMeSectionMeImg.classList.add("hovered");
 		aboutMeSectionGallery.classList.add("hovered");
 
@@ -297,16 +322,10 @@ function handleScroll(e) {
 			changeToDefNav();
 			navElement.style.maxHeight = storage["vars"]["--nav-height"];
 		} else {
-			// if scrolling through accent bg colored section
-			// if (sectionAt.current === "contact") {
-			// 	changeToDefNav();
-			// } else {
-			// 	changeToLightNav();
-			// }
 			changeToLightNav();
 
 			// scale it down as well
-			// navElement.style.maxHeight = NAV_HEIGHT * NAV_HEIGHT_SCALE + "px";
+			navElement.style.maxHeight = "65px";
 		}
 	}
 
@@ -599,8 +618,27 @@ function urlContains(str) {
 }
 
 // add contains into String class
-if (!("contains" in String.prototype)) {
+if (!String.prototype.contains) {
 	String.prototype.contains = function (str, startIndex) {
 		return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+	};
+}
+
+// add contains into Array class
+if (!Array.prototype.contains) {
+	Array.prototype.contains = function (element) {
+		return this.indexOf(element) !== -1;
+	};
+}
+
+// add contains into Object class
+if (!Object.prototype.contains) {
+	Object.prototype.contains = function (value) {
+		for (const key in this) {
+			if (this.hasOwnProperty(key) && this[key] === value) {
+				return true;
+			}
+		}
+		return false;
 	};
 }
