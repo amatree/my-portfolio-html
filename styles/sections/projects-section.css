@@ -37,7 +37,6 @@
 h3#project-title {
   text-align: left;
   font-size: 1.3rem;
-  padding-right: 2rem;
 }
 
 #project-body {
@@ -73,6 +72,7 @@ br {
   height: 0.5em;
   width: 80%;
   position: relative;
+  align-self: flex-end;
 
   background-color: var(--clr-secondary-light);
   box-shadow: var(--box-shadow-short);
@@ -97,11 +97,11 @@ br {
   opacity: 0;
 
   transition: all 0.4s;
-  transform: translateX(-50%);
+  transform: translateX(-200%);
 }
 
 #project-card:hover #open-external-icon {
-  transform: translateX(0%);
+  transform: translateX(-100%);
   opacity: 1;
 }
 

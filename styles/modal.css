@@ -66,6 +66,7 @@
 
 .modal-footer #modal-back-button {
   color: var(--clr-secondary);
+  background-color: var(--clr-primary);
   border: 1px solid var(--clr-secondary);
   font-size: 1rem;
   padding: 1rem 2rem;

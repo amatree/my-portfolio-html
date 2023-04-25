@@ -27,6 +27,12 @@ var defaultMainSectionBgVisualCirclePositions = [];
 var aboutMeSectionMeImg = null;
 var aboutMeSectionBrandLogos = {};
 var aboutMeSectionGallery = null;
+var aboutMeScriptVars = {
+	timer: null,
+	logo_timer: null,
+	ANIMATION_DELAY: 1500,
+	LOGOS_ANIMATION_DELAY: 1000,
+};
 
 var projectCardsParent = null;
 var projectCards = null;
@@ -37,6 +43,9 @@ var projectCardsMouseDragInfo = {
 	endDragX: null,
 	slope: 0,
 	timer: null,
+	TRANSLATION_OFFSET: 200,
+	DELAY_BEFORE_DRAG: 500,
+	MEDIUM_ACTIVATION_WIDTH: 720,
 };
 var projectCardsStartDraggingAtMouseX = null;
 var projectCardsEndDraggingAtMouseX = null;
@@ -155,7 +164,8 @@ function initListeners() {
 	});
 
 	// project cards event
-	if (viewportWidth > 720) handleProjectCardEvents();
+	if (viewportWidth > projectCardsMouseDragInfo.MEDIUM_ACTIVATION_WIDTH)
+		handleProjectCardEvents();
 
 	// for scrolling direction
 	window.addEventListener("wheel", (event) => {
@@ -192,11 +202,12 @@ function handleProjectCardEvents() {
 	projectCardsParent.onmousedown = (event) => {
 		projectCardsMouseDragInfo.timer = setTimeout(() => {
 			projectCardsMouseDragInfo.startDragX = event.pageX;
-			const slope = (2 * 200) / viewportWidth;
+			const slope =
+				(2 * projectCardsMouseDragInfo.TRANSLATION_OFFSET) / viewportWidth;
 			projectCardsMouseDragInfo.slope = slope;
 			projectCardsMouseDragInfo.isDragging = true;
 			changeUserSelect();
-		}, 500);
+		}, projectCardsMouseDragInfo.DELAY_BEFORE_DRAG);
 	};
 
 	projectCardsParent.onmousemove = (event) => {
@@ -249,43 +260,6 @@ function handleProjectCardEvents() {
 	}
 }
 
-async function handleNavHamburger() {
-	if (navHamburgerShown) {
-		document.documentElement.style.setProperty(
-			"--nav-hamburger-opt-display",
-			"flex"
-		);
-
-		// add closed class to hamburger-menu
-		document
-			.querySelector("div[class='hamburger-menu']")
-			.classList.add("closed");
-
-		// delay before set hamburger-menu display to none
-		setTimeout(() => {
-			navNavigation.innerHTML = navNavigationInnerHTML;
-			document.documentElement.style.setProperty("--nav-opt-display", "none");
-		}, 400);
-	} else {
-		// show hamburger menu
-		document.documentElement.style.setProperty(
-			"--nav-hamburger-opt-display",
-			"none"
-		);
-		document.documentElement.style.setProperty("--nav-opt-display", "flex");
-		document
-			.querySelector("div[class='hamburger-menu closed']")
-			?.classList.remove("closed");
-		navNavigation.innerHTML = `<div class="hamburger-menu"><span class="hide-sidenav">>></span><h5>Menu</h5>${navNavigationInnerHTML}</div>`;
-		// handle closing hamburger
-		document.querySelector(".hide-sidenav").addEventListener("click", () => {
-			handleNavHamburger();
-		});
-	}
-
-	navHamburgerShown = !navHamburgerShown;
-}
-
 function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type !== "scroll") return;
@@ -309,6 +283,11 @@ function handleScroll(e) {
 	function animateAboutMeSectionImgHover() {
 		// only animate if already at about me section or further down
 		if (sectionAt.index < SECTION_INDICES.about) {
+			clearTimeout(aboutMeScriptVars.timer);
+			clearTimeout(aboutMeScriptVars.logo_timer);
+			aboutMeScriptVars.timer = null;
+			aboutMeScriptVars.logo_timer = null;
+
 			aboutMeSectionMeImg.classList.remove("hovered");
 			aboutMeSectionGallery.classList.remove("hovered");
 
@@ -318,13 +297,21 @@ function handleScroll(e) {
 
 			return;
 		}
+		if (!aboutMeScriptVars.timer) {
+			aboutMeScriptVars.timer = setTimeout(() => {
+				aboutMeSectionMeImg.classList.add("hovered");
+				aboutMeSectionGallery.classList.add("hovered");
 
-		aboutMeSectionMeImg.classList.add("hovered");
-		aboutMeSectionGallery.classList.add("hovered");
+				aboutMeScriptVars.logo_timer = setTimeout(() => {
+					aboutMeSectionBrandLogos.forEach((logo) => {
+						logo.classList.add("hovered");
+					});
+				}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
 
-		aboutMeSectionBrandLogos.forEach((logo) => {
-			logo.classList.add("hovered");
-		});
+				clearTimeout(aboutMeScriptVars.timer);
+				clearTimeout(aboutMeScriptVars.logo_timer);
+			}, aboutMeScriptVars.ANIMATION_DELAY);
+		}
 	}
 
 	function animateNavbarColor() {
@@ -412,6 +399,43 @@ function handleScroll(e) {
 		navHamburger.style.fill = storage["vars"]["--clr-font-dark"];
 		navHamburger.style.stroke = storage["vars"]["--clr-font-dark"];
 	}
+}
+
+async function handleNavHamburger() {
+	if (navHamburgerShown) {
+		document.documentElement.style.setProperty(
+			"--nav-hamburger-opt-display",
+			"flex"
+		);
+
+		// add closed class to hamburger-menu
+		document
+			.querySelector("div[class='hamburger-menu']")
+			.classList.add("closed");
+
+		// delay before set hamburger-menu display to none
+		setTimeout(() => {
+			navNavigation.innerHTML = navNavigationInnerHTML;
+			document.documentElement.style.setProperty("--nav-opt-display", "none");
+		}, 400);
+	} else {
+		// show hamburger menu
+		document.documentElement.style.setProperty(
+			"--nav-hamburger-opt-display",
+			"none"
+		);
+		document.documentElement.style.setProperty("--nav-opt-display", "flex");
+		document
+			.querySelector("div[class='hamburger-menu closed']")
+			?.classList.remove("closed");
+		navNavigation.innerHTML = `<div class="hamburger-menu"><span class="hide-sidenav">>></span><h5>Menu</h5>${navNavigationInnerHTML}</div>`;
+		// handle closing hamburger
+		document.querySelector(".hide-sidenav").addEventListener("click", () => {
+			handleNavHamburger();
+		});
+	}
+
+	navHamburgerShown = !navHamburgerShown;
 }
 
 // helper functions
