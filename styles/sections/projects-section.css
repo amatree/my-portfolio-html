@@ -6,7 +6,7 @@
 #project-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-rows: auto;
   gap: 2rem;
   margin: 4rem 0rem;
 }
@@ -34,9 +34,27 @@
   outline: 1px solid var(--clr-secondary);
 }
 
+#project-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
 h3#project-title {
   text-align: left;
   font-size: 1.3rem;
+}
+
+#project-team-size-icon {
+  align-self: center;
+}
+
+#project-team-size {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1rem;
 }
 
 #project-body {
@@ -97,11 +115,11 @@ br {
   opacity: 0;
 
   transition: all 0.4s;
-  transform: translateX(-200%);
+  transform: translateX(-100%);
 }
 
 #project-card:hover #open-external-icon {
-  transform: translateX(-100%);
+  transform: translateX(0%);
   opacity: 1;
 }
 
