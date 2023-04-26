@@ -3,12 +3,14 @@
   margin-bottom: 3rem;
 }
 
-#project-cards {
+#project-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   gap: 2rem;
-  margin: 4rem 0rem;
+  margin: 2rem 0rem;
+  padding: 4rem;
+  transition: all 0.4s;
 }
 
 #project-card {
@@ -25,11 +27,9 @@
 
   transition: all 0.3s;
   transform: translateX(0%) scale(0.95);
-
-  cursor: pointer;
 }
 
-#project-card:hover {
+#project-card.hover {
   transform: scale(1);
   outline: 1px solid var(--clr-secondary);
 }
@@ -84,43 +84,53 @@ br {
   margin-bottom: 0.5rem;
 }
 
-#project-card .horizontal-separator {
-  border-radius: 12px;
+#project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  gap: 0;
+  padding: 1rem 0;
   margin-top: 2rem;
-  height: 0.5em;
-  width: 80%;
+
+  cursor: pointer;
   position: relative;
-  align-self: flex-end;
+  transition: all 0.4s;
+}
+
+#project-footer .horizontal-separator {
+  border-radius: 12px;
+  height: 0.5em;
+  flex: 1;
 
   background-color: var(--clr-secondary-light);
   box-shadow: var(--box-shadow-short);
   filter: grayscale(1);
-  transform: translateX(12.5%);
 
   transition: all 0.4s;
 }
 
-#project-card:hover .horizontal-separator {
+#project-card.hover #project-footer {
+  gap: 20%;
+}
+
+#project-card.hover .horizontal-separator {
   filter: grayscale(0);
   background-color: var(--clr-secondary);
-  transform: translateX(5%);
+  transform: translateX(15%);
 }
 
 #open-external-icon {
   color: var(--clr-secondary);
-  position: absolute;
-  margin: 2.5rem 1.5rem;
-  right: 0;
-  bottom: 0;
   opacity: 0;
+  transform: translateX(-100%);
 
   transition: all 0.4s;
-  transform: translateX(-100%);
 }
 
-#project-card:hover #open-external-icon {
-  transform: translateX(0%);
+#project-card.hover #open-external-icon {
   opacity: 1;
+  transform: translateX(0%);
 }
 
 @media only screen and (width <=1200px) {
@@ -140,10 +150,6 @@ br {
 
   #project-body em:last-child {
     margin-bottom: 2rem;
-  }
-
-  #project-card .horizontal-separator {
-    margin-top: 1rem;
   }
 
   #project-description {

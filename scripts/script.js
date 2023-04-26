@@ -35,6 +35,7 @@ var aboutMeScriptVars = {
 };
 
 var projectCardsParent = null;
+var projectCardsContainer = null;
 var projectCards = null;
 var isMouseDraggingInProjectCards = false;
 var projectCardsMouseDragInfo = {
@@ -43,9 +44,9 @@ var projectCardsMouseDragInfo = {
 	endDragX: null,
 	slope: 0,
 	timer: null,
-	TRANSLATION_OFFSET: 200,
+	TRANSLATION_OFFSET: 100,
 	DELAY_BEFORE_DRAG: 500,
-	MEDIUM_ACTIVATION_WIDTH: 720,
+	MEDIUM_VIEWPORT_ACTIVATION_WIDTH: 1200,
 };
 var projectCardsStartDraggingAtMouseX = null;
 var projectCardsEndDraggingAtMouseX = null;
@@ -137,7 +138,21 @@ async function initialize() {
 	navHamburger = document.querySelector("nav ul[id='hamburger']");
 
 	projectCardsParent = document.querySelector("#project-cards");
+	projectCardsContainer = document.querySelector("#project-cards-container");
 	projectCards = document.querySelectorAll("#project-cards #project-card");
+	// manual hover event for project cards
+	projectCards.forEach((projectCard) => {
+		projectCard.onmouseenter = (event) => {
+			if (!projectCardsMouseDragInfo.isDragging) {
+				event.preventDefault();
+				projectCard.classList.add("hover");
+			}
+		};
+		projectCard.onmouseleave = (event) => {
+			event.preventDefault();
+			projectCard.classList.remove("hover");
+		};
+	});
 
 	// check for form submission
 	formSubmissionCheck();
@@ -164,8 +179,11 @@ function initListeners() {
 	});
 
 	// project cards event
-	if (viewportWidth > projectCardsMouseDragInfo.MEDIUM_ACTIVATION_WIDTH)
+	if (
+		viewportWidth >= projectCardsMouseDragInfo.MEDIUM_VIEWPORT_ACTIVATION_WIDTH
+	) {
 		handleProjectCardEvents();
+	}
 
 	// for scrolling direction
 	window.addEventListener("wheel", (event) => {
@@ -195,10 +213,6 @@ function formSubmissionCheck() {
 
 function handleProjectCardEvents() {
 	// implement scroll dragging for project cards
-	// 0 => -200%
-	// viewportWidth / 2 => 0%
-	// viewportWidth => 200%
-
 	projectCardsParent.onmousedown = (event) => {
 		projectCardsMouseDragInfo.timer = setTimeout(() => {
 			projectCardsMouseDragInfo.startDragX = event.pageX;
@@ -206,7 +220,7 @@ function handleProjectCardEvents() {
 				(2 * projectCardsMouseDragInfo.TRANSLATION_OFFSET) / viewportWidth;
 			projectCardsMouseDragInfo.slope = slope;
 			projectCardsMouseDragInfo.isDragging = true;
-			changeUserSelect();
+			changeCardStylesOnDrag();
 		}, projectCardsMouseDragInfo.DELAY_BEFORE_DRAG);
 	};
 
@@ -219,9 +233,7 @@ function handleProjectCardEvents() {
 
 			// only transform per frame
 			window.requestAnimationFrame(() => {
-				projectCards.forEach((projectCard) => {
-					projectCard.style.transform = `translateX(${percentTranslate}%)`;
-				});
+				projectCardsContainer.style.transform = `translateX(${percentTranslate}%)`;
 			});
 		}
 	};
@@ -234,28 +246,31 @@ function handleProjectCardEvents() {
 		// reset translate
 
 		window.requestAnimationFrame(() => {
-			projectCards.forEach((projectCard) => {
-				projectCard.style.transform = `translateX(0%)`;
-			});
+			projectCardsContainer.style.transform = `translateX(0%)`;
 		});
 		window.requestAnimationFrame(() => {
-			projectCards.forEach((projectCard) => {
-				projectCard.style.transform = ``;
-			});
+			projectCardsContainer.style.transform = ``;
 		});
 
-		changeUserSelect(false);
+		changeCardStylesOnDrag(false);
 	};
 
-	function changeUserSelect(enable = true) {
+	function changeCardStylesOnDrag(enable = true) {
 		if (enable) {
 			projectCards.forEach((projectCard) => {
 				projectCard.classList.add("non-selectable");
+				projectCard.classList.remove("hover");
+				projectCard.style.transform = "scale(1)";
+				projectCard.style.cursor = "pointer";
 			});
+			projectCardsParent.style = "overflow-x: scroll;";
 		} else {
 			projectCards.forEach((projectCard) => {
 				projectCard.classList.remove("non-selectable");
+				projectCard.style.transform = "initial";
+				projectCard.style.cursor = "initial";
 			});
+			projectCardsParent.style = "";
 		}
 	}
 }
@@ -306,10 +321,10 @@ function handleScroll(e) {
 					aboutMeSectionBrandLogos.forEach((logo) => {
 						logo.classList.add("hovered");
 					});
+					clearTimeout(aboutMeScriptVars.logo_timer);
 				}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
 
 				clearTimeout(aboutMeScriptVars.timer);
-				clearTimeout(aboutMeScriptVars.logo_timer);
 			}, aboutMeScriptVars.ANIMATION_DELAY);
 		}
 	}

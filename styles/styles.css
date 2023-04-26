@@ -176,6 +176,10 @@ a.source-code-link:hover {
 	display: none;
 }
 
+.no-pointer-events {
+	pointer-events: none;
+}
+
 .non-selectable {
 	-moz-user-select: none;
 	-webkit-user-select: none;
