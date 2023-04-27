@@ -134,14 +134,11 @@ br {
 }
 
 @media only screen and (width <=1200px) {
-  #project-cards {
+  #project-cards-container {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 2fr;
     margin: 2rem;
-  }
-
-  #project-card {
-    height: fit-content;
+    padding: 0;
   }
 
   #project-body em {
@@ -169,7 +166,7 @@ br {
     font-size: 1.3rem;
   }
 
-  #project-cards {
+  #project-cards-container {
     margin: 3rem 1rem;
   }
 
@@ -179,7 +176,7 @@ br {
 }
 
 @media only screen and (width <=450px) {
-  #project-cards {
+  #project-cards-container {
     margin: 3rem 0rem;
   }
 

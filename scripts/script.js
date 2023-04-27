@@ -37,7 +37,6 @@ var aboutMeScriptVars = {
 var projectCardsParent = null;
 var projectCardsContainer = null;
 var projectCards = null;
-var isMouseDraggingInProjectCards = false;
 var projectCardsMouseDragInfo = {
 	isDragging: false,
 	startDragX: null,
@@ -48,8 +47,6 @@ var projectCardsMouseDragInfo = {
 	DELAY_BEFORE_DRAG: 500,
 	MEDIUM_VIEWPORT_ACTIVATION_WIDTH: 1200,
 };
-var projectCardsStartDraggingAtMouseX = null;
-var projectCardsEndDraggingAtMouseX = null;
 
 var viewportHeight = window.innerHeight;
 var viewportWidth = window.innerWidth;
@@ -142,16 +139,27 @@ async function initialize() {
 	projectCards = document.querySelectorAll("#project-cards #project-card");
 	// manual hover event for project cards
 	projectCards.forEach((projectCard) => {
-		projectCard.onmouseenter = (event) => {
-			if (!projectCardsMouseDragInfo.isDragging) {
-				event.preventDefault();
+		projectCard.addEventListener("focusin", (event) => {
+			setFocusState();
+		});
+		projectCard.addEventListener("focusout", (event) => {
+			setFocusState(false);
+		});
+
+		projectCard.addEventListener("mouseenter", (event) => {
+			setFocusState();
+		});
+		projectCard.addEventListener("mouseleave", (event) => {
+			setFocusState(false);
+		});
+
+		function setFocusState(value = true) {
+			if (!projectCardsMouseDragInfo.isDragging && value) {
 				projectCard.classList.add("hover");
+			} else {
+				projectCard.classList.remove("hover");
 			}
-		};
-		projectCard.onmouseleave = (event) => {
-			event.preventDefault();
-			projectCard.classList.remove("hover");
-		};
+		}
 	});
 
 	// check for form submission
