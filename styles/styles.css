@@ -1,5 +1,6 @@
 /* import section-wise stylesheets */
 @import url("./sections/nav.css");
+@import url("./sections/nav-hamburger-menu.css");
 @import url("./sections/main-section.css");
 @import url("./sections/about-section.css");
 @import url("./sections/projects-section.css");
@@ -98,6 +99,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	font: inherit;
+	transition: inherit;
 }
 
 html {
@@ -105,6 +107,16 @@ html {
 	scroll-padding-top: calc(var(--nav-height) * 0.64);
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
+}
+
+/* hide scrollbar */
+html {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -155,7 +167,7 @@ footer {
 	color: var(--clr-font);
 }
 
-div.social-links a {
+.social-links a {
 	text-decoration: none;
 	color: var(--clr-font);
 	margin: 0.5rem;
@@ -165,6 +177,7 @@ a.source-code-link {
 	text-align: center;
 	cursor: pointer;
 	pointer-events: initial;
+	margin-top: 0.5rem;
 }
 
 a.source-code-link:hover {
@@ -268,7 +281,6 @@ i {
 --tablet-screen-width: 768px; 
 */
 @media only screen and (width <=490px) {
-
 	nav div.hamburger-menu,
 	nav {
 		margin: 0;

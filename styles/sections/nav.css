@@ -21,7 +21,7 @@ nav ul {
 }
 
 nav ul#navigation {
-	padding-right: 2rem;
+	margin-right: 2rem;
 }
 
 nav ul li a {
@@ -62,48 +62,12 @@ nav ul li :is(a[href="#about"], a[href="#projects"]):hover {
 	color: var(--clr-font-hover);
 }
 
-nav div.hamburger-menu {
-	position: absolute;
-	top: 0;
-	right: -200px;
-	height: 100vh;
-	width: 200px;
-	padding: 2rem 1.5rem;
-	text-align: center;
-	color: var(--clr-font);
-	display: flex;
-	flex-direction: column;
-	background-color: var(--clr-box);
-	gap: 3rem;
-	animation: navSlideIn 0.5s forwards;
-	user-select: none;
-}
-
-nav div.hamburger-menu.closed {
-	animation: navSlideOut 0.5s forwards;
-}
-
-nav div.hamburger-menu span.hide-sidenav {
-	position: absolute;
-	top: 0;
-	right: 0;
-	cursor: pointer;
-	margin-right: 10px;
-}
-
 nav ul#hamburger {
 	fill: var(--clr-font);
 	stroke: var(--clr-font);
 	cursor: pointer;
 	display: none;
-	transition: all 0.4s;
-}
-
-nav ul#navigation li a {
-	font-size: var(--font-regular-size);
-	font-weight: var(--font-regular-weight);
-	line-height: var(--font-regular-line-height);
-	letter-spacing: var(--font-regular-letter-spacing);
+	transition: all 0.05s;
 }
 
 @media only screen and (max-width: 700px) {
@@ -119,27 +83,5 @@ nav ul#navigation li a {
 @media only screen and (max-width: 520px) {
 	nav ul li h3 a[href="#"] {
 		margin: 0 1rem;
-	}
-}
-
-@keyframes navSlideIn {
-	from {
-		display: flex;
-		right: -200px;
-	}
-
-	to {
-		right: 0px;
-	}
-}
-
-@keyframes navSlideOut {
-	from {
-		right: 0px;
-	}
-
-	to {
-		right: -200px;
-		display: none;
 	}
 }

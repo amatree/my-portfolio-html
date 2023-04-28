@@ -20,6 +20,9 @@ var currSection = null;
 var sectionsNotMain = null;
 var sectionPadding = null;
 
+var footerElement = null;
+var navHamburgerInnerHTML = null;
+
 var mainSection = null;
 var mainSectionBgVisualCircles = null;
 var defaultMainSectionBgVisualCirclePositions = [];
@@ -119,6 +122,28 @@ async function initialize() {
 			cy: parseInt(cy.replace("px", "")),
 		});
 	});
+
+	footerElement = document.querySelector("footer");
+	navHamburgerInnerHTML = `
+	<div class="nav-hamburger-menu-container">
+		<div class="nav-hamburger-menu">
+			<div id="hamburger-menu">
+				<svg id="collapse-menu-btn" width="131px" height="131px">
+					<rect x="65px" y="65px" width="60px" height="1px"></rect>
+					<rect x="65px" y="65px" width="60px" height="1px"></rect>
+					<rect x="65px" y="65px" width="60px" height="1px"></rect>
+					<rect x="65px" y="65px" width="60px" height="1px"></rect>
+					<circle cx="65px" cy="65px"></circle>
+				</svg>
+				<a href="#" style="font-weight: 700"><h2>Portfolio</h2></a>
+				<div id="navigation">
+					<a href="#about"><h4>About</h4></a>
+					<a href="#projects"><h4>Projects</h4></a>
+					<a href="#contact"><h4>Contact</h4></a>
+				</div>
+			</div>
+		<div id="nav-hamburger-footer">${footerElement.innerHTML}</div>
+	</div>`;
 
 	// retrieve variables from *
 	storage["vars"] = getCssVariables();
@@ -433,14 +458,14 @@ async function handleNavHamburger() {
 
 		// add closed class to hamburger-menu
 		document
-			.querySelector("div[class='hamburger-menu']")
+			.querySelector(".nav-hamburger-menu-container")
 			.classList.add("closed");
 
 		// delay before set hamburger-menu display to none
 		setTimeout(() => {
 			navNavigation.innerHTML = navNavigationInnerHTML;
 			document.documentElement.style.setProperty("--nav-opt-display", "none");
-		}, 400);
+		}, 200);
 	} else {
 		// show hamburger menu
 		document.documentElement.style.setProperty(
@@ -449,12 +474,21 @@ async function handleNavHamburger() {
 		);
 		document.documentElement.style.setProperty("--nav-opt-display", "flex");
 		document
-			.querySelector("div[class='hamburger-menu closed']")
+			.querySelector(".nav-hamburger-menu-container.closed")
 			?.classList.remove("closed");
-		navNavigation.innerHTML = `<div class="hamburger-menu"><span class="hide-sidenav">>></span><h5>Menu</h5>${navNavigationInnerHTML}</div>`;
+		navNavigation.innerHTML = navHamburgerInnerHTML;
+
 		// handle closing hamburger
-		document.querySelector(".hide-sidenav").addEventListener("click", () => {
-			handleNavHamburger();
+		document
+			.querySelector("#collapse-menu-btn")
+			.addEventListener("click", () => {
+				handleNavHamburger();
+			});
+
+		document.querySelectorAll(".nav-hamburger-menu a").forEach((tag) => {
+			tag.addEventListener("click", () => {
+				handleNavHamburger();
+			});
 		});
 	}
 
