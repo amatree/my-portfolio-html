@@ -133,7 +133,7 @@ async function initialize() {
 					<rect x="65px" y="65px" width="60px" height="1px"></rect>
 					<rect x="65px" y="65px" width="60px" height="1px"></rect>
 					<rect x="65px" y="65px" width="60px" height="1px"></rect>
-					<circle cx="65px" cy="65px"></circle>
+					<rect x="65px" y="65px" width="1px" height="1px"></rect>
 				</svg>
 				<a href="#" style="font-weight: 700"><h2>Portfolio</h2></a>
 				<div id="navigation">

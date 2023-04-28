@@ -142,7 +142,7 @@
 
 #collapse-menu-btn {
 	--line-offset: 32px;
-	--line-offset-when-active: 20px;
+	--line-offset-when-active: 6px;
 	scale: 0.25;
 
 	cursor: pointer;
@@ -151,12 +151,10 @@
 	right: 0;
 }
 
-#collapse-menu-btn rect,
-#collapse-menu-btn circle {
+#collapse-menu-btn rect {
 	stroke: var(--clr-font-dark-before-hover);
 	stroke-width: 6px;
 	fill: var(--clr-font-dark-before-hover);
-	r: 4px;
 }
 
 #collapse-menu-btn rect {
@@ -164,8 +162,7 @@
 	transition: inherit;
 }
 
-#collapse-menu-btn:hover rect,
-#collapse-menu-btn:hover circle {
+#collapse-menu-btn:hover rect {
 	stroke: var(--clr-font-dark);
 	fill: var(--clr-font-dark);
 }
@@ -188,4 +185,8 @@
 
 #collapse-menu-btn rect:nth-child(4) {
 	transform: rotate(135deg) translate(var(--line-offset));
+}
+
+#collapse-menu-btn rect:nth-child(5) {
+	transform: rotate(45deg);
 }
