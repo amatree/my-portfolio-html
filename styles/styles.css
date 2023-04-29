@@ -124,7 +124,7 @@ body {
 }
 
 section {
-	min-height: 100vh;
+	min-height: 100dvh;
 	padding: calc(var(--nav-height) * 0.55) 0;
 	scroll-snap-align: start;
 	display: flex;

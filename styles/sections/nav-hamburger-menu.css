@@ -51,6 +51,12 @@
 .nav-hamburger-menu #hamburger-menu h2 {
 	margin-top: 1rem;
 }
+@media only screen and (width <= 450px) {
+	.nav-hamburger-menu #hamburger-menu h2 {
+		margin-top: 2rem;
+		font-size: 1.75rem;
+	}
+}
 
 .nav-hamburger-menu #hamburger-menu h4 {
 	font-weight: 500;
@@ -58,8 +64,8 @@
 
 .nav-hamburger-menu {
 	border-radius: 20px;
-	height: calc(100vh - 4rem);
-	width: calc(100vw - 4rem);
+	height: calc(100dvh - 4rem);
+	width: calc(100dvw - 4rem);
 
 	display: flex;
 	flex-direction: column;
@@ -113,6 +119,12 @@
 	box-shadow: 0 1px 2px var(--clr-font-dark);
 }
 
+@media only screen and (width <= 520px) {
+	#hamburger-menu {
+		margin: 1rem;
+	}
+}
+
 #nav-hamburger-footer {
 	display: flex;
 	align-items: center;
@@ -141,7 +153,8 @@
 }
 
 #collapse-menu-btn {
-	--line-offset: 32px;
+	--line-offset: 18px;
+	--line-offset-when-hover: 24px;
 	--line-offset-when-active: 6px;
 	scale: 0.25;
 
@@ -149,6 +162,12 @@
 	position: absolute;
 	top: 0;
 	right: 0;
+}
+
+@media only screen and (width <= 520px) {
+	#collapse-menu-btn {
+		scale: 0.2;
+	}
 }
 
 #collapse-menu-btn rect {
@@ -162,6 +181,14 @@
 	transition: inherit;
 }
 
+#collapse-menu-btn:hover {
+	--line-offset: var(--line-offset-when-hover);
+}
+
+#collapse-menu-btn:hover rect:last-child {
+	transform: scale(2) rotate(45deg);
+}
+
 #collapse-menu-btn:hover rect {
 	stroke: var(--clr-font-dark);
 	fill: var(--clr-font-dark);
@@ -169,6 +196,10 @@
 
 #collapse-menu-btn:active {
 	--line-offset: var(--line-offset-when-active);
+}
+
+#collapse-menu-btn:active rect:last-child {
+	transform: scale(1);
 }
 
 #collapse-menu-btn rect:nth-child(1) {
