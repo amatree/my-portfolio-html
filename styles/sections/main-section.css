@@ -1,4 +1,8 @@
 /* main section styling */
+section#main {
+	padding: 0;
+}
+
 main {
 	min-height: 100vh;
 	background-color: var(--clr-accent);
@@ -50,6 +54,7 @@ main svg#bg-visual g>circle {
 	-moz-transition: all 0.2s, cx 1s, cy 1s;
 	-webkit-transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
+	filter: blur(200px);
 }
 
 main svg#bg-visual g>circle:hover {

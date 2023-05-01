@@ -318,9 +318,10 @@ function handleScroll(e) {
 		Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
 		Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
 
-	const sectionAt = getScrollThroughSection();
+	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
 	const isNavInMain = sectionAt.current === "main";
 	const isNavInAboutMe = sectionAt.current === "about";
+	console.table(sectionAt.current);
 
 	animateMainSectionBg();
 
@@ -408,12 +409,8 @@ function handleScroll(e) {
 
 	function changeToDefNav() {
 		// reset all changed properties to default
-		if (window.scrollY > 10) {
-			navElement.style.boxShadow = storage["vars"]["--box-shadow-short"];
-		} else {
-			navElement.style.boxShadow = "none";
-		}
-		navElement.style.backgroundColor = storage["vars"]["--clr-accent"];
+		navElement.style.boxShadow = "none";
+		navElement.style.backgroundColor = "transparent";
 
 		// change nav text color
 		navTexts[0].style.color = storage["vars"]["--clr-font"];
@@ -431,6 +428,7 @@ function handleScroll(e) {
 	}
 
 	function changeToLightNav() {
+		navElement.style.boxShadow = storage["vars"]["--box-shadow-short"];
 		navElement.style.backgroundColor = storage["vars"]["--clr-primary"];
 
 		// change portfolio text color
@@ -545,7 +543,7 @@ function getScrollThroughSection(offset = 0) {
 	let idx = 0;
 	for (const dim in sectionLayoutDimensions) {
 		const section = sectionLayoutDimensions[dim];
-		if (section.relativeTop >= sectionPadding / 2 + NAV_HEIGHT + offset)
+		if (section.relativeTop >= sectionPadding / 2 + NAV_HEIGHT - offset)
 			return { current: dim, index: idx, style: section.style };
 		idx++;
 	}
