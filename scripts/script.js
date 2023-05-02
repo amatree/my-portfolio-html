@@ -321,7 +321,6 @@ function handleScroll(e) {
 	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
 	const isNavInMain = sectionAt.current === "main";
 	const isNavInAboutMe = sectionAt.current === "about";
-	console.table(sectionAt.current);
 
 	animateMainSectionBg();
 
@@ -408,7 +407,19 @@ function handleScroll(e) {
 	}
 
 	function changeToDefNav() {
+		const navTransition = timePropertyToSeconds(
+			storage["vars"]["--nav-transition"]
+		);
+
 		// reset all changed properties to default
+		navElement.style.animation = "navOut forwards ease var(--nav-transition)";
+
+		setTimeout(() => {
+			navElement.classList.remove("fixed-nav");
+			navElement.classList.add("default-nav");
+			navElement.style.animation = "";
+		}, navTransition);
+
 		navElement.style.boxShadow = "none";
 		navElement.style.backgroundColor = "transparent";
 
@@ -428,6 +439,8 @@ function handleScroll(e) {
 	}
 
 	function changeToLightNav() {
+		navElement.classList.remove("default-nav");
+		navElement.classList.add("fixed-nav");
 		navElement.style.boxShadow = storage["vars"]["--box-shadow-short"];
 		navElement.style.backgroundColor = storage["vars"]["--clr-primary"];
 
@@ -448,6 +461,11 @@ function handleScroll(e) {
 }
 
 async function handleNavHamburger() {
+	// retrieve animation delay
+	const navHamburgerAnimationDelay = timePropertyToSeconds(
+		storage["vars"]["--nav-hamburger-menu-animation-delay"]
+	);
+
 	if (navHamburgerShown) {
 		document.documentElement.style.setProperty(
 			"--nav-hamburger-opt-display",
@@ -463,7 +481,7 @@ async function handleNavHamburger() {
 		setTimeout(() => {
 			navNavigation.innerHTML = navNavigationInnerHTML;
 			document.documentElement.style.setProperty("--nav-opt-display", "none");
-		}, 200);
+		}, navHamburgerAnimationDelay);
 	} else {
 		// show hamburger menu
 		document.documentElement.style.setProperty(
@@ -494,6 +512,22 @@ async function handleNavHamburger() {
 }
 
 // helper functions
+function timePropertyToSeconds(value) {
+	return value.contains("ms")
+		? Number(
+				storage["vars"]["--nav-hamburger-menu-animation-delay"].replace(
+					/[^\d\.]/g,
+					""
+				)
+		  )
+		: Number(
+				storage["vars"]["--nav-hamburger-menu-animation-delay"].replace(
+					/[^\d\.]/g,
+					""
+				)
+		  ) * 1000;
+}
+
 function setCSSVariable(varName, value) {
 	const rootElement = document.querySelector(":root");
 	var cssTextArray = rootElement.style.cssText.split(";");

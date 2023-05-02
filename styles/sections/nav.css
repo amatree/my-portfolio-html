@@ -12,6 +12,7 @@ nav {
 	z-index: 99;
 	transition: all 0.4s;
 	margin: 0 auto;
+	transform-origin: center top;
 }
 
 nav ul {

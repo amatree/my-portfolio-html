@@ -55,6 +55,7 @@ main svg#bg-visual g>circle {
 	-webkit-transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
 	filter: blur(200px);
+	-webkit-filter: blur(200px);
 }
 
 main svg#bg-visual g>circle:hover {
