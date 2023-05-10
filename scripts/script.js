@@ -346,11 +346,11 @@ function handleScroll(e) {
 	const isNavInContact = sectionAt.current === "contact";
 
 	// adjust meta's theme color using variable
-	if (!isNavInMain) {
-		metaThemeColor.setAttribute("content", storage['vars']["--clr-primary"]);
-	} else {
-		metaThemeColor.setAttribute("content", storage['vars']["--clr-accent"]);
-	}
+	// if (!isNavInMain) {
+	// 	metaThemeColor.setAttribute("content", storage['vars']["--clr-primary"]);
+	// } else {
+	// 	metaThemeColor.setAttribute("content", storage['vars']["--clr-accent"]);
+	// }
 
 	// highlight <a> tags for better feedback in nav
 	if (isNavInAboutMe) {
