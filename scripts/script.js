@@ -347,9 +347,9 @@ function handleScroll(e) {
 
 	// adjust meta's theme color using variable
 	if (!isNavInMain) {
-		metaThemeColor.setAttribute("content", storage['vars']["--clr-primary"]);
+		metaThemeColor.setAttribute("content", storage['vars']["--clr-primary"].replace("#", ""));
 	} else {
-		metaThemeColor.setAttribute("content", storage['vars']["--clr-accent"]);
+		metaThemeColor.setAttribute("content", storage['vars']["--clr-accent"].replace("#", ""));
 	}
 
 	// highlight <a> tags for better feedback in nav
