@@ -12,6 +12,8 @@ section#about .horizontal-separator {
   align-self: center;
   background-color: var(--clr-secondary-light);
   border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
 }
 
 section#about .separator {
@@ -70,17 +72,29 @@ section#about #about-me-text {
   user-select: none;
   overflow: hidden;
   border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
   transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -ms-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
 }
 
 .my-gallery .gallery-img.hovered {
   box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 }
 
 .my-gallery img {
   max-width: var(--photo-size);
   aspect-ratio: 1 / 1;
   transition: all 0.4s ease-out;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
   object-fit: contain;
 }
 
@@ -103,6 +117,8 @@ section#about #about-me-text {
 
   padding: 0px 10px;
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   margin: 1.25rem;
 }
 
@@ -133,13 +149,24 @@ p#banners {
 p#banners img {
   user-select: none;
   transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
   filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -ms-filter: grayscale(1);
   transform: scale(0.75);
   width: min(20%, 256px);
 }
 
 p#banners img.hovered {
   animation: bannersAnimation 6s ease infinite;
+  -webkit-animation: bannersAnimation 6s ease infinite;
+  -moz-animation: bannersAnimation 6s ease infinite;
+  -ms-animation: bannersAnimation 6s ease infinite;
+  -o-animation: bannersAnimation 6s ease infinite;
 }
 
 p#banners img:nth-child(1) {

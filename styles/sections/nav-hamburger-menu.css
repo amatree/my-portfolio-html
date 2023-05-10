@@ -9,16 +9,32 @@
 	transform-origin: top center;
 	transform: translateY(-100vh);
 	transition: all 0s;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  -ms-transition: all 0s;
+  -o-transition: all 0s;
 
 	animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -webkit-animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -moz-animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -ms-animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -o-animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
 }
 
 .nav-hamburger-menu-container * {
 	transition: inherit;
+  -webkit-transition: inherit;
+  -moz-transition: inherit;
+  -ms-transition: inherit;
+  -o-transition: inherit;
 }
 
 .nav-hamburger-menu-container.closed {
 	animation: closeHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -webkit-animation: closeHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -moz-animation: closeHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -ms-animation: closeHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
+  -o-animation: closeHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
 }
 
 @keyframes openHamburgerMenu {
@@ -68,6 +84,8 @@
 
 .nav-hamburger-menu {
 	border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
 	height: calc(100dvh - 4rem);
 	width: calc(100dvw - 4rem);
 
@@ -78,6 +96,8 @@
 	margin: 2rem;
 
 	box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 }
 
 #hamburger-menu {
@@ -99,6 +119,8 @@
 
 .nav-hamburger-menu #navigation {
 	flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
 	align-self: flex-start;
 
 	display: flex;
@@ -114,14 +136,26 @@
 	padding: 1rem 2rem;
 	width: calc(100% - 4rem);
 	transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
 	box-shadow: 0 1px var(--clr-font);
+	-webkit-box-shadow: 0 1px var(--clr-font);
+	-moz-box-shadow: 0 1px var(--clr-font);
 }
 
 .nav-hamburger-menu #navigation a:hover {
 	border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
 	filter: brightness(110%);
 	-webkit-filter: brightness(110%);
+	-moz-filter: brightness(110%);
+	-ms-filter: brightness(110%);
 	box-shadow: 0 1px 2px var(--clr-font);
+	-webkit-box-shadow: 0 1px 2px var(--clr-font);
+	-moz-box-shadow: 0 1px 2px var(--clr-font);
 }
 
 @media only screen and (width <= 520px) {
@@ -184,6 +218,10 @@
 #collapse-menu-btn rect {
 	transform-origin: center center;
 	transition: inherit;
+  -webkit-transition: inherit;
+  -moz-transition: inherit;
+  -ms-transition: inherit;
+  -o-transition: inherit;
 }
 
 #collapse-menu-btn:hover {
@@ -197,6 +235,8 @@
 #collapse-menu-btn:hover rect {
 	filter: brightness(120%);
 	-webkit-filter: brightness(120%);
+	-moz-filter: brightness(120%);
+	-ms-filter: brightness(120%);
 }
 
 #collapse-menu-btn:active {

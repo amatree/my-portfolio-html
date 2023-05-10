@@ -11,6 +11,10 @@
   margin: 2rem 0rem;
   padding: 4rem;
   transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
 }
 
 #project-card {
@@ -18,7 +22,11 @@
   -webkit-user-drag: none;
   padding: 2rem;
   border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
   box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 
   position: relative;
   display: grid;
@@ -26,6 +34,10 @@
   grid-template-rows: 0.6fr 0.5fr 1fr;
 
   transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
   transform: translateX(0%) scale(0.95);
 }
 
@@ -96,18 +108,35 @@ br {
   cursor: pointer;
   position: relative;
   transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
 }
 
 #project-footer .horizontal-separator {
   border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
   height: 0.5em;
   flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
 
   background-color: var(--clr-secondary-light);
   box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
   filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1);
+	-ms-filter: grayscale(1);
 
   transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
 }
 
 #project-card.hover #project-footer {
@@ -116,6 +145,9 @@ br {
 
 #project-card.hover .horizontal-separator {
   filter: grayscale(0);
+	-webkit-filter: grayscale(0);
+	-moz-filter: grayscale(0);
+	-ms-filter: grayscale(0);
   background-color: var(--clr-secondary);
   transform: translateX(15%);
 }
@@ -126,6 +158,10 @@ br {
   transform: translateX(-100%);
 
   transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
 }
 
 #project-card.hover #open-external-icon {

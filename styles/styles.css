@@ -22,7 +22,7 @@
 
 	--clr-primary: #ffffff;
 	--clr-primary-light: #fafafa;
-	--clr-accent: #31323B;
+	--clr-accent: #31323b;
 	--clr-accent-light: #455155;
 	--clr-secondary: #fa6065;
 	--clr-secondary-light: #f1373d;
@@ -99,6 +99,10 @@
 	box-sizing: border-box;
 	font: inherit;
 	transition: inherit;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-ms-transition: inherit;
+	-o-transition: inherit;
 }
 
 html {
@@ -110,12 +114,12 @@ html {
 
 /* hide scrollbar */
 html {
-  -ms-overflow-style: none; 
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 html::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 body {
@@ -134,8 +138,12 @@ section {
 
 section:not(#main) {
 	border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
 	margin: 2rem 4rem;
 	box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 	padding: 5rem;
 }
 

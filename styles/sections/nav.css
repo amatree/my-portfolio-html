@@ -10,8 +10,14 @@ nav {
 	background-color: var(--clr-accent);
 	max-height: var(--nav-height);
 	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 	z-index: 99;
 	transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
 	margin: 0 auto;
 	transform-origin: center top;
 }
@@ -33,6 +39,10 @@ nav ul li a {
 	text-decoration: none;
 	user-select: none;
 	transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
 }
 
 nav ul li h3 a[href="#"] {
@@ -44,15 +54,23 @@ nav ul li a[href="#contact"] {
 	color: var(--clr-font);
 	background-color: var(--clr-secondary);
 	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 	padding: 0.75rem 1.25rem;
 	border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
 	text-decoration: none;
 }
 
 nav ul li a[href="#contact"]:hover {
 	filter: brightness(130%);
 	-webkit-filter: brightness(130%);
+	-moz-filter: brightness(130%);
+	-ms-filter: brightness(130%);
 	box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 }
 
 nav ul :is(a[href="#about"], a[href="#projects"]) {
@@ -72,6 +90,10 @@ nav ul#hamburger {
 	cursor: pointer;
 	display: none;
 	transition: all 0.05s;
+  -webkit-transition: all 0.05s;
+  -moz-transition: all 0.05s;
+  -ms-transition: all 0.05s;
+  -o-transition: all 0.05s;
 }
 
 @media only screen and (max-width: 700px) {
