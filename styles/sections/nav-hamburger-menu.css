@@ -4,11 +4,11 @@
 	left: 0;
 
 	display: var(--nav-opt-display);
-	background-color: var(--clr-primary);
+	background-color: var(--clr-accent);
 
 	transform-origin: top center;
 	transform: translateY(-100vh);
-	transition: all 0.2s;
+	transition: all 0s;
 
 	animation: openHamburgerMenu ease forwards var(--nav-hamburger-menu-animation-delay);
 }
@@ -49,7 +49,7 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	user-select: none;
-	color: var(--clr-font-dark);
+	color: var(--clr-font);
 }
 
 .nav-hamburger-menu #hamburger-menu h2 {
@@ -90,11 +90,11 @@
 }
 
 .nav-hamburger-menu #navigation a {
-	color: var(--clr-font-dark-before-hover);
+	color: var(--clr-font-before-hover);
 }
 
 .nav-hamburger-menu #navigation a:hover {
-	color: var(--clr-font-dark);
+	color: var(--clr-font);
 }
 
 .nav-hamburger-menu #navigation {
@@ -114,13 +114,14 @@
 	padding: 1rem 2rem;
 	width: calc(100% - 4rem);
 	transition: all 0.2s;
-	box-shadow: 0 1px var(--clr-font-dark);
+	box-shadow: 0 1px var(--clr-font);
 }
 
 .nav-hamburger-menu #navigation a:hover {
 	border-radius: 20px;
-	color: var(--clr-font-dark);
-	box-shadow: 0 1px 2px var(--clr-font-dark);
+	filter: brightness(110%);
+	-webkit-filter: brightness(110%);
+	box-shadow: 0 1px 2px var(--clr-font);
 }
 
 @media only screen and (width <= 520px) {
@@ -194,8 +195,8 @@
 }
 
 #collapse-menu-btn:hover rect {
-	stroke: var(--clr-font-dark);
-	fill: var(--clr-font-dark);
+	filter: brightness(120%);
+	-webkit-filter: brightness(120%);
 }
 
 #collapse-menu-btn:active {

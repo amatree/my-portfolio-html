@@ -22,13 +22,10 @@
 
 	--clr-primary: #ffffff;
 	--clr-primary-light: #fafafa;
-	--clr-accent: #474555;
-	--clr-accent-light: #82808c;
+	--clr-accent: #31323B;
+	--clr-accent-light: #455155;
 	--clr-secondary: #fa6065;
-	--clr-secondary-light: #ff8888;
-	--clr-secondary-accent: #f5f5f5;
-	--clr-secondary-dark: #ffe4e1;
-	--clr-secondary-darker: #aba9bb;
+	--clr-secondary-light: #f1373d;
 	--clr-font: var(--clr-primary);
 	--clr-font-before-hover: #ffffffa9;
 	--clr-font-light: #aaaaaa;
@@ -294,10 +291,6 @@ i {
 
 	.separator .info h1 {
 		font-size: 3rem;
-	}
-
-	section#main main .main-info {
-		margin-left: 2rem;
 	}
 
 	section#main main,

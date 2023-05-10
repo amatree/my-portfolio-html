@@ -11,32 +11,125 @@ main {
 	align-items: flex-start;
 	flex-direction: column;
 	position: relative;
-	padding: 0 6rem;
+	padding: 0 5rem;
 }
 
-main .separator .line {
-	fill: var(--clr-secondary);
+.main-info {
+	width: 100%;
+	padding: 1.5rem;
+	margin-top: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
-main .separator div.info {
-	margin: 1.5rem;
+.main-info h1 {
+	font-size: min(15vw, 7rem);
+	line-height: 7rem;
+	margin-bottom: 5rem;
+	text-align: center;
+	white-space: nowrap;
 }
 
-main .separator p {
-	color: var(--clr-font-light);
-}
-
-main div.info h1 {
-	font-size: 3.5rem;
-	margin-bottom: 0.75rem;
-}
-
-main div.info h4 {
+.main-info h4 {
 	font-weight: 500;
-	font-size: 1.1rem;
+	font-size: min(4vw, 2rem);
+	line-height: 2rem;
+	margin-bottom: 2.5rem;
+	text-align: center;
+	white-space: nowrap;
 }
 
-main>*:not(svg) {
+.main-info-btns {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.main-info-btns .contact-btns {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.main-info-btns .social-links {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media only screen and (width < 710px) {
+	.main-info h1 {
+		margin-bottom: 3rem;
+	}
+	.main-info h4 {
+		margin-bottom: 1.5rem;
+	}
+}
+
+@media only screen and (width < 600px) {
+	.main-info h1 {
+		font-size: 5rem;
+		margin-bottom: 2rem;
+	}
+	.main-info h4 {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+}
+
+@media only screen and (width < 550px) {
+	.main-info h1 {
+		font-size: 5rem;
+		margin-bottom: 1.5rem;
+	}
+	.main-info h4 {
+		font-size: 1.25rem;
+	}
+	.main-info-btns .contact-btns {
+		margin-bottom: 0;
+	}
+}
+
+@media only screen and (width <=475px) {
+	.main-info-btns {
+		justify-content: space-evenly;
+	}
+	.main-info-btns .contact-btns {
+		justify-content: space-evenly;
+		gap: none;
+	}
+	.main-info h1 {
+		margin-bottom: 1rem;
+	}
+	.main-info h4 {
+		white-space: initial;
+	}
+}
+
+@media only screen and (width <=400px) {
+	.main-info-btns .contact-btns {
+		flex-direction: column;
+	}
+	.main-info h1 {
+		font-size: 4rem;
+		margin-bottom: 1rem;
+	}
+}
+
+@media only screen and (width <= 380px) {
+	.main-info h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1.25rem;
+	}
+}
+
+main > *:not(svg) {
 	z-index: 1;
 }
 
@@ -48,7 +141,7 @@ main svg#bg-visual {
 	height: 100%;
 }
 
-main svg#bg-visual g>circle {
+main svg#bg-visual g > circle {
 	transition: all 0.2s, cx 1s, cy 1s;
 	-o-transition: all 0.2s, cx 1s, cy 1s;
 	-moz-transition: all 0.2s, cx 1s, cy 1s;
@@ -56,33 +149,12 @@ main svg#bg-visual g>circle {
 	opacity: 0.9;
 	filter: blur(200px);
 	-webkit-filter: blur(200px);
+	-webkit-backdrop-filter: blur(200px);
+	backdrop-filter: blur(200px);
 }
 
-main svg#bg-visual g>circle:hover {
+main svg#bg-visual g > circle:hover {
 	fill: var(--clr-secondary-light);
-}
-
-.main-info {
-	margin-top: 2rem;
-	margin-left: 4.5rem;
-}
-
-.main-info-btns {
-	display: flex;
-	gap: 1rem 2rem;
-	margin-bottom: 2rem;
-}
-
-@media only screen and (width <=475px) {
-	.main-info-btns {
-		flex-direction: column;
-	}
-}
-
-@media only screen and (width <=500px) {
-	.main-info-btns {
-		gap: 1rem 1rem;
-	}
 }
 
 .main-info button {
@@ -101,15 +173,16 @@ main svg#bg-visual g>circle:hover {
 
 .main-info button#primary {
 	background-color: var(--clr-secondary);
+	filter: brightness(110%);
+	-webkit-filter: brightness(110%);
 	color: var(--clr-font);
 	width: calc(var(--btn-width) + 1px);
 	height: calc(var(--btn-height) + 1px);
-	border: 1px solid var(--clr-secondary);
 }
 
 .main-info button#primary:hover {
-	color: var(--clr-font);
-	background-color: var(--clr-secondary-light);
+	filter: brightness(130%);
+	-webkit-filter: brightness(130%);
 }
 
 .main-info button:is(:not(button#primary)) {

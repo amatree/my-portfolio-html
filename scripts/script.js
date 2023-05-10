@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 var navElement = null;
 var navElementStyles = null;
-var navAboutAndProjects = null;
+var navAboutAndProjectsButtons = null;
+var navContactButton = null;
 var navTexts = null;
 var navNavigation = null;
 var navNavigationInnerHTML = null;
@@ -58,6 +59,8 @@ var sectionLayoutDimensions = {};
 var scrollDirection = "down";
 
 var storage = {};
+
+var timers = { SCROLL_DELAY: 100 };
 
 const modal = modalInnerHTML();
 
@@ -151,9 +154,10 @@ async function initialize() {
 	// set all selector variables
 	navElement = document.querySelector("nav");
 	navElementStyles = getStyles(navElement);
-	navAboutAndProjects = document.querySelectorAll(
+	navAboutAndProjectsButtons = document.querySelectorAll(
 		"nav ul a:is([href='#about'], [href='#projects'])"
 	);
+	navContactButton = document.querySelector('.nav ul li a[href="#contact"]');
 	navTexts = document.querySelectorAll("nav ul a");
 	navNavigation = document.querySelector("nav ul[id='navigation']");
 	navNavigationInnerHTML = navNavigation.innerHTML;
@@ -198,12 +202,24 @@ function initListeners() {
 	// define event listeners
 	// scroll handle
 	window.addEventListener("scroll", (e) => {
-		handleScroll(e);
+		if (timers.scrollTimer !== null) {
+			clearTimeout(timers.scrollTimer);
+		}
+
+		timers.scrollTimer = setTimeout(() => {
+			handleScroll(e);
+		}, timers.SCROLL_DELAY);
 	});
 
 	// scroll handle for mobile
 	window.addEventListener("touchmove", (e) => {
-		handleScroll(e);
+		if (timers.scrollTimer !== null) {
+			clearTimeout(timers.scrollTimer);
+		}
+
+		timers.scrollTimer = setTimeout(() => {
+			handleScroll(e);
+		}, timers.SCROLL_DELAY);
 	});
 
 	// nav hamburger click
@@ -321,6 +337,23 @@ function handleScroll(e) {
 	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
 	const isNavInMain = sectionAt.current === "main";
 	const isNavInAboutMe = sectionAt.current === "about";
+	const isNavInProjects = sectionAt.current === "projects";
+	const isNavInContact = sectionAt.current === "contact";
+
+	if (isNavInAboutMe) {
+		navAboutAndProjectsButtons[0].style.fontWeight = '600';
+		navAboutAndProjectsButtons[0].style.textShadow = '4px 7px 2px #22222211';
+	} else {
+		navAboutAndProjectsButtons[0].style.fontWeight = '';
+		navAboutAndProjectsButtons[0].style.textShadow = '';
+	}
+	if (isNavInProjects) {
+		navAboutAndProjectsButtons[1].style.fontWeight = '600';
+		navAboutAndProjectsButtons[1].style.textShadow = '4px 7px 2px #22222211';
+	} else {
+		navAboutAndProjectsButtons[1].style.fontWeight = '';
+		navAboutAndProjectsButtons[1].style.textShadow = '';
+	}
 
 	animateMainSectionBg();
 
@@ -345,7 +378,7 @@ function handleScroll(e) {
 
 			return;
 		}
-		if (!aboutMeScriptVars.timer) {
+		if (aboutMeScriptVars.timer === null) {
 			aboutMeScriptVars.timer = setTimeout(() => {
 				aboutMeSectionMeImg.classList.add("hovered");
 				aboutMeSectionGallery.classList.add("hovered");
@@ -741,4 +774,3 @@ function randomNumber(min = 0, max = 100, decimal = 0) {
 function urlContains(str) {
 	return window.location.href.indexOf(str) > -1;
 }
-
