@@ -62,7 +62,7 @@ var scrollDirection = "down";
 
 var storage = {};
 
-var timers = { SCROLL_DELAY: 100 };
+var timers = { SCROLL_DELAY: 50 };
 
 const modal = modalInnerHTML();
 
@@ -209,7 +209,7 @@ function initListeners() {
 		if (timers.scrollTimer !== null) {
 			clearTimeout(timers.scrollTimer);
 		}
-
+		timers.SCROLL_DELAY = 50;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
@@ -221,6 +221,7 @@ function initListeners() {
 			clearTimeout(timers.scrollTimer);
 		}
 
+		timers.SCROLL_DELAY = 25;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
