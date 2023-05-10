@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	handleScroll({ type: "scroll" });
 });
 
+var metaThemeColor = null;
+
 var navElement = null;
 var navElementStyles = null;
 var navAboutAndProjectsButtons = null;
@@ -99,6 +101,8 @@ const SECTION_INDICES = {
 };
 
 async function initialize() {
+	metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
 	allSections = document.querySelectorAll("section");
 	currSection = getSnappedSection();
 	sectionsNotMain = document.querySelector("section:not(#main)");
@@ -342,9 +346,9 @@ function handleScroll(e) {
 
 	// adjust meta's theme color using variable
 	if (!isNavInMain) {
-		setCSSVariable("--theme-color", "var(--clr-primary)");
+		metaThemeColor.setAttribute("content", "var(--clr-primary)");
 	} else {
-		setCSSVariable("--theme-color", "var(--clr-accent)");
+		metaThemeColor.setAttribute("content", "var(--clr-accent)");
 	}
 
 	// highlight <a> tags for better feedback in nav
