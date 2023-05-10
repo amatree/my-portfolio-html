@@ -742,28 +742,3 @@ function urlContains(str) {
 	return window.location.href.indexOf(str) > -1;
 }
 
-// add contains into String class
-if (!String.prototype.contains) {
-	String.prototype.contains = function (str, startIndex) {
-		return -1 !== String.prototype.indexOf.call(this, str, startIndex);
-	};
-}
-
-// add contains into Array class
-if (!Array.prototype.contains) {
-	Array.prototype.contains = function (element) {
-		return this.indexOf(element) !== -1;
-	};
-}
-
-// add contains into Object class
-if (!Object.prototype.contains) {
-	Object.prototype.contains = function (value) {
-		for (const key in this) {
-			if (this.hasOwnProperty(key) && this[key] === value) {
-				return true;
-			}
-		}
-		return false;
-	};
-}

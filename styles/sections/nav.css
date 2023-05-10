@@ -35,7 +35,6 @@ nav ul li a {
 
 nav ul li h3 a[href="#"] {
 	color: var(--clr-font);
-	mix-blend-mode: multiply;
 	margin: 0 2rem;
 }
 

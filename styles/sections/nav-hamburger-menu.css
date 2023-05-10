@@ -181,7 +181,7 @@
 }
 
 #collapse-menu-btn rect {
-	transform-origin: center;
+	transform-origin: center center;
 	transition: inherit;
 }
 
