@@ -347,24 +347,24 @@ function handleScroll(e) {
 
 	// adjust meta's theme color using variable
 	if (!isNavInMain) {
-		metaThemeColor.setAttribute("content", "var(--clr-primary)");
+		metaThemeColor.setAttribute("content", storage['vars']["--clr-primary"]);
 	} else {
-		metaThemeColor.setAttribute("content", "var(--clr-accent)");
+		metaThemeColor.setAttribute("content", storage['vars']["--clr-accent"]);
 	}
 
 	// highlight <a> tags for better feedback in nav
 	if (isNavInAboutMe) {
-		navAboutAndProjectsButtons[0].style.fontWeight = '600';
+		navAboutAndProjectsButtons[0].parentElement.style.transform = 'scale(1.1)';
 		navAboutAndProjectsButtons[0].style.textShadow = '4px 7px 2px #22222211';
 	} else {
-		navAboutAndProjectsButtons[0].style.fontWeight = '';
+		navAboutAndProjectsButtons[0].parentElement.style.transform = '';
 		navAboutAndProjectsButtons[0].style.textShadow = '';
 	}
 	if (isNavInProjects) {
-		navAboutAndProjectsButtons[1].style.fontWeight = '600';
+		navAboutAndProjectsButtons[1].parentElement.style.transform = 'scale(1.1)';
 		navAboutAndProjectsButtons[1].style.textShadow = '4px 7px 2px #22222211';
 	} else {
-		navAboutAndProjectsButtons[1].style.fontWeight = '';
+		navAboutAndProjectsButtons[1].parentElement.style.transform = '';
 		navAboutAndProjectsButtons[1].style.textShadow = '';
 	}
 
