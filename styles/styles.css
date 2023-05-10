@@ -85,7 +85,7 @@
 
 	/* nav properties */
 	--nav-height: 100px;
-	--nav-transition: 0.4s;
+	--nav-transition: 0.1s;
 	--nav-opt-display: none;
 	--nav-hamburger-opt-display: flex;
 	--nav-hamburger-menu-animation-delay: 0.5s;
