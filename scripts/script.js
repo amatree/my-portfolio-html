@@ -340,6 +340,14 @@ function handleScroll(e) {
 	const isNavInProjects = sectionAt.current === "projects";
 	const isNavInContact = sectionAt.current === "contact";
 
+	// adjust meta's theme color using variable
+	if (!isNavInMain) {
+		setCSSVariable("--theme-color", "var(--clr-primary)");
+	} else {
+		setCSSVariable("--theme-color", "var(--clr-accent)");
+	}
+
+	// highlight <a> tags for better feedback in nav
 	if (isNavInAboutMe) {
 		navAboutAndProjectsButtons[0].style.fontWeight = '600';
 		navAboutAndProjectsButtons[0].style.textShadow = '4px 7px 2px #22222211';
@@ -419,6 +427,7 @@ function handleScroll(e) {
 		} else {
 			if (storage["vars"]["bg-visuals-not-in-animation"]) {
 				storage["vars"]["bg-visuals-not-in-animation"] = false;
+				// randomly move circles around
 				const randNum = randomNumber(
 					0,
 					defaultMainSectionBgVisualCirclePositions.length - 1
