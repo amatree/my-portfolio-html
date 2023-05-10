@@ -60,7 +60,7 @@ var scrollDirection = "down";
 
 var storage = {};
 
-var timers = { SCROLL_DELAY: 100 };
+var timers = { SCROLL_DELAY: 30 };
 
 const modal = modalInnerHTML();
 
@@ -205,7 +205,7 @@ function initListeners() {
 		if (timers.scrollTimer !== null) {
 			clearTimeout(timers.scrollTimer);
 		}
-
+		timers.SCROLL_DELAY = 50;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
@@ -217,6 +217,7 @@ function initListeners() {
 			clearTimeout(timers.scrollTimer);
 		}
 
+		timers.SCROLL_DELAY = 25;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
@@ -328,169 +329,142 @@ function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type !== "scroll") return;
 
-	NAV_HEIGHT = navElement.clientHeight;
+	requestAnimationFrame(() => {
+		NAV_HEIGHT = navElement.clientHeight;
 
-	sectionPadding =
-		Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
-		Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
+		sectionPadding =
+			Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
+			Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
 
-	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
-	const isNavInMain = sectionAt.current === "main";
-	const isNavInAboutMe = sectionAt.current === "about";
-	const isNavInProjects = sectionAt.current === "projects";
-	const isNavInContact = sectionAt.current === "contact";
+		const sectionAt = getScrollThroughSection(NAV_HEIGHT);
+		const isNavInMain = sectionAt.current === "main";
+		const isNavInAboutMe = sectionAt.current === "about";
+		const isNavInProjects = sectionAt.current === "projects";
+		const isNavInContact = sectionAt.current === "contact";
 
-	if (isNavInAboutMe) {
-		navAboutAndProjectsButtons[0].style.fontWeight = '600';
-		navAboutAndProjectsButtons[0].style.textShadow = '4px 7px 2px #22222211';
-	} else {
-		navAboutAndProjectsButtons[0].style.fontWeight = '';
-		navAboutAndProjectsButtons[0].style.textShadow = '';
-	}
-	if (isNavInProjects) {
-		navAboutAndProjectsButtons[1].style.fontWeight = '600';
-		navAboutAndProjectsButtons[1].style.textShadow = '4px 7px 2px #22222211';
-	} else {
-		navAboutAndProjectsButtons[1].style.fontWeight = '';
-		navAboutAndProjectsButtons[1].style.textShadow = '';
-	}
-
-	animateMainSectionBg();
-
-	animateNavbarColor();
-
-	animateAboutMeSectionImgHover();
-
-	function animateAboutMeSectionImgHover() {
-		// only animate if already at about me section or further down
-		if (sectionAt.index < SECTION_INDICES.about) {
-			clearTimeout(aboutMeScriptVars.timer);
-			clearTimeout(aboutMeScriptVars.logo_timer);
-			aboutMeScriptVars.timer = null;
-			aboutMeScriptVars.logo_timer = null;
-
-			aboutMeSectionMeImg.classList.remove("hovered");
-			aboutMeSectionGallery.classList.remove("hovered");
-
-			aboutMeSectionBrandLogos.forEach((logo) => {
-				logo.classList.remove("hovered");
-			});
-
-			return;
+		// adjust meta's theme color using variable
+		if (!isNavInMain) {
+			updateThemeColor(storage["vars"]["--clr-primary"]);
+		} else {
+			updateThemeColor(storage["vars"]["--clr-accent"]);
 		}
-		if (aboutMeScriptVars.timer === null) {
-			aboutMeScriptVars.timer = setTimeout(() => {
-				aboutMeSectionMeImg.classList.add("hovered");
-				aboutMeSectionGallery.classList.add("hovered");
 
-				aboutMeScriptVars.logo_timer = setTimeout(() => {
-					aboutMeSectionBrandLogos.forEach((logo) => {
-						logo.classList.add("hovered");
-					});
-					clearTimeout(aboutMeScriptVars.logo_timer);
-				}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
+		// highlight <a> tags for better feedback in nav
+		if (isNavInAboutMe) {
+			navAboutAndProjectsButtons[0].parentElement.style.transform =
+				"scale(1.1)";
+			navAboutAndProjectsButtons[0].style.textShadow = "4px 7px 2px #22222211";
+		} else {
+			navAboutAndProjectsButtons[0].parentElement.style.transform = "";
+			navAboutAndProjectsButtons[0].style.textShadow = "";
+		}
+		if (isNavInProjects) {
+			navAboutAndProjectsButtons[1].parentElement.style.transform =
+				"scale(1.1)";
+			navAboutAndProjectsButtons[1].style.textShadow = "4px 7px 2px #22222211";
+		} else {
+			navAboutAndProjectsButtons[1].parentElement.style.transform = "";
+			navAboutAndProjectsButtons[1].style.textShadow = "";
+		}
 
+		animateMainSectionBg();
+
+		animateNavbarColor();
+
+		animateAboutMeSectionImgHover();
+
+		function animateAboutMeSectionImgHover() {
+			// only animate if already at about me section or further down
+			if (sectionAt.index < SECTION_INDICES.about) {
 				clearTimeout(aboutMeScriptVars.timer);
-			}, aboutMeScriptVars.ANIMATION_DELAY);
-		}
-	}
+				clearTimeout(aboutMeScriptVars.logo_timer);
+				aboutMeScriptVars.timer = null;
+				aboutMeScriptVars.logo_timer = null;
 
-	function animateNavbarColor() {
-		// check if page Y is still in the main section
-		// if not, adjust box-shadow and other properties
-		if (isNavInMain) {
-			changeToDefNav();
-			navElement.style.maxHeight = storage["vars"]["--nav-height"];
-		} else {
-			changeToLightNav();
+				aboutMeSectionMeImg.classList.remove("hovered");
+				aboutMeSectionGallery.classList.remove("hovered");
 
-			// scale it down as well
-			navElement.style.maxHeight = "65px";
-		}
-	}
+				aboutMeSectionBrandLogos.forEach((logo) => {
+					logo.classList.remove("hovered");
+				});
 
-	function animateMainSectionBg() {
-		// animate bg visual for main section
-		if (window.scrollY <= NAV_HEIGHT) {
-			mainSectionBgVisualCircles.forEach((cir, i) => {
-				cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
-				cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
-			});
-		} else {
-			if (storage["vars"]["bg-visuals-not-in-animation"]) {
-				storage["vars"]["bg-visuals-not-in-animation"] = false;
-				const randNum = randomNumber(
-					0,
-					defaultMainSectionBgVisualCirclePositions.length - 1
-				);
-				const randOffsetX = randomNumber(-300, 300);
-				const randOffsetY = randomNumber(-50, 50);
-				const newCx =
-					defaultMainSectionBgVisualCirclePositions[randNum]?.cx + randOffsetX;
-				const newCy =
-					defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
-				mainSectionBgVisualCircles[randNum].style.cx = newCx;
-				mainSectionBgVisualCircles[randNum].style.cy = newCy;
-			} else {
-				setTimeout(() => {
-					storage["vars"]["bg-visuals-not-in-animation"] = true;
-				}, 800);
+				return;
+			}
+			if (aboutMeScriptVars.timer === null) {
+				aboutMeScriptVars.timer = setTimeout(() => {
+					aboutMeSectionMeImg.classList.add("hovered");
+					aboutMeSectionGallery.classList.add("hovered");
+
+					aboutMeScriptVars.logo_timer = setTimeout(() => {
+						aboutMeSectionBrandLogos.forEach((logo) => {
+							logo.classList.add("hovered");
+						});
+						clearTimeout(aboutMeScriptVars.logo_timer);
+					}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
+
+					clearTimeout(aboutMeScriptVars.timer);
+				}, aboutMeScriptVars.ANIMATION_DELAY);
 			}
 		}
-	}
 
-	function changeToDefNav() {
-		const navTransition = timePropertyToSeconds(
-			storage["vars"]["--nav-transition"]
-		);
+		function animateNavbarColor() {
+			// check if page Y is still in the main section
+			// if not, adjust box-shadow and other properties
+			if (isNavInMain) {
+				changeToDefNav();
+				navElement.style.maxHeight = storage["vars"]["--nav-height"];
+			} else {
+				changeToLightNav();
 
-		// reset all changed properties to default
-		navElement.style.animation = "navOut forwards ease var(--nav-transition)";
+				// scale it down as well
+				navElement.style.maxHeight = "65px";
+			}
+		}
 
-		setTimeout(() => {
-			navElement.classList.remove("fixed-nav");
+		function animateMainSectionBg() {
+			// animate bg visual for main section
+			if (window.scrollY <= NAV_HEIGHT) {
+				mainSectionBgVisualCircles.forEach((cir, i) => {
+					cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
+					cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
+				});
+			} else {
+				if (storage["vars"]["bg-visuals-not-in-animation"]) {
+					storage["vars"]["bg-visuals-not-in-animation"] = false;
+					// randomly move circles around
+					const randNum = randomNumber(
+						0,
+						defaultMainSectionBgVisualCirclePositions.length - 1
+					);
+					const randOffsetX = randomNumber(-300, 300);
+					const randOffsetY = randomNumber(-50, 50);
+					const newCx =
+						defaultMainSectionBgVisualCirclePositions[randNum]?.cx +
+						randOffsetX;
+					const newCy =
+						defaultMainSectionBgVisualCirclePositions[randNum]?.cy +
+						randOffsetY;
+					mainSectionBgVisualCircles[randNum].style.cx = newCx;
+					mainSectionBgVisualCircles[randNum].style.cy = newCy;
+				} else {
+					setTimeout(() => {
+						storage["vars"]["bg-visuals-not-in-animation"] = true;
+					}, 800);
+				}
+			}
+		}
+
+		function changeToDefNav() {
+			// reset all changed properties to default
+			navElement.classList.remove("light-nav");
 			navElement.classList.add("default-nav");
-			navElement.style.animation = "";
-		}, navTransition);
+		}
 
-		navElement.style.boxShadow = "none";
-		navElement.style.backgroundColor = "transparent";
-
-		// change nav text color
-		navTexts[0].style.color = storage["vars"]["--clr-font"];
-
-		// change hover font
-		setCSSVariable(
-			"--clr-font-before-hover",
-			storage["vars"]["--clr-font-before-hover"]
-		);
-		setCSSVariable("--clr-font-hover", storage["vars"]["--clr-font"]);
-
-		// change nav hamburger as well
-		navHamburger.style.fill = storage["vars"]["--clr-font"];
-		navHamburger.style.stroke = storage["vars"]["--clr-font"];
-	}
-
-	function changeToLightNav() {
-		navElement.classList.remove("default-nav");
-		navElement.classList.add("fixed-nav");
-		navElement.style.boxShadow = storage["vars"]["--box-shadow-short"];
-		navElement.style.backgroundColor = storage["vars"]["--clr-primary"];
-
-		// change portfolio text color
-		navTexts[0].style.color = storage["vars"]["--clr-font-dark"];
-
-		// change hover font
-		setCSSVariable(
-			"--clr-font-before-hover",
-			storage["vars"]["--clr-font-dark-before-hover"]
-		);
-		setCSSVariable("--clr-font-hover", storage["vars"]["--clr-font-dark"]);
-
-		// change nav hamburger as well
-		navHamburger.style.fill = storage["vars"]["--clr-font-dark"];
-		navHamburger.style.stroke = storage["vars"]["--clr-font-dark"];
-	}
+		function changeToLightNav() {
+			navElement.classList.remove("default-nav");
+			navElement.classList.add("light-nav");
+		}
+	});
 }
 
 async function handleNavHamburger() {
@@ -773,4 +747,16 @@ function randomNumber(min = 0, max = 100, decimal = 0) {
 
 function urlContains(str) {
 	return window.location.href.indexOf(str) > -1;
+}
+
+function updateThemeColor(themeColor) {
+	document
+		.querySelector('meta[name="theme-color"]')
+		.setAttribute("content", themeColor);
+
+	// Request animation frame to trigger UI update
+	window.requestAnimationFrame(() => {
+		document.body.style.backgroundColor = themeColor;
+		document.body.style.backgroundColor = "";
+	});
 }

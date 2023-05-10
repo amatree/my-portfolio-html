@@ -22,17 +22,23 @@ section#contact form textarea {
   outline: none;
   border-color: transparent;
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
 
   background-color: var(--clr-primary);
   color: var(--clr-font-dark);
   border: 1px solid;
   box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
 }
 
 section#contact form input:focus,
 section#contact form button:focus,
 section#contact form textarea:focus {
   box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
   outline: 2px solid var(--clr-secondary);
 }
 
@@ -48,13 +54,21 @@ section#contact form button {
   font-size: 1rem;
   cursor: pointer;
   box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
   transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
 }
 
 section#contact form button:hover {
   color: var(--clr-font);
   background-color: var(--clr-secondary);
   box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
   border: none;
 }
 

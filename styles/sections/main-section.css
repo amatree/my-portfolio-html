@@ -147,10 +147,14 @@ main svg#bg-visual g > circle {
 	-moz-transition: all 0.2s, cx 1s, cy 1s;
 	-webkit-transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
-	filter: blur(200px);
-	-webkit-filter: blur(200px);
-	-webkit-backdrop-filter: blur(200px);
-	backdrop-filter: blur(200px);
+	filter: blur(200px) contrast(60%);
+	-webkit-filter: blur(200px) contrast(60%);
+	-moz-filter: blur(200px) contrast(60%);
+	-ms-filter: blur(200px) contrast(60%);
+	-webkit-backdrop-filter: blur(200px) contrast(60%);
+	-moz-backdrop-filter: blur(200px) contrast(60%);
+	-ms-backdrop-filter: blur(200px) contrast(60%);
+	backdrop-filter: blur(200px) contrast(60%);
 }
 
 main svg#bg-visual g > circle:hover {
@@ -161,6 +165,10 @@ main svg#bg-visual g > circle:hover {
 	all: unset;
 	cursor: pointer;
 	transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
 
 	--btn-width: 140px;
 	--btn-height: 36px;
@@ -168,13 +176,19 @@ main svg#bg-visual g > circle:hover {
 	height: var(--btn-height);
 	text-align: center;
 	border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
 	box-shadow: var(--box-shadow-short);
+	-webkit-box-shadow: var(--box-shadow-short);
+	-moz-box-shadow: var(--box-shadow-short);
 }
 
 .main-info button#primary {
 	background-color: var(--clr-secondary);
 	filter: brightness(110%);
 	-webkit-filter: brightness(110%);
+	-moz-filter: brightness(110%);
+	-ms-filter: brightness(110%);
 	color: var(--clr-font);
 	width: calc(var(--btn-width) + 1px);
 	height: calc(var(--btn-height) + 1px);
@@ -183,6 +197,8 @@ main svg#bg-visual g > circle:hover {
 .main-info button#primary:hover {
 	filter: brightness(130%);
 	-webkit-filter: brightness(130%);
+	-moz-filter: brightness(130%);
+	-ms-filter: brightness(130%);
 }
 
 .main-info button:is(:not(button#primary)) {
