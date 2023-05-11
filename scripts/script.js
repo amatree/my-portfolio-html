@@ -216,7 +216,6 @@ function initListeners() {
 		if (timers.scrollTimer !== null) {
 			clearTimeout(timers.scrollTimer);
 		}
-		timers.SCROLL_DELAY = 50;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
@@ -227,8 +226,6 @@ function initListeners() {
 		if (timers.scrollTimer !== null) {
 			clearTimeout(timers.scrollTimer);
 		}
-
-		timers.SCROLL_DELAY = 25;
 		timers.scrollTimer = setTimeout(() => {
 			handleScroll(e);
 		}, timers.SCROLL_DELAY);
