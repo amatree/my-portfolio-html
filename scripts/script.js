@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	handleScroll({ type: "scroll" });
 });
 
+// =======
+// This section will initialize all needed variables to null
+// in order to prevent possible null errors.
 var navElement = null;
 var navElementStyles = null;
 var navAboutAndProjectsButtons = null;
@@ -61,6 +64,7 @@ var scrollDirection = "down";
 var storage = {};
 
 var timers = { SCROLL_DELAY: 0 };
+// =======
 
 const modal = modalInnerHTML();
 
@@ -98,6 +102,9 @@ const SECTION_INDICES = {
 	contact: 3,
 };
 
+/**
+ * Initialize all needed variables ONCE right after `DOMContentLoaded` event is triggered.
+ */
 async function initialize() {
 	allSections = document.querySelectorAll("section");
 	currSection = getSnappedSection();
@@ -127,6 +134,8 @@ async function initialize() {
 	});
 
 	footerElement = document.querySelector("footer");
+
+	// this inner html will be shown when the hamburger menu is clicked
 	navHamburgerInnerHTML = `
 	<div class="nav-hamburger-menu-container">
 		<div class="nav-hamburger-menu">
@@ -198,8 +207,10 @@ async function initialize() {
 	initListeners();
 }
 
+/**
+ * Declare all event listeners, mainly `scroll`.
+ */
 function initListeners() {
-	// define event listeners
 	// scroll handle
 	window.addEventListener("scroll", (e) => {
 		if (timers.scrollTimer !== null) {
@@ -253,6 +264,9 @@ function initListeners() {
 	});
 }
 
+/**
+ * Check for `#success` anchor (returned from a successful form submission).
+ */
 function formSubmissionCheck() {
 	if (!urlContains("#success")) return;
 
@@ -261,6 +275,9 @@ function formSubmissionCheck() {
 	modal.showModal();
 }
 
+/**
+ * Simulate hold and drag action for project cards.
+ */
 function handleProjectCardEvents() {
 	// implement scroll dragging for project cards
 	projectCardsParent.onmousedown = (event) => {
@@ -325,148 +342,153 @@ function handleProjectCardEvents() {
 	}
 }
 
+/**
+ * Handle various scrolling event for this app:
+ * 1. When user scroll pass `main` section, the `nav` element will change its properties.
+ * 2. Animate the `bg-visuals` as user scrolls
+ * 3. Animate the images and icons in the `about-me` section.
+ * 4. Handle dynamically theme change for the `theme-color` property of `<meta>` (not working atm).
+ */
 function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type !== "scroll") return;
 
 	// requestAnimationFrame(() => {
-		NAV_HEIGHT = navElement.clientHeight;
+	NAV_HEIGHT = navElement.clientHeight;
 
-		sectionPadding =
-			Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
-			Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
+	// retrieve total padding (top + bottom) of all sections
+	sectionPadding =
+		Number(getStyles(sectionsNotMain)["padding-top"].replace("px", "")) +
+		Number(getStyles(sectionsNotMain)["padding-bottom"].replace("px", ""));
 
-		const sectionAt = getScrollThroughSection(NAV_HEIGHT);
-		const isNavInMain = sectionAt.current === "main";
-		const isNavInAboutMe = sectionAt.current === "about";
-		const isNavInProjects = sectionAt.current === "projects";
-		const isNavInContact = sectionAt.current === "contact";
+	const sectionAt = getScrollThroughSection(NAV_HEIGHT);
+	const isNavInMain = sectionAt.current === "main";
+	const isNavInAboutMe = sectionAt.current === "about";
+	const isNavInProjects = sectionAt.current === "projects";
+	const isNavInContact = sectionAt.current === "contact";
 
-		// adjust meta's theme color using variable
-		if (!isNavInMain) {
-			updateThemeColor(storage["vars"]["--clr-primary"]);
-		} else {
-			updateThemeColor(storage["vars"]["--clr-accent"]);
+	// adjust meta's theme color using variable
+	if (!isNavInMain) {
+		updateThemeColor(storage["vars"]["--clr-primary"]);
+	} else {
+		updateThemeColor(storage["vars"]["--clr-accent"]);
+	}
+
+	// highlight <a> tags for better feedback in nav
+	if (isNavInAboutMe) {
+		navAboutAndProjectsButtons[0].parentElement.style.transform = "scale(1.15)";
+		navAboutAndProjectsButtons[0].style.textShadow = "4px 7px 2px #22222211";
+	} else {
+		navAboutAndProjectsButtons[0].parentElement.style.transform = "";
+		navAboutAndProjectsButtons[0].style.textShadow = "";
+	}
+	if (isNavInProjects) {
+		navAboutAndProjectsButtons[1].parentElement.style.transform = "scale(1.15)";
+		navAboutAndProjectsButtons[1].style.textShadow = "4px 7px 2px #22222211";
+	} else {
+		navAboutAndProjectsButtons[1].parentElement.style.transform = "";
+		navAboutAndProjectsButtons[1].style.textShadow = "";
+	}
+
+	animateMainSectionBg();
+	animateNavbarColor();
+	animateAboutMeSectionImgHover();
+
+	function animateAboutMeSectionImgHover() {
+		// only animate if already at about me section or further down
+		if (sectionAt.index < SECTION_INDICES.about) {
+			clearTimeout(aboutMeScriptVars.timer);
+			clearTimeout(aboutMeScriptVars.logo_timer);
+			aboutMeScriptVars.timer = null;
+			aboutMeScriptVars.logo_timer = null;
+
+			aboutMeSectionMeImg.classList.remove("hovered");
+			aboutMeSectionGallery.classList.remove("hovered");
+
+			aboutMeSectionBrandLogos.forEach((logo) => {
+				logo.classList.remove("hovered");
+			});
+
+			return;
 		}
+		if (aboutMeScriptVars.timer === null) {
+			aboutMeScriptVars.timer = setTimeout(() => {
+				aboutMeSectionMeImg.classList.add("hovered");
+				aboutMeSectionGallery.classList.add("hovered");
 
-		// highlight <a> tags for better feedback in nav
-		if (isNavInAboutMe) {
-			navAboutAndProjectsButtons[0].parentElement.style.transform =
-				"scale(1.15)";
-			navAboutAndProjectsButtons[0].style.textShadow = "4px 7px 2px #22222211";
-		} else {
-			navAboutAndProjectsButtons[0].parentElement.style.transform = "";
-			navAboutAndProjectsButtons[0].style.textShadow = "";
-		}
-		if (isNavInProjects) {
-			navAboutAndProjectsButtons[1].parentElement.style.transform =
-				"scale(1.15)";
-			navAboutAndProjectsButtons[1].style.textShadow = "4px 7px 2px #22222211";
-		} else {
-			navAboutAndProjectsButtons[1].parentElement.style.transform = "";
-			navAboutAndProjectsButtons[1].style.textShadow = "";
-		}
+				aboutMeScriptVars.logo_timer = setTimeout(() => {
+					aboutMeSectionBrandLogos.forEach((logo) => {
+						logo.classList.add("hovered");
+					});
+					clearTimeout(aboutMeScriptVars.logo_timer);
+				}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
 
-		animateMainSectionBg();
-
-		animateNavbarColor();
-
-		animateAboutMeSectionImgHover();
-
-		function animateAboutMeSectionImgHover() {
-			// only animate if already at about me section or further down
-			if (sectionAt.index < SECTION_INDICES.about) {
 				clearTimeout(aboutMeScriptVars.timer);
-				clearTimeout(aboutMeScriptVars.logo_timer);
-				aboutMeScriptVars.timer = null;
-				aboutMeScriptVars.logo_timer = null;
-
-				aboutMeSectionMeImg.classList.remove("hovered");
-				aboutMeSectionGallery.classList.remove("hovered");
-
-				aboutMeSectionBrandLogos.forEach((logo) => {
-					logo.classList.remove("hovered");
-				});
-
-				return;
-			}
-			if (aboutMeScriptVars.timer === null) {
-				aboutMeScriptVars.timer = setTimeout(() => {
-					aboutMeSectionMeImg.classList.add("hovered");
-					aboutMeSectionGallery.classList.add("hovered");
-
-					aboutMeScriptVars.logo_timer = setTimeout(() => {
-						aboutMeSectionBrandLogos.forEach((logo) => {
-							logo.classList.add("hovered");
-						});
-						clearTimeout(aboutMeScriptVars.logo_timer);
-					}, aboutMeScriptVars.LOGOS_ANIMATION_DELAY);
-
-					clearTimeout(aboutMeScriptVars.timer);
-				}, aboutMeScriptVars.ANIMATION_DELAY);
-			}
+			}, aboutMeScriptVars.ANIMATION_DELAY);
 		}
+	}
 
-		function animateNavbarColor() {
-			// check if page Y is still in the main section
-			// if not, adjust box-shadow and other properties
-			if (isNavInMain) {
-				changeToDefNav();
-				navElement.style.maxHeight = storage["vars"]["--nav-height"];
+	function animateNavbarColor() {
+		// check if page Y is still in the main section
+		// if not, adjust box-shadow and other properties
+		if (isNavInMain) {
+			changeToDefNav();
+			navElement.style.maxHeight = storage["vars"]["--nav-height"];
+		} else {
+			changeToLightNav();
+
+			// scale it down as well
+			navElement.style.maxHeight = "65px";
+		}
+	}
+
+	function animateMainSectionBg() {
+		// animate bg visual for main section
+		if (window.scrollY <= NAV_HEIGHT) {
+			mainSectionBgVisualCircles.forEach((cir, i) => {
+				cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
+				cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
+			});
+		} else {
+			if (storage["vars"]["bg-visuals-not-in-animation"]) {
+				storage["vars"]["bg-visuals-not-in-animation"] = false;
+				// randomly move circles around
+				const randNum = randomNumber(
+					0,
+					defaultMainSectionBgVisualCirclePositions.length - 1
+				);
+				const randOffsetX = randomNumber(-300, 300);
+				const randOffsetY = randomNumber(-50, 50);
+				const newCx =
+					defaultMainSectionBgVisualCirclePositions[randNum]?.cx + randOffsetX;
+				const newCy =
+					defaultMainSectionBgVisualCirclePositions[randNum]?.cy + randOffsetY;
+				mainSectionBgVisualCircles[randNum].style.cx = newCx;
+				mainSectionBgVisualCircles[randNum].style.cy = newCy;
 			} else {
-				changeToLightNav();
-
-				// scale it down as well
-				navElement.style.maxHeight = "65px";
+				setTimeout(() => {
+					storage["vars"]["bg-visuals-not-in-animation"] = true;
+				}, 800);
 			}
 		}
+	}
 
-		function animateMainSectionBg() {
-			// animate bg visual for main section
-			if (window.scrollY <= NAV_HEIGHT) {
-				mainSectionBgVisualCircles.forEach((cir, i) => {
-					cir.style.cx = defaultMainSectionBgVisualCirclePositions[i].cx;
-					cir.style.cy = defaultMainSectionBgVisualCirclePositions[i].cy;
-				});
-			} else {
-				if (storage["vars"]["bg-visuals-not-in-animation"]) {
-					storage["vars"]["bg-visuals-not-in-animation"] = false;
-					// randomly move circles around
-					const randNum = randomNumber(
-						0,
-						defaultMainSectionBgVisualCirclePositions.length - 1
-					);
-					const randOffsetX = randomNumber(-300, 300);
-					const randOffsetY = randomNumber(-50, 50);
-					const newCx =
-						defaultMainSectionBgVisualCirclePositions[randNum]?.cx +
-						randOffsetX;
-					const newCy =
-						defaultMainSectionBgVisualCirclePositions[randNum]?.cy +
-						randOffsetY;
-					mainSectionBgVisualCircles[randNum].style.cx = newCx;
-					mainSectionBgVisualCircles[randNum].style.cy = newCy;
-				} else {
-					setTimeout(() => {
-						storage["vars"]["bg-visuals-not-in-animation"] = true;
-					}, 800);
-				}
-			}
-		}
+	function changeToDefNav() {
+		// reset all changed properties to default
+		navElement.classList.remove("light-nav");
+		navElement.classList.add("default-nav");
+	}
 
-		function changeToDefNav() {
-			// reset all changed properties to default
-			navElement.classList.remove("light-nav");
-			navElement.classList.add("default-nav");
-		}
-
-		function changeToLightNav() {
-			navElement.classList.remove("default-nav");
-			navElement.classList.add("light-nav");
-		}
+	function changeToLightNav() {
+		navElement.classList.remove("default-nav");
+		navElement.classList.add("light-nav");
+	}
 	// });
 }
 
+/**
+ * Handle the `nav` hamburger menu animations and events
+ */
 async function handleNavHamburger() {
 	// retrieve animation delay
 	const navHamburgerAnimationDelay = timePropertyToSeconds(
@@ -510,31 +532,31 @@ async function handleNavHamburger() {
 
 		document.querySelectorAll(".nav-hamburger-menu a").forEach((tag) => {
 			tag.addEventListener("click", () => {
+				// recall this function to hide the nav-hamburger-menu
+				// if any <a> is clicked
 				handleNavHamburger();
 			});
 		});
 	}
 
+	// switch state of the nav hamburger
 	navHamburgerShown = !navHamburgerShown;
 }
 
 // helper functions
+
+/**
+ * Convert the read time property (e.g. `element.style.animationDelay`) to ms.
+ */
 function timePropertyToSeconds(value) {
 	return value.contains("ms")
-		? Number(
-				storage["vars"]["--nav-hamburger-menu-animation-delay"].replace(
-					/[^\d\.]/g,
-					""
-				)
-		  )
-		: Number(
-				storage["vars"]["--nav-hamburger-menu-animation-delay"].replace(
-					/[^\d\.]/g,
-					""
-				)
-		  ) * 1000;
+		? Number(value.replace(/[^\d\.]/g, ""))
+		: Number(value.replace(/[^\d\.]/g, "")) * 1000;
 }
 
+/**
+ * Set a CSS variable using `style.cssText` property.
+ */
 function setCSSVariable(varName, value) {
 	const rootElement = document.querySelector(":root");
 	var cssTextArray = rootElement.style.cssText.split(";");
@@ -548,6 +570,9 @@ function setCSSVariable(varName, value) {
 	rootElement.style.cssText += `${varName}: ${value};`;
 }
 
+/**
+ * Set styles for multiple elements.
+ */
 function setStyleElements(elements, styles = {}) {
 	if (elements)
 		for (let i = 0; i < elements.length; i++) {
@@ -558,8 +583,10 @@ function setStyleElements(elements, styles = {}) {
 		}
 }
 
+/**
+ * Retrieve layout dimensions of each section to `sectionLayoutDimensions`.
+ */
 function measureSectionDimensions() {
-	// get layout dimensions of each section
 	// property: [id, width, height, relativeTop]
 	// relativeTop: element top position relative to the top of the document
 	allSections.forEach((section) => {
@@ -579,6 +606,12 @@ function measureSectionDimensions() {
 	});
 }
 
+/**
+ * Return an object that indicates what section is currently at. The object variables are as follow:\
+ * 	- `current`: the `name` of the `<section>`\
+ * 	- `index`: iteration count\
+ * 	- `style`: the style of the current `<section>`
+ */
 function getScrollThroughSection(offset = 0) {
 	measureSectionDimensions();
 	let idx = 0;
@@ -595,6 +628,9 @@ function getScrollThroughSection(offset = 0) {
 	};
 }
 
+/**
+ * Returns the `id` of whatever `<section>` is at `top = 0` of the viewport.
+ */
 function getSnappedSection() {
 	if (allSections)
 		// loop through all section elements
@@ -608,49 +644,50 @@ function getSnappedSection() {
 	return null;
 }
 
+/**
+ * Retrieve the computed style of an `element`.
+ */
 function getStyles(element) {
 	return window.getComputedStyle(element);
 }
 
+/**
+ * Round a number `n` to the specify decimal.
+ */
 function round(n, decimal = 2) {
 	return Math.round(n * Math.pow(10, decimal)) / Math.pow(10, decimal);
 }
 
+/**
+ * Convert a number between 0-1 to its hex representation.
+ */
 function convertToHex(value) {
-	// Multiply the value by 255 and round it to the nearest integer
 	const intValue = Math.round(value * 255);
-
-	// Convert the integer to a hex string with a minimum width of 2
 	const hexString = intValue.toString(16).padStart(2, "0");
-
-	// Return the hex string
 	return hexString;
 }
 
+/**
+ * Convert a hex color to its corresponding rgb() color for CSS.
+ */
 function hexToRgb(hex = "") {
-	// Remove the "#" from the beginning of the hex value
 	hex = hex.replace("#", "");
-
-	// Convert the hex value to RGB values
 	const r = parseInt(hex.substring(0, 2), 16);
 	const g = parseInt(hex.substring(2, 4), 16);
 	const b = parseInt(hex.substring(4, 6), 16);
-
-	// Return the RGB color value
 	return `rgb(${r}, ${g}, ${b})`;
 }
 
+/**
+ * Interpolate rgb color of `originalColor` to `finalColor` with a factor of `value`.
+ */
 function interpolateRgbColor(originalColor, finalColor, value) {
-	// Parse the original and final colors
 	const original = originalColor.match(/\d+/g).map(Number);
 	const final = finalColor.match(/\d+/g).map(Number);
 
-	// Interpolate each color channel
 	const red = Math.round(original[0] + (final[0] - original[0]) * value);
 	const green = Math.round(original[1] + (final[1] - original[1]) * value);
 	const blue = Math.round(original[2] + (final[2] - original[2]) * value);
-
-	// Return the interpolated color as an RGB string
 	return `rgb(${red}, ${green}, ${blue})`;
 }
 
@@ -658,6 +695,9 @@ function interpolate(from, to, value) {
 	return from + (to - from) * value;
 }
 
+/**
+ * Retrieve all CSS variables (starts with `--`) from the `element`.
+ */
 function getCssVariables(element = null) {
 	// return all css variables when element is not specified
 	if (!element) {
@@ -696,7 +736,6 @@ function getCssVariables(element = null) {
 
 	// Get the computed styles of the element
 	const styles = window.getComputedStyle(element);
-	console.log(styles);
 
 	// Get all custom properties from the computed styles
 	const properties = Array.from(styles).filter((property) =>
@@ -713,19 +752,19 @@ function getCssVariables(element = null) {
 	return variables;
 }
 
+/**
+ * Retrieve the name of all the CSS variable in an `element`.
+ */
 function getAllCSSVariableNames(styleSheets = document.styleSheets) {
 	var cssVars = [];
 	// loop each stylesheet
 	for (var i = 0; i < styleSheets.length; i++) {
-		// loop stylesheet's cssRules
 		try {
-			// try/catch used because 'hasOwnProperty' doesn't work
 			for (var j = 0; j < styleSheets[i].cssRules.length; j++) {
 				try {
 					// loop stylesheet's cssRules' style (property names)
 					for (var k = 0; k < styleSheets[i].cssRules[j].style.length; k++) {
 						let name = styleSheets[i].cssRules[j].style[k];
-						// test name for css variable signature and uniqueness
 						if (name.startsWith("--") && cssVars.indexOf(name) == -1) {
 							cssVars.push(name);
 						}
@@ -737,6 +776,10 @@ function getAllCSSVariableNames(styleSheets = document.styleSheets) {
 	return cssVars;
 }
 
+/**
+ * Return a random number between `min` and `max`. In addition, `decimal` can
+ * also be set if you want to have decimal numbers.
+ */
 function randomNumber(min = 0, max = 100, decimal = 0) {
 	if (min >= 0) {
 		return round(Math.random() * max, decimal);
@@ -745,10 +788,18 @@ function randomNumber(min = 0, max = 100, decimal = 0) {
 	return round(Math.random() * offset - max, decimal);
 }
 
+/**
+ * Returns `true` if the url contains the `str`.
+ */
 function urlContains(str) {
 	return window.location.href.indexOf(str) > -1;
 }
 
+/**
+ * Set the `content` value of the `<meta name="theme-color">` tag.
+ * This is mainly for mobile in order to dynamically modify the status/url bar color.
+ * Currently not working as intented.
+ */
 function updateThemeColor(themeColor) {
 	document
 		.querySelector('meta[name="theme-color"]')
