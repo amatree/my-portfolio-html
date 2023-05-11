@@ -60,7 +60,7 @@ var scrollDirection = "down";
 
 var storage = {};
 
-var timers = { SCROLL_DELAY: 30 };
+var timers = { SCROLL_DELAY: 0 };
 
 const modal = modalInnerHTML();
 
@@ -329,7 +329,7 @@ function handleScroll(e) {
 	// make sure event type is scroll only (not resize or others)
 	if (e.type !== "scroll") return;
 
-	requestAnimationFrame(() => {
+	// requestAnimationFrame(() => {
 		NAV_HEIGHT = navElement.clientHeight;
 
 		sectionPadding =
@@ -352,7 +352,7 @@ function handleScroll(e) {
 		// highlight <a> tags for better feedback in nav
 		if (isNavInAboutMe) {
 			navAboutAndProjectsButtons[0].parentElement.style.transform =
-				"scale(1.1)";
+				"scale(1.15)";
 			navAboutAndProjectsButtons[0].style.textShadow = "4px 7px 2px #22222211";
 		} else {
 			navAboutAndProjectsButtons[0].parentElement.style.transform = "";
@@ -360,7 +360,7 @@ function handleScroll(e) {
 		}
 		if (isNavInProjects) {
 			navAboutAndProjectsButtons[1].parentElement.style.transform =
-				"scale(1.1)";
+				"scale(1.15)";
 			navAboutAndProjectsButtons[1].style.textShadow = "4px 7px 2px #22222211";
 		} else {
 			navAboutAndProjectsButtons[1].parentElement.style.transform = "";
@@ -464,7 +464,7 @@ function handleScroll(e) {
 			navElement.classList.remove("default-nav");
 			navElement.classList.add("light-nav");
 		}
-	});
+	// });
 }
 
 async function handleNavHamburger() {

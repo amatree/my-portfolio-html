@@ -88,7 +88,7 @@ nav ul li a[href="#contact"]:hover {
 }
 
 nav.light-nav ul :is(a[href="#about"], a[href="#projects"]) {
-	color: var(--clr-font-dark-before-hover);
+	color: var(--clr-font-dark);
 }
 
 nav ul :is(a[href="#about"], a[href="#projects"]) {
@@ -99,7 +99,7 @@ nav ul :is(a[href="#about"], a[href="#projects"]) {
 }
 
 nav.light-nav ul li :is(a[href="#about"], a[href="#projects"]):hover {
-	color: var(--clr-font-dark);
+	color: var(--clr-secondary);
 }
 
 nav ul li :is(a[href="#about"], a[href="#projects"]):hover {
