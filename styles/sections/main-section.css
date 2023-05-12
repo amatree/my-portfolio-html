@@ -142,13 +142,11 @@ main svg#bg-visual {
 }
 
 main svg#bg-visual g > circle {
-	--main-circle-filter-value: 100px;
-
 	transition: all 0.2s, cx 1s, cy 1s;
 	-o-transition: all 0.2s, cx 1s, cy 1s;
 	-moz-transition: all 0.2s, cx 1s, cy 1s;
 	-webkit-transition: all 0.2s, cx 1s, cy 1s;
-	opacity: 0.9;
+	opacity: 0.8;
 
 	filter: url(#svg-blur);
 }

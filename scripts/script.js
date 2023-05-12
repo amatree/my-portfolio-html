@@ -28,6 +28,7 @@ var footerElement = null;
 var navHamburgerInnerHTML = null;
 
 var mainSection = null;
+var mainSectionBgVisualSvg = null;
 var mainSectionBgVisualCircles = null;
 var defaultMainSectionBgVisualCirclePositions = [];
 
@@ -120,6 +121,8 @@ async function initialize() {
 	aboutMeSectionGallery = document.querySelector(".my-gallery .gallery-img");
 
 	mainSection = document.getElementById("main");
+	mainSectionBgVisualSvg = mainSection.querySelector("svg#bg-visual");
+	handleBgVisual();
 	mainSectionBgVisualCircles = mainSection.querySelectorAll(
 		"svg#bg-visual g > circle"
 	);
@@ -258,6 +261,27 @@ function initListeners() {
 	window.addEventListener("resize", () => {
 		viewportHeight = window.innerHeight;
 		viewportWidth = window.innerWidth;
+
+		handleBgVisual();
+	});
+}
+
+function handleBgVisual() {
+	requestAnimationFrame(() => {
+		mainSectionBgVisualSvg.setAttribute(
+			"viewBox",
+			`0 0 ${viewportWidth} ${viewportHeight}`
+		);
+
+		const g = mainSectionBgVisualSvg.querySelector("g");
+		const gRect = g.getBoundingClientRect();
+		const gDX = (viewportWidth - gRect.width) / 2;
+		const gDY = (viewportHeight - gRect.height) / 2;
+		g.setAttribute('style', `transform: translate(${gDX}px, ${gDY}px);`);
+
+		const svgRect = mainSectionBgVisualSvg.querySelector("rect");
+		svgRect.setAttribute('width', viewportWidth);
+		svgRect.setAttribute('height', viewportHeight);
 	});
 }
 
