@@ -7,7 +7,7 @@ nav {
 	justify-content: space-between;
 	align-items: center;
 	padding: 1.2rem 2rem;
-	background-color: var(--clr-accent);
+	background-color: var(--clr-accent-transparent);
 	max-height: var(--nav-height);
 	box-shadow: none;
 	-webkit-box-shadow: none;
@@ -20,6 +20,7 @@ nav {
 	-o-transition: all 0.2s;
 	margin: 0 auto;
 	transform-origin: center top;
+	isolation: isolate;
 }
 
 .light-nav {
@@ -29,7 +30,7 @@ nav {
 
 .default-nav {
 	box-shadow: none;
-	background-color: transparent;
+	background-color: var(--clr-accent-transparent);
 }
 
 nav ul {

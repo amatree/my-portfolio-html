@@ -142,20 +142,15 @@ main svg#bg-visual {
 }
 
 main svg#bg-visual g > circle {
+	--main-circle-filter-value: 100px;
+
 	transition: all 0.2s, cx 1s, cy 1s;
 	-o-transition: all 0.2s, cx 1s, cy 1s;
 	-moz-transition: all 0.2s, cx 1s, cy 1s;
 	-webkit-transition: all 0.2s, cx 1s, cy 1s;
 	opacity: 0.9;
-	transform: translate3d(0, 0, 0);
-	filter: blur(200px) contrast(60%);
-	-webkit-filter: blur(200px) contrast(60%);
-	-moz-filter: blur(200px) contrast(60%);
-	-ms-filter: blur(200px) contrast(60%);
-	-webkit-backdrop-filter: blur(200px) contrast(60%);
-	-moz-backdrop-filter: blur(200px) contrast(60%);
-	-ms-backdrop-filter: blur(200px) contrast(60%);
-	backdrop-filter: blur(200px) contrast(60%);
+
+	filter: url(#svg-blur);
 }
 
 main svg#bg-visual g > circle:hover {
@@ -166,10 +161,10 @@ main svg#bg-visual g > circle:hover {
 	all: unset;
 	cursor: pointer;
 	transition: all 0.2s;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
 
 	--btn-width: 140px;
 	--btn-height: 36px;
@@ -177,8 +172,8 @@ main svg#bg-visual g > circle:hover {
 	height: var(--btn-height);
 	text-align: center;
 	border-radius: 24px;
-  -webkit-border-radius: 24px;
-  -moz-border-radius: 24px;
+	-webkit-border-radius: 24px;
+	-moz-border-radius: 24px;
 	box-shadow: var(--box-shadow-short);
 	-webkit-box-shadow: var(--box-shadow-short);
 	-moz-box-shadow: var(--box-shadow-short);
@@ -215,14 +210,4 @@ main svg#bg-visual g > circle:hover {
 
 .main-info button.resume-dl-btn {
 	color: var(--clr-font);
-}
-
-/* select all even sections */
-section:nth-child(even) {
-	/* background-color: var(--clr-accent); */
-	/* color: var(--clr-font); */
-}
-
-section:not(:first-of-type):nth-child(even) rect {
-	/* fill: var(--clr-font); */
 }

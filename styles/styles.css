@@ -23,6 +23,7 @@
 	--clr-primary: #ffffff;
 	--clr-primary-light: #fafafa;
 	--clr-accent: #31323b;
+	--clr-accent-transparent: #31323baf;
 	--clr-accent-light: #455155;
 	--clr-secondary: #fa6065;
 	--clr-secondary-light: #f1373d;
@@ -189,6 +190,10 @@ a.source-code-link {
 
 a.source-code-link:hover {
 	color: var(--clr-font);
+}
+
+.blur-1px {
+	filter: blur(1px);
 }
 
 /* used to hide things */
